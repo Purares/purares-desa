@@ -253,9 +253,8 @@ if (isset($_GET["idReceta"])){
 
 $detalleReceta=ControladorFormularios::ctrDetalleReceta();
 
-$porcentajeReceta=$detalleReceta[0]["porcent_carne"];
-
-echo $porcentajeReceta;
+$respuestacod1=json_encode($detalleReceta);
+echo $respuestacod1;
 }
 
 

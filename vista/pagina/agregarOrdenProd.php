@@ -253,11 +253,11 @@ $.ajax({
                 data:{idReceta: $('#idReceta').val()},
                 success:function(respuestacod){
 
-                  //alert(respuestacod)
+             
 console.log(respuestacod);
 
-                    var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(3)
-                     kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(3)
+                    var kilostocino=($('#PesoPaston').val()*(1-(respuestacod[0]['porcent_carne']/100))).toFixed(3)
+                     kilosrequeridos=($('#PesoPaston').val()*(respuestacod[0]['porcent_carne']/100)).toFixed(3)
                     $('#kilostocino').val(kilostocino)
                     $('#kilostocinooculto').val(kilostocino)
                     $('#alertacarnes').show()
@@ -265,16 +265,20 @@ console.log(respuestacod);
                     $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
                     $('#kilosrequeridos').text(kilosrequeridos)
 
+                    var cantidadunidadesfrescas=($('#PesoPaston').val()*respuestacod[0]['cantidad_unidades_lote']).toFixed(0);
+                    $('#cantidadunidadesfrescas').val(cantidadunidadesfrescas);
 
 
-}})
+}, dataType: "json"
 
-                    }}else{
+                    })}}else{
 
                       if (respuestacod.validacion_=="NO") {
 
                              //alert('no alcanza')
                       $('.infoinsumos').html('<p class="text-danger">No hay insumos suficientes</p>')
+
+                       $('#cantidadunidadesfrescas').val('No hay insumos');
 
                     $('.headinsumosop').html('<tr><th scope="col"  class="text-center">ID Insumo</th><th scope="col">Insumo</th><th scope="col"  class="text-center">Stock Actual</th><th scope="col"  class="text-center">Cantidad para orden</th><th scope="col"  class="text-center">Cantidad después de orden</th></tr>')
 
