@@ -1,0 +1,5 @@
+cd C:\xampp\htdocs\Desarrollos\purares-test
+
+ngrok authtoken 1YwM5BWhntha7BqCNdm0BT7BTyT_2h7deZ8o3muDz72w9QBkw
+
+ngrok http 80
