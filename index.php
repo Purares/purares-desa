@@ -39,19 +39,20 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
     if($user->userExists($userForm, $passForm)){
         //echo "Existe el usuario";
 
+        #Cargo las variables de sesion
         $idUsuario=0;
         $userSession->setCurrentUser($userForm,$idUsuario);
         $user->setUser($userForm);
         $idUsuario=$user->getIdUsuario();
         $userSession->setCurrentUser($userForm,$idUsuario);
-
         $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+        
         #
         require_once"controlador/plantillaCTR.php";
 		require_once"controlador/formulariosCTR.php";
 		require_once"modelo/formulariosMDL.php";
 
-        #Para utilizar el b¿objeto plantilla deberia trasladar funciones de sesión al la plantilalla(solo los que están en el primer if)
+        #
 		$plantilla = new ControladorPlantilla(); 
 		$plantilla -> ctrTraerPlantilla();
 		
