@@ -120,7 +120,7 @@ foreach($depositos as $deposito){
                         </td>
                         <td scope="col" width="25%">
                           <div class="input-group"> 
-                          <input type="number" min=0 step=0.0001 name="cantidadCompraInsumo[]" class="form-control text-right cantingre" placeholder="Cantidad">
+                          <input type="number" min=0 step=0.001 name="cantidadCompraInsumo[]" class="form-control text-right cantingre" placeholder="Cantidad">
                               <div class="input-group-append">
                   <span class="input-group-text"><a class="unitingre">Unidad</a></span>
               </div>

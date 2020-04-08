@@ -6,21 +6,77 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sesiones</title>
 
-    <link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-    <form action="" method="POST">
+
+    <div class="row justify-content-center align-items-center">
+        
+        <div class="col-md-auto">
+            
+            <h3>Bienvenido al sistema de gestión</h3>
+        
+        </div>
+
+        <img src="https://drive.google.com/uc?export=download&id=1itN7NXRxavvm3yYDcmURhJ0DswNL_sqo">
+
+    </div> 
+
+    <br>
+
+    <section class="container fluid" >
+    
+        <div class="container fluid col-5">
+
+            <div class="container fluid">
+        
+                <label>Por favor, complete los campos para iniciar sesión:</label>
+        
+            <br>
+            <br>
+        
+                <form action="" method="POST">
         <?php
             if(isset($errorLogin)){
                 echo $errorLogin;
             }
         ?>
-        <h2>Iniciar sesión</h2>
-        <p>Nombre de usuario: <br>
-        <input type="text" name="username"></p>
-        <p>Password: <br>
-        <input type="password" name="password"></p>
-        <p class="center"><input type="submit" value="Iniciar Sesión"></p>
-    </form>
+            
+                <div class="form-group col-8">
+                
+                    <label for="usuario">Usuario:</label>
+    
+                    <input type="text" class="form-control" name="username" placeholder="Usuario">
+            
+                </div>
+     
+                <div class="form-group col-8">
+    
+                    <label for="usuario">Contraseña:</label>
+    
+                    <input type="password" class="form-control" name="password" placeholder="Contraseña">
+  
+                </div>
+
+                <p style="color:#FF0000" id="mensajeerror"></p>
+
+                <br>
+        
+                <div class="row justify-content-around">
+            
+                    <button class="btn btn-primary btn-sm" type="submit" value="Iniciar Sesión">Iniciar sesión</button>
+            
+                </div>
+                    </form>
+
+                </div>
+        
+            </form>
+    
+        </div>
+
+    </section>
+
 </body>
 </html>

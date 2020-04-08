@@ -74,7 +74,7 @@ foreach($depositos as $deposito){
                         </td>
                         <td scope="col">
                           <div class="input-group"> 
-                          <input type="number" min=0 step=0.0001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad">
+                          <input type="number" min=0 step=0.001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad">
                               <div class="input-group-append">
                   <span class="input-group-text"><a class="unitingre">Unidad</a></span>
               </div>
@@ -95,7 +95,7 @@ foreach($depositos as $deposito){
              <div class="input-group-prepend">
                     <span class="input-group-text">Porcentaje de carne:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 max=100 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" placeholder="Ingrese el porcentaje de carne" required>
+                    <input type="number" min=0 step=0.1 max=100 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" placeholder="Ingrese el porcentaje de carne" required>
                   <div class="input-group-append">
                   <span class="input-group-text">%</span>
               </div>
@@ -107,7 +107,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Merma esperada:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 max=99.99 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" placeholder="Porcentaje esperado" required>
+                    <input type="number" min=0 step=0.1 max=99.9 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" placeholder="Porcentaje esperado" required>
                   <div class="input-group-append">
                   <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
   ?
@@ -160,7 +160,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Largo por unidad:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo de la unidad fresca, antes de que ingrese al secadero.">
   ?
@@ -174,7 +174,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Peso por unidad:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso de la unidad fresca, antes de que ingrese al secadero.">
   ?
@@ -191,7 +191,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Cantidad de unidades:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" placeholder="Ingrese la cantidad" required>
+                    <input type="number" min=0 step=1 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" placeholder="Ingrese la cantidad" required>
                   <div class="input-group-append">
                   <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
   ?
@@ -212,7 +212,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Largo por unidad esperado:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo del producto final que será envasado.">
   ?
@@ -439,7 +439,7 @@ foreach($depositos as $deposito){
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=0.001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
 
             ),
 

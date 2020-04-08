@@ -32,6 +32,20 @@
                                     Ingrese la cantidad de unidades obtenidas tras el embutido
                                     </div>
                   </div>
+                   <div class="input-group col-md-6">  
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Peso fresco:</span>
+                  </div>
+                    <input type="number" min=0 step=0.0001 class="form-control text-center" name="pesoFresco_FinOP" id="productofrescoembutido" placeholder="Ingrese la cantidad" required>
+                     <div class="input-group-append">
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de kilos de producto fresco obtenidos tras el embutido">
+  ?
+</button>
+              </div>
+                                    <div class="invalid-feedback">
+                                    Ingrese la cantidad de unidades obtenidas tras el embutido
+                                    </div>
+                  </div>
               </div>
 
         <br>
@@ -115,7 +129,7 @@ echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" val
         <div class="modal-body">
           <p>Usted está a punto de finalizar la orden de producción N° <a class="idopfin"></a>.</p>
 
-          <p>Las unidades obtenidas luego del embutido son <a class="unidadesfrescas"></a> unidades.
+          <p>Se obtuvieron <a class="productofresco"></a> kilos de producto fresco y <a class="unidadesfrescas"></a> unidades luego del embutido.
 
           <p>Los datos de medición de secado y goteo son los siguientes:</p>
 
@@ -241,6 +255,7 @@ function completarmodalfinalizarop(){
                                    idop=$('#idopfin').val()
                                     var    producto=$('#productoobtenido').val()
                                       unidadesobtenidas=$('#unidadesobtenidas').val()
+                                      productofrescoobtenido=$('#productofrescoembutido').val()
                                       unidadesfrescas=$('#unidadesfrescas').val()
                                       descripcion=$('#descripcionfinop').val()
                                     
@@ -269,6 +284,7 @@ function completarmodalfinalizarop(){
  
 modal.find('.idopfin').text('' + idop);                                      
 modal.find('.productoobtenido').text('' + producto);
+modal.find('.productofresco').text('' + productofrescoobtenido);
 modal.find('.unidadesobtenidas').text('' + unidadesobtenidas);
 modal.find('.unidadesfrescas').text('' + unidadesfrescas);
 modal.find('.descripcion').text('' + descripcion);

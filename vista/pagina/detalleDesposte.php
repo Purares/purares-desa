@@ -37,17 +37,23 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
               <hr>
               <br>
                   <div class="row">
-                            <div class="input-group col-6">
+                            <div class="input-group col-4">
                               <div class="input-group-prepend">
                          <span class="input-group-text">Proveedor:</span>
                               </div>
-                                <input class="form-control text-center fechadealta" value="<?php echo $detalleDesbaste['proveedor'] ?>" readonly>
+                                <input class="form-control text-center" value="<?php echo $detalleDesbaste['proveedor'] ?>" readonly>
                                 </div>
-                            <div class="input-group col-6">
+                            <div class="input-group col-4">
                               <div class="input-group-prepend">
                          <span class="input-group-text">Número de remito:</span>
                             </div>
                                 <input class="form-control text-center nombrereceta" value="<?php echo $detalleDesbaste['nro_remito'] ?>" readonly>
+                                </div>
+                                 <div class="input-group col-4">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Fecha:</span>
+                            </div>
+                                <input class="form-control text-center fechadealta" value="<?php echo $detalleDesbaste['fecha_desposte'] ?>" readonly>
                                 </div>
         				</div>
                 <br>
@@ -291,11 +297,11 @@ function enviamotivo(){
                 data:{idDesposteVerDetalles: id_desbaste, motivoAnulacionDesposte:$('#descripcionanulacion').val()},
                 success:function(respuesta){
 
-                	if(respuesta=="ok"){
+                	if(respuesta=="OK"){
 
                   $('#AnularDesbaste').modal('show')
                   var modal = $('#AnularDesbaste')
-                  modal.find('.modal-body').html(respuesta)
+                  modal.find('.modal-body').html("El desposte se anuló correctamente")
                   modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
 
                   $("#cerraranular").on( "click", function() {
@@ -308,6 +314,13 @@ $('#Mensaje').modal('hide')
 })
 
                         
+}else{
+
+ $('#AnularDesbaste').modal('show')
+                  var modal = $('#AnularDesbaste')
+                  modal.find('.modal-body').html("Ha ocurrido un error al anular el desposte")
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
 }
                 }})
  //     alert("ajax no falló")

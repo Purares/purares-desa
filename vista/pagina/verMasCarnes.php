@@ -30,9 +30,9 @@
                         <table class="table table-hover">
                 <thead class="thead-light">
                     <tr>
-                      <th scope="col" class="text-center text-white bg-dark">ID Desbaste</th>
+                      <th scope="col" class="text-center text-white bg-dark">N° Desposte</th>
                       <th scope="col" class="text-center text-white bg-dark">Stock</th> 
-                      <th scope="col" class="text-center text-white bg-dark">Fecha de desbaste</th>
+                      <th scope="col" class="text-center text-white bg-dark">Fecha de desposte</th>
                     </tr>
                   </thead>
                 <tbody id="tablacomposicioncarne">

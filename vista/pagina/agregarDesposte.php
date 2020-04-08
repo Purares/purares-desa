@@ -96,9 +96,9 @@ echo $proveedores;
 
               <div class="input-group col-6"> 
              <div class="input-group-prepend">
-                    <span class="input-group-text">Merma inicial:</span>
+                    <span class="input-group-text">Merma frigorífica:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 max=100  class="form-control text-right" name="mermaInicialAltaDesposte" id="mermainicialdesposte" placeholder="Merma" required>
+                    <input type="number" min=0 step=0.1 max=100  class="form-control text-right" name="mermaInicialAltaDesposte" id="mermainicialdesposte" placeholder="Merma" required>
                               <div class="input-group-append">
                   <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la merma obtenida antes del desposte">
   ?
@@ -141,7 +141,7 @@ echo $proveedores;
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col" class="text-center" width="15%">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col"  width="45%">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"  width="40%"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control text-right cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+  echo '<tr><td scope="col" class="text-center" width="15%">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col"  width="45%">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"  width="40%"><div class="input-group"><input type="number" min=0 step=0.001 name="cantidadAltaDesposte[]" class="form-control text-right cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
 
 }
 

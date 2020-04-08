@@ -60,7 +60,22 @@ foreach($recetas as $receta){
                                       Ingrese un numero mayor a cero
                                       </div>
           				</div>
-                          </div>
+                </div>
+                  <br>
+                  <div class="row">
+                    <div class="input-group col-6"> 
+                      <div class="input-group-prepend">
+                      <span class="input-group-text">Cantidad de unidades frescas:</span>
+                    </div>
+                      <input type="text" class="form-control text-right" id="cantidadunidadesfrescas" name="qUniFrescasAltaOP" placeholder="Este campo se calcula solo" readonly required>
+               <div class="input-group-append">
+                    <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
+  ?
+          </button>
+                </div>
+                  </div>
+
+                  </div>
                           <br>
                            <h6 class="infoinsumos"></h6>
                            <br>
@@ -279,7 +294,11 @@ console.log(respuestacod);
 
 
 
-})}) 
+})
+
+
+
+}) 
 
  $('#idReceta').on('change',function(){
 
@@ -431,9 +450,6 @@ $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne
 $('#kilosrequeridos').html(kilosactual)
 
 }})    
-
-
-
 
 
 

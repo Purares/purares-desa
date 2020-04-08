@@ -157,13 +157,13 @@ echo '<tr><td scope="col" class="text-center">' . $carneop[$j]['id_desposte'] . 
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Unidades frescas:</span>
                         </div>
-                        <input class="form-control input-group-text unidadesfrescasobtenidas" id="unidades_frescas_embutido" value="<?php echo $detalleFinOp[0]['unidades_frescas']?> unidades" readonly>
+                        <input class="form-control input-group-text unidadesfrescasobtenidas" id="unidades_frescas_embutido" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['unidades_frescas'].' unidades';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                           <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Peso unidades frescas:</span>
                         </div>
-                        <input class="form-control input-group-text unidadesfrescasobtenidas" id="pesototalembutido" value="<?php echo $detalleFinOp[0]['peso_fresco'];?> unidades" readonly>
+                        <input class="form-control input-group-text unidadesfrescasobtenidas" id="pesototalembutido" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['peso_fresco'].' unidades';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                         </div>
             <br>
@@ -186,11 +186,13 @@ echo '<tr><td scope="col" class="text-center">' . $carneop[$j]['id_desposte'] . 
 
 $detalleMedicionesOp=$detalleOrden['detalleMedicionesesOP_'];
 
+if($detalleMedicionesOp){
+
 for ($j = 0; $j < 4; $j++)  {
 
 echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort'] . '</td><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['peso'] . ' kilos</td><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['merma'] . ' %</td><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['responsable'] . '</td><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['fecha'] . '</td></tr>';
 
-};
+}}else{if($detalleAltaOp[0]['estado']=="p"){echo '<tr><td scope="col" colspan="5" class="text-center">La orden aún está en producción.</td></tr>';}else{echo '<tr><td scope="col" colspan="5" class="text-center">La orden está anulada.</td></tr>';}};
 ?>
                 </tbody>
                 </table>
@@ -228,20 +230,20 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         </div>
                         </div>
                         <br>
-                         <h6>Resultados obtenidos</h6>
+                         <h5>5 - Resultados obtenidos</h5>
                         <hr>
                         <div class="row">
                          <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Unidades obtenidas:</span>
                         </div>
-                        <input class="form-control input-group-text corte" id="unidades_obtenidas_deposito"  value="<?php echo $detalleFinOp[0]['unidades_obtenidas'];?> unidades" readonly>
+                        <input class="form-control input-group-text corte" id="unidades_obtenidas_deposito"  value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['unidades_obtenidas'].' unidades';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                           <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Producto total obtenido:</span>
                         </div>
-                        <input class="form-control input-group-text corte" id="pesototaldeposito" value="<?php echo $detalleFinOp[0]['producto_obtenido'];?> kilos" readonly>
+                        <input class="form-control input-group-text corte" id="pesototaldeposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['producto_obtenido'].' kilos';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                         </div>
                         <br>
@@ -250,13 +252,13 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Usuario que finalizó:</span>
                         </div>
-                        <input class="form-control input-group-text corte" id="firma" value="<?php echo $detalleFinOp[0]['usuario_alta'];?>" readonly>
+                        <input class="form-control input-group-text corte" id="firma" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['usuario_alta'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                           <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Fecha de finalización:</span>
                         </div>
-                        <input class="form-control input-group-text corte" id="fecha_finalizacion_deposito" value="<?php echo  date("d/m/Y", strtotime($detalleFinOp[0]['fecha_finalizacion']));?>" readonly>
+                        <input class="form-control input-group-text corte" id="fecha_finalizacion_deposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['fecha_finalizacion'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                         </div>
 <br>
@@ -357,7 +359,7 @@ function imprimirOp() {
 
       var fecha_finalizacion_deposito_larga=$('#fecha_finalizacion_deposito').val();
 
-      var fecha_finalizacion_deposito=fecha_finalizacion_deposito_larga
+      var fecha_finalizacion_deposito=fecha_finalizacion_deposito_larga.substring(0, fecha_finalizacion_deposito_larga.length - 8).replace('.',',');
 
       var peso_total_deposito_largo=$('#pesototaldeposito').val();
 
