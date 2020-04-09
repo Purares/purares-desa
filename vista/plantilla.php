@@ -54,12 +54,6 @@
   
   <title>Gestion PURARES</title>
   <br>
-  <div class="row justify-content-center align-items-center">
-  <div class="col-md-auto">
-  <h1>Sistema de gestión</h1>
-   </div>
-  <img src="recursos/logos/LogoPurares.jpg">
-  </div>
 </head>
 
 <body>
@@ -68,9 +62,11 @@
 
 <div class="container-fluid bg-light"> 
 	<div class="container">
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="index.php"><img src="recursos/logos/LogoPurares.png" width="110" height="32"></a>
+</nav>
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
    <ul class="navbar-nav">
 
