@@ -262,7 +262,18 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         </div>
                         </div>
 <br>
-               <a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP=<?php echo $_GET['idOrdenProdDetalle'];?>">Finalizar orden...</a>
+<?php if ($detalleAltaOp[0]['estado']=="p") {
+
+               echo '<a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'">Finalizar orden...</a>';}else{
+
+                if($detalleAltaOp[0]['estado']=="a"){
+
+               echo '<a class="btn btn-danger disabled" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'">La orden está anulada</a>';
+               }else{
+
+                echo '<a class="btn btn-danger disabled" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'">La orden ya se finalizó</a>';
+
+               }};?>
                		<button type="button" class="btn btn-warning" id="botonImprimirOp">Imprimir orden</button> 
       			</div>
 
