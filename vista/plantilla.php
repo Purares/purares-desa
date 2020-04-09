@@ -6,7 +6,7 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Document</title>
+	<title>Gestíon PURARES</title>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
