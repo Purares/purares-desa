@@ -50,7 +50,7 @@ $recetas=ControladorFormularios::ctrListaRecetas();
                 <tbody id="TablaReceta">
                             <tr id="seleccioninsumos">
                         <td scope="col">
-                          <select class="custom-select depo" name="depositoInsumoReceta">
+                          <select class="custom-select depo" name="depositoInsumoReceta" required>
                         <option value="">Seleccione el depósito</option>
 
 <?php
@@ -68,13 +68,13 @@ foreach($depositos as $deposito){
                           <a class="idinsumoselec"></a>
                         </td>
                         <td scope="col">
-                          <select class="custom-select nomingre" name="idinsumoCrearReceta[]">
+                          <select class="custom-select nomingre" name="idinsumoCrearReceta[]" required>
                                         <option value="0">Seleccione el insumo</option>
                           </select>
                         </td>
                         <td scope="col">
                           <div class="input-group"> 
-                          <input type="number" min=0 step=0.001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad">
+                          <input type="number" min=0 step=0.001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad" required>
                               <div class="input-group-append">
                   <span class="input-group-text"><a class="unitingre">Unidad</a></span>
               </div>
@@ -403,7 +403,7 @@ function agregaringrediente() {
            $('<td>').attr('scope','col')
           .append
           (
-            $("<select class='custom-select'><option value=''>Seleccione el depósito</option>")
+            $("<select class='custom-select' required><option value=''>Seleccione el depósito</option>")
 
 <?php
 
@@ -431,7 +431,7 @@ foreach($depositos as $deposito){
           .append
           (
             
-              $("<select class='custom-select nomingre' name='idinsumoCrearReceta[]'><option value='0'>Seleccione el insumo</option><option value='238'>Insumo1</option></select>")
+              $("<select class='custom-select nomingre' name='idinsumoCrearReceta[]' required><option value='0'>Seleccione el insumo</option></select>")
 
             ),
 
@@ -439,7 +439,7 @@ foreach($depositos as $deposito){
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=0.001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=0.001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre' required><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
 
             ),
 

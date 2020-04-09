@@ -96,7 +96,7 @@ echo $proveedores;
                 <tbody id="TablaCompraInsumos">
                             <tr id="seleccioninsumoscompra">
                         <td scope="col" width="25%">
-                          <select class="custom-select depo" name="depositoInsumoCompra">
+                          <select class="custom-select depo" name="depositoInsumoCompra" required>
                         <option value="">Seleccione el depósito</option>
 
 <?php
@@ -114,13 +114,13 @@ foreach($depositos as $deposito){
                           <a class="idinsumoselec"></a>
                         </td>
                         <td scope="col">
-                          <select class="custom-select nomingre" name="idInsumoCompraInsumo[]">
+                          <select class="custom-select nomingre" name="idInsumoCompraInsumo[]" required>
                                         <option value="0">Seleccione el insumo</option>
                           </select>
                         </td>
                         <td scope="col" width="25%">
                           <div class="input-group"> 
-                          <input type="number" min=0 step=0.001 name="cantidadCompraInsumo[]" class="form-control text-right cantingre" placeholder="Cantidad">
+                          <input type="number" min=0 step=0.001 name="cantidadCompraInsumo[]" class="form-control text-right cantingre" placeholder="Cantidad" required>
                               <div class="input-group-append">
                   <span class="input-group-text"><a class="unitingre">Unidad</a></span>
               </div>
@@ -262,7 +262,7 @@ function agregarinsumoscompra() {
            $('<td>').attr('scope','col').attr('width','25%')
           .append
           (
-            $("<select class='custom-select'><option value=''>Seleccione el depósito</option>")
+            $("<select class='custom-select' required><option value=''>Seleccione el depósito</option>")
 
 <?php
 
@@ -290,7 +290,7 @@ foreach($depositos as $deposito){
           .append
           (
             
-              $("<select class='custom-select nomingre' name='idInsumoCompraInsumo[]'><option value='0'>Seleccione el insumo</option></select>")
+              $("<select class='custom-select nomingre' name='idInsumoCompraInsumo[]' required><option value='0'>Seleccione el insumo</option></select>")
 
             ),
 
@@ -298,7 +298,7 @@ foreach($depositos as $deposito){
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadCompraInsumo[]' class='form-control text-right cantingre' placeholder='Cantidad'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadCompraInsumo[]' class='form-control text-right cantingre' placeholder='Cantidad' required><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
 
             ),
 
