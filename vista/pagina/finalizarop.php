@@ -67,6 +67,8 @@ echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" val
 
  };
  
+echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso"></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable"></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]"></td> </tr>';
+
 ?>  
     
  </tbody>
