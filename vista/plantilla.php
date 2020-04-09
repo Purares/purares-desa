@@ -45,10 +45,7 @@
   
   		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<!--TO DO -->
-<li class="cerrar-sesion"><a href="controlador/logout.php">Cerrar sesión</a></li>
 
-USUARIO: <?php echo $_SESSION['user'];  ?>
 
 <!--FINISH TO DO -->
   
@@ -71,6 +68,7 @@ USUARIO: <?php echo $_SESSION['user'];  ?>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="#">Logo</a>
+  <div class="container-fluid">
    <ul class="navbar-nav">
 
 		 <li class="nav-item dropdown">
@@ -125,6 +123,18 @@ USUARIO: <?php echo $_SESSION['user'];  ?>
       <a class="dropdown-item" href="index.php?pagina=agregarInsumo">Agregar insumo</a>
       <a class="dropdown-item" href="index.php?pagina=agregarCorte">Agregar carne</a>
       <a class="dropdown-item" href="#">Agregar proveedores</a>
+    </div>
+		</li>
+
+	</div>
+
+	</ul>
+
+ <ul class="nav navbar-nav navbar-right">
+	<li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario: <?php echo $_SESSION['user'];?></a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item cerrar-sesion" href="controlador/logout.php">Cerrar sesión</a>
     </div>
 		</li>
 
