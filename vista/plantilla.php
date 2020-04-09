@@ -32,6 +32,9 @@
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
 		<!--Agrego las librerias de jquery y bootstrap--> 
   
   		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -67,7 +70,7 @@
 	<div class="container">
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Logo</a>
+  <a class="navbar-brand" href="index.php"><img src="recursos/logos/LogoPurares.png" width="110" height="32"></a>
   <div class="container-fluid">
    <ul class="navbar-nav">
 
@@ -132,7 +135,7 @@
 
  <ul class="nav navbar-nav navbar-right">
 	<li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario: <?php echo $_SESSION['user'];?></a>
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></span>  Usuario: <?php echo $_SESSION['user'];?></a>
     <div class="dropdown-menu">
       <a class="dropdown-item cerrar-sesion" href="controlador/logout.php">Cerrar sesión</a>
     </div>
