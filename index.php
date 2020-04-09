@@ -24,10 +24,10 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
 		require_once"controlador/formulariosCTR.php";
 		require_once"modelo/formulariosMDL.php";
 
-		$plantilla = new ControladorPlantilla(); 
-        $plantilla -> ctrTraerPlantilla();	
+		#$plantilla = new ControladorPlantilla(); 
+        #$plantilla -> ctrTraerPlantilla();	
 		
-        #include_once 'vista/plantilla.php';
+        include_once 'vista/plantilla.php';
         
 #Si esta enviando los datos de loggin
 }else if(isset($_POST['username']) && isset($_POST['password'])){
@@ -53,10 +53,10 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
 		require_once"modelo/formulariosMDL.php";
 
         #
-		$plantilla = new ControladorPlantilla(); 
-		$plantilla -> ctrTraerPlantilla();
+		#$plantilla = new ControladorPlantilla(); 
+		#$plantilla -> ctrTraerPlantilla();
 		
-        #include_once 'vista/plantilla.php';
+        include_once 'vista/plantilla.php';
 
     }else{
         //echo "No existe el usuario";
