@@ -19,7 +19,7 @@
         
         </div>
 
-        <img src="https://drive.google.com/uc?export=download&id=1itN7NXRxavvm3yYDcmURhJ0DswNL_sqo">
+  <img src="recursos/logos/LogoPurares.jpg">
 
     </div> 
 
