@@ -265,7 +265,7 @@ console.log(respuestacod);
                     $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
                     $('#kilosrequeridos').text(kilosrequeridos)
 
-                    var cantidadunidadesfrescas=($('#PesoPaston').val()*respuestacod[0]['cantidad_unidades_lote']).toFixed(0);
+                    var cantidadunidadesfrescas=($('#PesoPaston').val()*(respuestacod[0]['cantidad_unidades_lote'])/100).toFixed(0);
                     $('#cantidadunidadesfrescas').val(cantidadunidadesfrescas);
 
 
