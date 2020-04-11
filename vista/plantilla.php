@@ -60,8 +60,7 @@
 
 <!--BARRA DE NAVEGACION-->
 
-<div class="container-fluid bg-light"> 
-	<div class="container">
+<div class="container-fluid bg-light">
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="index.php"><img src="recursos/logos/LogoPurares.png" width="110" height="32"></a>
 </nav>
@@ -143,7 +142,6 @@
 	</div>
 </div>
 
-<div> 
 	<div>
 
 		<?php
