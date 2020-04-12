@@ -1030,7 +1030,7 @@ static public function ctrValidarAnulacionCompra(){
 	static public function ctrAnularFinOP(){
 				
 		if (isset($_POST["idOrdenProd_AnularOP"])||
-			isset($_POST["motivo_AnularOP"])){
+			isset($_POST["motivo_AnularFinOP"])){
 
 			$datos = array(	'idOrdenProdFin_' 	=>$_POST["idOrdenProd_AnularOP"],
 							'idUsuario_' 		=>$_SESSION['userId'],
