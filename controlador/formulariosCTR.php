@@ -1016,6 +1016,7 @@ static public function ctrValidarAnulacionCompra(){
 			}else{
 				$respuesta="Primero debe anular la finalización de la orden";
 			}		
+		return $respuesta;
 		}
 	}
 
