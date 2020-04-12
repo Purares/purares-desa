@@ -9,29 +9,16 @@
 
 <?php 
 
+$tabla=ControladorFormularios::ctrImprimirStockCarnes();
+$largo=count($tabla['Tocino']['desposte']);
+$dato=$tabla['Tocino']['desposte'][0];
+$dato2=$tabla['Tocino']['stockactual'][0];
 
-$tablaCompleta=ModeloFormularios::mdlComposicionStockCarnes2();
 
-$tabla=array();
-	#/*
-	foreach ($tablaCompleta as $registro) { #navega los registros
-			
-		$carne= $registro['carne'];
-		$encontrado=array_search($carne, $tabla);
-	
-		if (array_search($carne, $tabla)==0) {
-			$tabla[]=$carne;
-			$tabla[$carne]['stockActualTotal']=$registro['stockactual'];
-			$tabla[$carne]['desposte']=[$registro['id_desposte']];
-			$tabla[$carne]['stockactual']=[$registro['stockactual']];
-		}else{
-			$tabla[$carne]['stockActualTotal']=$tabla[$carne]['stockActualTotal']+$registro['stockactual'];
-			array_push($tabla[$carne]['desposte'],$registro['id_desposte']);
-			array_push($tabla[$carne]['stockactual'],$registro['stockactual']);
-		}
-	}
-	#*/
-#var_dump($registro);
+var_dump($dato);
+var_dump($dato2);
+
+var_dump($largo);
 var_dump($tabla);
-#var_dump($tablaCompleta);
+
 ?>
