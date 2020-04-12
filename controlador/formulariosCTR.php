@@ -1003,10 +1003,15 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["motivo_AnularOP"])){
 
 			#Validar que no tenga una FIN OP asociada
-			$detalleOP= ModeloFormularios::mdlDetalleOpFin($id_ordenprod_alta);
+			$detalleOP= ModeloFormularios::mdlDetalleOpFin($_POST["idOrdenProd_AnularOP"]);
 			if (empty($detalleOP)) {
 				#Validar que tenga un motivo
-				if (isset($_POST["motivo_AnularOP"])) {			
+				if (isset($_POST["motivo_AnularOP"])) {	
+
+					$datos = array(	'idOrdenProd_' 	=>$_POST["idOrdenProd_AnularOP"],
+					 				'idUsuario_' 	=>$_SESSION['userId'],
+					 				'motivo_' 		=>$_POST["motivo_AnularOP"]);
+
 				$respuesta=ModeloFormularios::mdlAnularOP($datos);
 					/*--- Al actualizar el campo anulado a 1, se disparan los trigger para 
 					realizar el contrasiento de Insumos y Carnes  ---*/
@@ -1028,7 +1033,7 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["motivo_AnularOP"])){
 
 			$datos = array(	'idOrdenProdFin_' 	=>$_POST["idOrdenProd_AnularOP"],
-							'idUsuario_' 		=> $_SESSION['userId'],
+							'idUsuario_' 		=>$_SESSION['userId'],
 							'motivo_' 			=>$_POST["motivo_AnularOP"] );
 
 			$respuesta=ModeloFormularios::mdlAnularFinOP($datos);
