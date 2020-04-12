@@ -25,7 +25,9 @@ $detalleFinOp=$detalleOrden['detalleFinOP_'];
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h2>Orden N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';};?>
+  					<h2>Orden N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';
+            echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularOp">Anular orden</button>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';
+            echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularFinOp">Anular finalización</button>';};?>
 					</span>
   				</h2>
   					</div>
@@ -276,6 +278,21 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                }};?>
                		<button type="button" class="btn btn-warning" id="botonImprimirOp">Imprimir orden</button> 
       			</div>
+
+    <div class="modal fade" id="AnularOp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Anulacion</h5>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer anular">
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script type="text/javascript" src="jspdf.min.js"></script>
 
@@ -532,38 +549,25 @@ if(estado=="p"||estado=="a"){
 
 }}
 
-/*
+
 $("#botonAnularOp").on( "click", function() {
 
-    $.ajax({
-                type:'POST',
-                url:'datos.php',
-                data:{idOrdenProd_AnularOP: ,motivo_AnularOP:""},
-                success:function(anulacion){
-                      
-                      if (anulacion=="0") {                
+                         $('#AnularOp').modal('show')
+                          var modal = $('#AnularOp')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la orden:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivo_AnularOP" id="descripcionanulacionop" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación de la orden.</div></div><br><button type="button" id="botonanularopventana" class="btn btn-danger" onclick=enviamotivoanularop()>Anular orden</button></form>')
+    
+})
 
-                         $('#AnularDesbaste').modal('show')
-                          var modal = $('#AnularDesbaste')
-                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label for="spanrecetanombre">Describa el motivo de anulación del desposte:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionDesposte" id="descripcionanulacion" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desposte</button></form>')
+$("#botonAnularFinOp").on( "click", function() {
 
-                  }else{
-
-
-                      $('#AnularDesbaste').modal('show')
-                          var modal = $('#AnularDesbaste')
-                          modal.find('.modal-body').html(anulacion)
-                          modal.find('.modal-footer').html('<button type="button" class="btn btn-danger">Cerrar</button>')
-                  }
-                //alert('activo'+html);
-                //$('#AnularDesbaste').modal('show')
-               // var modal = $('#AnularDesbaste')
-               // modal.find('.modal-body').html(anulacion)
-      
-}})})
+                         $('#AnularOp').modal('show')
+                          var modal = $('#AnularOp')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la finalización de la orden:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivo_AnularFinOP" id="descripcionanulacionfinop" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación de finalización de la orden.</div></div><br><button type="button" id="botonanularopventana" class="btn btn-danger" onclick=enviamotivoanularfinop()>Anular orden</button></form>')
+    
+})
 
 
-function enviamotivo(){
+function enviamotivoanularop(){
 
 
 //alert($('#descripcionanulacion').val())
@@ -575,14 +579,16 @@ function enviamotivo(){
      $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:{idDesposteVerDetalles: id_desbaste, motivoAnulacionDesposte:$('#descripcionanulacion').val()},
+                data:{idOrdenProd_AnularOP:$('.idorden').text(), motivo_AnularOP:$('#descripcionanulacionop').val()},
                 success:function(respuesta){
+
+                alert(respuesta)
 
                   if(respuesta=="OK"){
 
-                  $('#AnularDesbaste').modal('show')
-                  var modal = $('#AnularDesbaste')
-                  modal.find('.modal-body').html("El desposte se anuló correctamente")
+                  $('#AnularOp').modal('show')
+                  var modal = $('#AnularOp')
+                  modal.find('.modal-body').html("La orden se anuló correctamente")
                   modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
 
                   $("#cerraranular").on( "click", function() {
@@ -591,15 +597,14 @@ var url2=$(location).attr('href')
 var url3=url2.replace("estado=0", "estado=1")
 
  $(location).attr('href',url3)
-$('#Mensaje').modal('hide')
 })
 
                         
 }else{
 
- $('#AnularDesbaste').modal('show')
-                  var modal = $('#AnularDesbaste')
-                  modal.find('.modal-body').html("Ha ocurrido un error al anular el desposte")
+ $('#AnularOp').modal('show')
+                  var modal = $('#AnularOp')
+                  modal.find('.modal-body').html("Ha ocurrido un error al intentar anular la orden")
                   modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
 
 }
@@ -610,7 +615,56 @@ $('#Mensaje').modal('hide')
     //$('.iddesbaste').text():
 
 }
-*/
+
+
+function enviamotivoanularfinop(){
+
+
+//alert($('#descripcionanulacion').val())
+//alert($('.iddesbaste').text())
+
+        //       $('#AnularDesbaste').modal('hide')
+
+     // $('#AnularDesbaste').modal('hide')
+     $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idOrdenProd_AnularOP:$('.idorden').text(), motivo_AnularFinOP:$('#descripcionanulacionfinop').val()},
+                success:function(respuesta){
+
+                alert(respuesta)
+
+                  if(respuesta=="OK"){
+
+                  $('#AnularOp').modal('show')
+                  var modal = $('#AnularOp')
+                  modal.find('.modal-body').html("La finalización de la orden se anuló correctamente. Ahora está en estado de producción.")
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+                  $("#cerraranular").on( "click", function() {
+
+var url2=$(location).attr('href')
+
+ $(location).attr('href',url2)
+})
+
+                        
+}else{
+
+ $('#AnularOp').modal('show')
+                  var modal = $('#AnularOp')
+                  modal.find('.modal-body').html("Ha ocurrido un error al intentar anular la finalización de la orden")
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+}
+                }})
+ //     alert("ajax no falló")
+
+    //$('#descripcionanulacion').val();
+    //$('.iddesbaste').text():
+
+}
+
 </script>
 
 </body>

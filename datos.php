@@ -298,12 +298,30 @@ $nuevacompra=ControladorFormularios::ctrCompraInsumo();
 
 if (isset($_GET["idCarneVerComposicion"])){
 
-    $id_carne=$_GET["idCarneVerComposicion"];
-    $respuesta= ModeloFormularios::mdlComposicionStockCarnes($id_carne);
+    $respuesta= ControladorFormularios::ctrComposicionStockCarnes();
 
 
     $respuestacomposicion=json_encode($respuesta);
     echo $respuestacomposicion;
         } 
+
+if (isset($_POST["idOrdenProd_AnularOP"])&&
+            isset($_POST["motivo_AnularOP"])){
+
+    $respuesta= ControladorFormularios::ctrAnularOP();
+
+echo $respuesta;
+
+}
+
+if (isset($_POST["idOrdenProd_AnularOP"])&&
+            isset($_POST["motivo_AnularFinOP"])){
+
+    $respuesta= ControladorFormularios::ctrAnularFinOP();
+
+echo $respuesta;
+
+}
+
 
 ?>

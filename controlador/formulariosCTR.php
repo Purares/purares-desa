@@ -999,7 +999,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrAnularOP(){
 				
-		if (isset($_POST["idOrdenProd_AnularOP"])||
+		if (isset($_POST["idOrdenProd_AnularOP"])&&
 			isset($_POST["motivo_AnularOP"])){
 
 			#Validar que no tenga una FIN OP asociada
@@ -1029,12 +1029,12 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrAnularFinOP(){
 				
-		if (isset($_POST["idOrdenProd_AnularOP"])||
+		if (isset($_POST["idOrdenProd_AnularOP"])&&
 			isset($_POST["motivo_AnularFinOP"])){
 
 			$datos = array(	'idOrdenProdFin_' 	=>$_POST["idOrdenProd_AnularOP"],
 							'idUsuario_' 		=>$_SESSION['userId'],
-							'motivo_' 			=>$_POST["motivo_AnularOP"] );
+							'motivo_' 			=>$_POST["motivo_AnularFinOP"] );
 
 			$respuesta=ModeloFormularios::mdlAnularFinOP($datos);
 
