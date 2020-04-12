@@ -296,4 +296,14 @@ $nuevacompra=ControladorFormularios::ctrCompraInsumo();
 
 }
 
+if (isset($_GET["idCarneVerComposicion"])){
+
+    $id_carne=$_GET["idCarneVerComposicion"];
+    $respuesta= ModeloFormularios::mdlComposicionStockCarnes($id_carne);
+
+
+    $respuestacomposicion=json_encode($respuesta);
+    echo $respuestacomposicion;
+        } 
+
 ?>

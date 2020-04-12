@@ -65,7 +65,7 @@ foreach($recetas as $receta){
                   <div class="row">
                     <div class="input-group col-6"> 
                       <div class="input-group-prepend">
-                      <span class="input-group-text">Cantidad de unidades frescas:</span>
+                      <span class="input-group-text">Unidades frescas:</span>
                     </div>
                       <input type="text" class="form-control text-right" id="cantidadunidadesfrescas" name="qUniFrescasAltaOP" placeholder="Este campo se calcula solo" readonly required>
                <div class="input-group-append">
