@@ -14,6 +14,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
         if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) {
             // last request was more than 2 minutes ago
             session_destroy();   // destroy session data in storage
+            include_once 'vista/login.php';
         }else{
             $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 

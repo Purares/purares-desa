@@ -336,6 +336,22 @@ class ModeloFormularios{
 
 	}
 
+#------------------------- Composicion Stock de CARNES------------------------#
+	/*Esta función es utulizada para la impresion del stock de carnes*/
+
+	static public function mdlComposicionStockCarnes2(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcarnesdesposte where stockactual>0");
+
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+
+
 	#------------------------- AGREGAR CARNE -------------------------#
 
 	static public function mdlAgregarCarne($datos){
