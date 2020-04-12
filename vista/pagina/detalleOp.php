@@ -25,16 +25,16 @@ $detalleFinOp=$detalleOrden['detalleFinOP_'];
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h2>Orden N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';
-            echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularOp">Anular orden</button>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';
-            echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularFinOp">Anular finalización</button>';};?>
+  					<h2>Orden N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';
+            };?>
 					</span>
   				</h2>
   					</div>
   					<div>
-  						<!--<div class="boton">
-  						<?php// if ($_GET['estado']==1) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>';}else{echo '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>';}?>
-  						</div>-->
+  						<div class="boton">
+  						<?php if ($detalleAltaOp[0]['estado']=="p") {echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularOp">Anular orden</button>';}
+              if ($detalleAltaOp[0]['estado']=="f") {echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularFinOp">Anular finalización</button>';}?>
+  						</div>
   					</div>	
   					<br>
               </div>
@@ -562,7 +562,7 @@ $("#botonAnularFinOp").on( "click", function() {
 
                          $('#AnularOp').modal('show')
                           var modal = $('#AnularOp')
-                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la finalización de la orden:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivo_AnularFinOP" id="descripcionanulacionfinop" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación de finalización de la orden.</div></div><br><button type="button" id="botonanularopventana" class="btn btn-danger" onclick=enviamotivoanularfinop()>Anular orden</button></form>')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la finalización de la orden:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivo_AnularFinOP" id="descripcionanulacionfinop" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación de finalización de la orden.</div></div><br><button type="button" id="botonanularopventana" class="btn btn-danger" onclick=enviamotivoanularfinop()>Anular finalización</button></form>')
     
 })
 
