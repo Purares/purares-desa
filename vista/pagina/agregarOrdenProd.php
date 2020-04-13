@@ -86,6 +86,7 @@ foreach($recetas as $receta){
                 </tbody>
                   </table>
                   <input type="hidden" name="establecerorden" value="1">
+                  <input  class="form-control" type="text" id="contadorcarne" value="1" required style="display:none;">
                            <br>
               <h5>2 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
               <hr>
@@ -208,8 +209,10 @@ foreach($carnes as $carne){
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
       var button= document.getElementById('BotonEstablecerOrden');
+
       button.addEventListener('click', function(event) {
-        if (form.checkValidity() === false) {
+         var contadorcarne=$('#contadorcarne').val();
+        if ((form.checkValidity() === false) || (contadorcarne!="0")) {
           event.preventDefault();
           event.stopPropagation();
         }
@@ -446,14 +449,33 @@ for (var i=0; i<=valorescarnes.length-2;i++){
  if(kilosactual==0){
 
  	$('.alertcarnes').empty()
+ $('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
+    $('#alertacarnes').show()
 $('.alertcarnes').html("La orden no necesita mas carnes")
+$('#contadorcarne').val("0")
 
  }else{
+  if(kilosactual<0){
 $('.alertcarnes').empty()
-$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
-$('#kilosrequeridos').html(kilosactual)
+$('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
+  $('#alertacarnes').show()
+$('.alertcarnes').html("Se ingresaron <a id='kilosrequeridos'></a> kilos de carne por sobre el total del paston específicado")
+var kilosactualpositivo=-kilosactual
+$('#kilosrequeridos').html(kilosactualpositivo.toFixed(3))
+$('#contadorcarne').val("1")
 
-}})    
+  }else{
+$('.alertcarnes').empty()
+$('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
+  $('#alertacarnes').show()
+$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
+$('#kilosrequeridos').html(kilosactual.toFixed(3))
+$('#contadorcarne').val("1")
+
+
+
+
+}}}) 
 
 
 

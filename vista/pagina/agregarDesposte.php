@@ -406,7 +406,7 @@ $('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-succe
   $('#alertacarnes').show()
 $('.alertcarnes').html("Se ingresaron <a id='kilosrequeridos'></a> kilos de carne por sobre el total del desposte específicado")
 var kilosactualpositivo=-kilosactual
-$('#kilosrequeridos').html(kilosactualpositivo)
+$('#kilosrequeridos').html(kilosactualpositivo.toFixed(3))
 $('#contadorcarne').val("1")
 
   }else{
@@ -414,7 +414,7 @@ $('.alertcarnes').empty()
 $('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertacarnes').show()
 $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el total del desposte")
-$('#kilosrequeridos').html(kilosactual)
+$('#kilosrequeridos').html(kilosactual.toFixed(3))
 $('#contadorcarne').val("1")
 
 }}})
