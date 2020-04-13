@@ -403,47 +403,54 @@ class ControladorFormularios{
 			isset($_POST["mermaInicialAltaDesposte"])|| #NEW
 			isset($_POST["fechaDesposteAltaDesposte"])) {
 
-			#COMPLETAR LA BD
-			$datos= array(	'nroRemito_' 		=> $_POST["nroRemitoAltaDesposte"],
-							'proveedor_' 		=> $_POST["proveedorAltaDesposte"],
-							'unidades_' 		=> $_POST["unidadesAltaDesposte"],
-							'pesoTotal_' 		=> $_POST["pesoTotalAltaDesposte"],
-							'mermaInicial_' 	=> ($_POST["mermaInicialAltaDesposte"]/100),
-							'fechaDesposte_' 	=> strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
-							'usuarioAlta_'	 	=> $_SESSION['userId'],
-							'descripcion_' 		=> $_POST["descripcionAltaDesposte"]);
+			#validar que la Q de Carnes este OK
 
-			#Introduce el registro en la BD y recupera el ID
-			$idDesposte_nuevo=ModeloFormularios::mdlCrearDesposte($datos); 
 
-			#Crea el Array para realizar los movimiento de Carnes
-			$longitud=count($_POST["idCarneAltaDesposte"]);
+			if ($_POST["pesoTotalAltaDesposte"]*(1-($_POST["mermaInicialAltaDesposte"]/100))==array_sum($_POST["cantidadAltaDesposte"])) {
 			
-			$datos2= array(	'idCarne_'		=> $_POST["idCarneAltaDesposte"],
-							'idCuenta_'		=> array_fill(0,$longitud,1), #VariableFIJA!
-							'idDesposte_'	=> array_fill(0,$longitud,$idDesposte_nuevo),
-							'cantidad_'		=> $_POST["cantidadAltaDesposte"],
-							'idOrenProd_'	=> array_fill(0,$longitud,null),
-							'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
-							'descripcion_'	=> array_fill(0,$longitud,null),
-							'funcion_'		=> array_fill(0,$longitud,'Desposte'));
+			
+				#COMPLETAR LA BD
+				$datos= array(	'nroRemito_' 		=> $_POST["nroRemitoAltaDesposte"],
+								'proveedor_' 		=> $_POST["proveedorAltaDesposte"],
+								'unidades_' 		=> $_POST["unidadesAltaDesposte"],
+								'pesoTotal_' 		=> $_POST["pesoTotalAltaDesposte"],
+								'mermaInicial_' 	=> ($_POST["mermaInicialAltaDesposte"]/100),
+								'fechaDesposte_' 	=> strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
+								'usuarioAlta_'	 	=> $_SESSION['userId'],
+								'descripcion_' 		=> $_POST["descripcionAltaDesposte"]);
 
-			#Recorre el Array de insumos agregandolos en la BD
-			for ($i=0; $i <$longitud ; $i++) { 
+				#Introduce el registro en la BD y recupera el ID
+				$idDesposte_nuevo=ModeloFormularios::mdlCrearDesposte($datos); 
+
+				#Crea el Array para realizar los movimiento de Carnes
+				$longitud=count($_POST["idCarneAltaDesposte"]);
 				
-			
-				if ($datos2['cantidad_'][$i]>0) {
-					$datos3= array_column($datos2,$i);
-					$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
-					
-					#Si no dio error sigue el loop
-					if ($respuesta != "OK") { return $respuesta2;}
-				}
-			} #exit for
+				$datos2= array(	'idCarne_'		=> $_POST["idCarneAltaDesposte"],
+								'idCuenta_'		=> array_fill(0,$longitud,1), #VariableFIJA!
+								'idDesposte_'	=> array_fill(0,$longitud,$idDesposte_nuevo),
+								'cantidad_'		=> $_POST["cantidadAltaDesposte"],
+								'idOrenProd_'	=> array_fill(0,$longitud,null),
+								'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
+								'descripcion_'	=> array_fill(0,$longitud,null),
+								'funcion_'		=> array_fill(0,$longitud,'Desposte'));
 
-			$respuesta2 = array('validacion_' => $respuesta,
-								'idDesposte_' => $idDesposte_nuevo);
-			return $respuesta2;
+				#Recorre el Array de insumos agregandolos en la BD
+				for ($i=0; $i <$longitud ; $i++) { 
+					
+				
+					if ($datos2['cantidad_'][$i]>0) {
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+						
+						#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta2;}
+					}
+				} #exit for
+
+				$respuesta2 = array('validacion_' => $respuesta,
+									'idDesposte_' => $idDesposte_nuevo);
+				return $respuesta2;
+			}
 		}
 	}
 
