@@ -42,13 +42,21 @@ $respuesta=ControladorFormularios::ctrImprimirStockCarnes();
 
 $Longitud=array_search(array_key_last($respuesta), $respuesta);
 
-$Carne=$respuesta[0];
-$stockTotalCarne=$respuesta[$Carne]['stockActualTotal'];
+$Carne=$respuesta[1];
+	$stockTotalCarne=$respuesta[$Carne]['stockActualTotal'];
 
-var_dump($respuesta);
+	$index=0;#Meter un for
+		$id_index_Desposte=$respuesta[$Carne]['desposte'][$index];
+		$StockActual_index=$respuesta[$Carne]['stockactual'][$index];
+		$CantidadDespostes=count($respuesta[$Carne]['desposte']);
+
 var_dump($Longitud);
 var_dump($Carne);
 var_dump($stockTotalCarne);
+var_dump($CantidadDespostes);
+var_dump($id_index_Desposte);
+var_dump($StockActual_index);
+var_dump($respuesta);
 
 
 
