@@ -308,9 +308,9 @@ class ControladorFormularios{
 			foreach ($tablaCompleta as $registro) { #navega los registros
 					
 				$carne= $registro['carne'];
-				$encontrado=array_search($carne, $tabla);
+				#$encontrado=array_search($carne, $tabla,true);
 			
-				if (array_search($carne, $tabla)==0) {
+				if (array_search($carne, $tabla)=== false) {
 					$tabla[]=$carne;
 					$tabla[$carne]['stockActualTotal']=$registro['stockactual'];
 					$tabla[$carne]['desposte']=[$registro['id_desposte']];
@@ -321,6 +321,8 @@ class ControladorFormularios{
 					array_push($tabla[$carne]['stockactual'],$registro['stockactual']);
 				}
 			}
+
+
 		return $tabla; 					
 	}
 
