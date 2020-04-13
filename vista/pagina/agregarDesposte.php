@@ -356,7 +356,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
 $('.cantcarne').bind("keyup change", function(e) {
 
 
-  $('#alertacarnes').show()
+
 
   var kilosrequeridos=$('#pesoTotalDesposte').val()-($('#pesoTotalDesposte').val()*($('#mermainicialdesposte').val()/100))
 
@@ -387,17 +387,23 @@ for (var i=0; i<=valorescarnes.length-1;i++){
  if(kilosactual==0){
 
   $('.alertcarnes').empty()
+ $('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-success")
+    $('#alertacarnes').show()
 $('.alertcarnes').html("Se ingresó el total de carnes del desposte")
 
  }else{
   if(kilosactual<0){
 $('.alertcarnes').empty()
+$('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-danger")
+  $('#alertacarnes').show()
 $('.alertcarnes').html("Se ingresaron <a id='kilosrequeridos'></a> kilos de carne por sobre el total del desposte específicado")
 var kilosactualpositivo=-kilosactual
 $('#kilosrequeridos').html(kilosactualpositivo)
 
   }else{
 $('.alertcarnes').empty()
+$('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-danger")
+  $('#alertacarnes').show()
 $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el total del desposte")
 $('#kilosrequeridos').html(kilosactual)
 
