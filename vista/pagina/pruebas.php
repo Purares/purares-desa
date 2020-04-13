@@ -37,15 +37,20 @@
 var_dump($tabla);
 
 */
+#Array del stock de carnes
 $respuesta=ControladorFormularios::ctrImprimirStockCarnes();
 
-$x=array_key_last($respuesta);
-$y=array_search(array_key_last($respuesta), $respuesta);
+$Longitud=array_search(array_key_last($respuesta), $respuesta);
 
-var_dump($y);
-var_dump($x);
+$Carne=$respuesta[0];
+$stockTotalCarne=$respuesta[$Carne]['stockActualTotal'];
+
 var_dump($respuesta);
+var_dump($Longitud);
+var_dump($Carne);
+var_dump($stockTotalCarne);
 
-#var_dump($tablaCompleta);
+
+
 
 ?>
