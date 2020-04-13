@@ -154,7 +154,7 @@ foreach($carnes as $carne){
         <div class="alert alert-info alertcarnes" role="alert">
         </div>
 </div>
-<input  class="form-control" type="text" id="contadorcarne" required="0" style="display:none;">
+<input  class="form-control" type="text" id="contadorcarne" value="1" required style="display:none;">
    <div class="invalid-feedback">
                                   LAS CARNES INGRESADAS NO COINCIDEN CON EL TOTAL SELECCIONADO DE DESPOSTE MENOS LA MERMA
                                     </div>
@@ -299,11 +299,14 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
   window.addEventListener('load', function() {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');
+
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
       var button= document.getElementById('BotonAgregarDesposte');
       button.addEventListener('click', function(event) {
-        if (form.checkValidity() === false) {
+         var contadorcarne=$('#contadorcarne').val();
+         //alert(contadorcarne)
+        if ((form.checkValidity() === false) || (contadorcarne!="0")) {
           event.preventDefault();
           event.stopPropagation();
         }
