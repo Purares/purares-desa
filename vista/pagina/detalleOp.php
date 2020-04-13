@@ -434,8 +434,10 @@ function imprimirOp() {
 
       doc.setFontSize(10).text(162,265,firma);
 
-  doc.save('testiamgen.pdf');
-      
+var nombrepdf="Gestión PURARES Orden de producción N° "+nro_orden;
+
+doc.save(nombrepdf)
+
 }else{
 
 if(estado=="p"||estado=="a"){
@@ -540,10 +542,9 @@ if(estado=="p"||estado=="a"){
 
       doc.setFontSize(10).text(162,242,largo_esperado);
 
-  doc.save('testiamgen.pdf');
+var nombrepdf="Gestión PURARES Orden de produccion N° "+nro_orden;
 
-
-
+doc.save(nombrepdf)
 
 }
 

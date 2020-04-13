@@ -106,8 +106,10 @@ for (let j = 1; j < pages + 1 ; j++) {
 doc.addImage(imgDataStockInsumos,'PNG',0,0,210,297);
 
 }
-// Then save
-doc.save('thePDF.pdf');
+
+var nombrepdf="Gestión PURARES Stock de Insumos al "+diaimpresion;
+
+doc.save(nombrepdf)
 
 }
 

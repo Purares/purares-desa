@@ -8,6 +8,8 @@
 
 	<title>Gestíon PURARES</title>
 
+	 <link rel="shortcut icon" href="recursos/logos/LogoPurares.ico" />
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
