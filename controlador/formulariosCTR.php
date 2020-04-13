@@ -405,7 +405,6 @@ class ControladorFormularios{
 
 			#validar que la Q de Carnes este OK
 
-
 			if ($_POST["pesoTotalAltaDesposte"]*(1-($_POST["mermaInicialAltaDesposte"]/100))==array_sum($_POST["cantidadAltaDesposte"])) {
 			
 			
@@ -446,11 +445,12 @@ class ControladorFormularios{
 						if ($respuesta != "OK") { return $respuesta2;}
 					}
 				} #exit for
-
-				$respuesta2 = array('validacion_' => $respuesta,
-									'idDesposte_' => $idDesposte_nuevo);
-				return $respuesta2;
+			}else{
+				$respuesta="La cantidad de carne seleccionada no corresponde con la cantidad ingresada";
 			}
+		$respuesta2 = array('validacion_' => $respuesta,
+							'idDesposte_' => $idDesposte_nuevo);
+		return $respuesta2;
 		}
 	}
 
