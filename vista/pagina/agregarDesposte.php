@@ -141,7 +141,7 @@ echo $proveedores;
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col" class="text-center" width="15%">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col"  width="45%">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"  width="40%"><div class="input-group"><input type="number" min=0 step=0.001 name="cantidadAltaDesposte[]" class="form-control text-right cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+  echo '<tr><td scope="col" class="text-center" width="15%">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col"  width="45%">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"  width="40%"><div class="input-group cantcarne"><input type="number" min=0 step=0.001 name="cantidadAltaDesposte[]" class="form-control text-right cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
 
 }
 
@@ -150,6 +150,10 @@ foreach($carnes as $carne){
             </table>
           </div>
           </div>
+<div id="alertacarnes">
+        <div class="alert alert-info alertcarnes" role="alert">
+        </div>
+</div>
                         <h5>Descripción</h5>
               <hr>
               <textarea class="form-control" style="min-width: 100%" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="..." required></textarea>
@@ -224,6 +228,13 @@ foreach($carnes as $carne){
 
 
 <script>
+
+
+$(document).ready(function(){
+
+
+  $('#alertacarnes').hide()
+});
 
   $('#ConfirmarNuevoDesposte').on('show.bs.modal', function (event) {
 var button = $(event.relatedTarget);
@@ -340,6 +351,58 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
   
     });    
 });
+
+
+$('.cantcarne').bind("keyup change", function(e) {
+
+
+  $('#alertacarnes').show()
+
+  var kilosrequeridos=$('#pesoTotalDesposte').val()-($('#pesoTotalDesposte').val()*($('#mermainicialdesposte').val()/100))
+
+
+  var valorescarnes=$('.cantcarne').filter(":input")
+  var total1=0
+    var total=parseFloat(total1)
+    var valoresvarne
+for (var i=0; i<=valorescarnes.length-1;i++){
+  //alert("esto es lo que entra antes de convertirse"+valorescarnes[i].value)
+  if (valorescarnes[i].value!="") {
+    valoresvarne=(parseFloat(valorescarnes[i].value))
+    //alert("este es el tipo con el que lee"+typeof(valoresvarne))
+    //alert("este es lo que lee"+valoresvarne)
+  
+    total= total+valoresvarne
+  //  alert("asi queda el total despues de suamr cada campo"+total)
+    }else{
+      valoresvarne=0
+  total= total+valoresvarne
+  //  alert("asi queda el total despues de suamr como 0"+total)
+    }
+
+    }
+//console.log(valorescarnes[1]);
+ var kilosactual=kilosrequeridos-total
+ //alert(kilosactual)
+ if(kilosactual==0){
+
+  $('.alertcarnes').empty()
+$('.alertcarnes').html("Se ingresó el total de carnes del desposte")
+
+ }else{
+  if(kilosactual<0){
+$('.alertcarnes').empty()
+$('.alertcarnes').html("Se ingresaron <a id='kilosrequeridos'></a> kilos de carne por sobre el total del desposte específicado")
+var kilosactualpositivo=-kilosactual
+$('#kilosrequeridos').html(kilosactualpositivo)
+
+  }else{
+$('.alertcarnes').empty()
+$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el total del desposte")
+$('#kilosrequeridos').html(kilosactual)
+
+}}})
+
 
 
 </script>
