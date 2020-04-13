@@ -106,11 +106,11 @@ foreach($stockcarnes as $stockcorte){
   for ($i=0; $i < array_search(array_key_last($tabla), $tabla); $i++) { 
 
 
-echo '<tr><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$i].'</td><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$tabla[$i]]['stockActualTotal'].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][0].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][0].'</td>';   
+echo '<tr><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$i].'</td><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$tabla[$i]]['stockActualTotal'].' kilos</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][0].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][0].' kilos</td>';   
 
     for ($j=1; $j <count($tabla[$tabla[$i]]['desposte']); $j++) {
 
-echo '<tr><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][$j].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][$j].'</td></tr>';
+echo '<tr><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][$j].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][$j].' kilos</td></tr>';
 
 };
 }
