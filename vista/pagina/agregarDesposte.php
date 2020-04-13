@@ -154,6 +154,10 @@ foreach($carnes as $carne){
         <div class="alert alert-info alertcarnes" role="alert">
         </div>
 </div>
+<input  class="form-control" type="text" id="contadorcarne" required="0" style="display:none;">
+   <div class="invalid-feedback">
+                                  LAS CARNES INGRESADAS NO COINCIDEN CON EL TOTAL SELECCIONADO DE DESPOSTE MENOS LA MERMA
+                                    </div>
                         <h5>Descripción</h5>
               <hr>
               <textarea class="form-control" style="min-width: 100%" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="..." required></textarea>
@@ -387,25 +391,28 @@ for (var i=0; i<=valorescarnes.length-1;i++){
  if(kilosactual==0){
 
   $('.alertcarnes').empty()
- $('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-success")
+ $('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
     $('#alertacarnes').show()
 $('.alertcarnes').html("Se ingresó el total de carnes del desposte")
+$('#contadorcarne').val("0")
 
  }else{
   if(kilosactual<0){
 $('.alertcarnes').empty()
-$('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-danger")
+$('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertacarnes').show()
 $('.alertcarnes').html("Se ingresaron <a id='kilosrequeridos'></a> kilos de carne por sobre el total del desposte específicado")
 var kilosactualpositivo=-kilosactual
 $('#kilosrequeridos').html(kilosactualpositivo)
+$('#contadorcarne').val("1")
 
   }else{
 $('.alertcarnes').empty()
-$('.alertcarnes').removeClass('alert alert-info').addClass("alert alert-danger")
+$('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertacarnes').show()
 $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el total del desposte")
 $('#kilosrequeridos').html(kilosactual)
+$('#contadorcarne').val("1")
 
 }}})
 
