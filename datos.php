@@ -323,47 +323,5 @@ echo $respuesta;
 
 }
 
-if ($_POST["imprimir_carnes"]===1){
-
- echo'
-      <table>
-            
-            <thead>
-              <tr>
-                <th scope="col" class="text-center text-white bg-dark">Carne</th>
-                <th scope="col" class="text-center text-white bg-dark">Stock Total Carne</th>
-                <th scope="col" class="text-center text-white bg-dark">N° Desposte</th>
-                <th scope="col" class="text-center text-white bg-dark">Stock Desposte</th>
-              </tr>
-            </thead>
-            <tbody>
-';
-
-  $tabla=ControladorFormularios::ctrImprimirStockCarnes();
-
-  for ($i=0; $i < array_search(array_key_last($tabla), $tabla); $i++) { 
-
-
-echo '<tr><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$i].'</td><td scope="col" class="text-center" rowspan="'.count($tabla[$tabla[$i]]['desposte']).'">'.$tabla[$tabla[$i]]['stockActualTotal'].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][0].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][0].'</td>';   
-
-    for ($j=1; $j <count($tabla[$tabla[$i]]['desposte']); $j++) {
-
-echo '<tr><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['desposte'][$j].'</td><td scope="col" class="text-center">'.$tabla[$tabla[$i]]['stockactual'][$j].'</td></tr>';
-
-};
-}
-echo '       
-              
-        </tbody>
-
-      </table>
-';
-
-
-
-
-
-}
-
 
 ?>
