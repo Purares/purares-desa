@@ -405,7 +405,7 @@ class ControladorFormularios{
 
 			#validar que la Q de Carnes este OK
 
-			if ($_POST["pesoTotalAltaDesposte"]*(1-($_POST["mermaInicialAltaDesposte"]/100))==array_sum($_POST["cantidadAltaDesposte"])) {
+			if (round($_POST["pesoTotalAltaDesposte"]*(1-($_POST["mermaInicialAltaDesposte"]/100),3)==array_sum($_POST["cantidadAltaDesposte"])) {
 			
 			
 				#COMPLETAR LA BD
