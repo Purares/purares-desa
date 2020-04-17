@@ -391,7 +391,7 @@ for (var i=0; i<=valorescarnes.length-1;i++){
 //console.log(valorescarnes[1]);
  var kilosactual=kilosrequeridos-total
  //alert(kilosactual)
- if(kilosactual==0){
+ if((Math.round(kilosactual*1000)/1000)==0){
 
   $('.alertcarnes').empty()
  $('.alertcarnes').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
