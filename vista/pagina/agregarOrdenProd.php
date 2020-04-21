@@ -75,6 +75,24 @@ foreach($recetas as $receta){
                 </div>
                   </div>
 
+                             <div class="input-group col-3"> 
+                      <div class="input-group-prepend">
+                      <span class="input-group-text">N° de lote:</span>
+                    </div>
+                      <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" placeholder="XX" value="" readonly required>
+               <div class="input-group-append">
+                   <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
+  ?
+          </button>
+                </div>
+                  </div>
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheckNroLote">
+  <label class="form-check-label" for="defaultCheckNroLote">
+    Usar otro numero de lote
+  </label>
+</div>
+
                   </div>
                           <br>
                            <h6 class="infoinsumos"></h6>
@@ -141,6 +159,8 @@ foreach($carnes as $carne){
         </div>
         <div class="modal-body">
           <p>Usted está a punto de cargar una orden de produccion de la receta <a class="nombre_receta"></a> con un pastón total de <a class="pesopaston"></a> kilos.</p>
+
+           <p>El número de lote de la orden será <a class="nrolote"></a></p>
 
           <p>Utilizará los siguientes insumos:</p>
 
@@ -323,6 +343,7 @@ completarmodalorden()
 function completarmodalorden(){             
                                   var nombrereceta=$('#idReceta option:selected').text()
                                       pesopaston=$('#PesoPaston').val()
+                                      nrolote=$('#nrolote').val()
                                     
                                       var nombreinsumos = [];
                                       cantidadinsumosop=[];
@@ -359,6 +380,7 @@ function completarmodalorden(){
                             
 modal.find('.nombre_receta').text('' + nombrereceta);
 modal.find('.pesopaston').text('' + pesopaston);
+modal.find('.nrolote').text('' + nrolote);
 
 
 for (var i=0; i<=nombreinsumos.length-1;i++){
@@ -478,6 +500,21 @@ $('#contadorcarne').val("1")
 }}}) 
 
 
+$("#defaultCheckNroLote").on( "click", function() {
+  
+if ($('#defaultCheckNroLote').prop('checked')==true) {
+
+$('#nrolote').prop('readonly',false);
+$('#nrolote').val("")
+
+$('#nrolote').attr("placeholder", "Ingrese el nro de lote");
+
+}else{
+
+$('#nrolote').prop('readonly',true);
+$('#nrolote').val("XX")
+
+}})
 
 </script>
 
