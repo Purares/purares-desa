@@ -836,7 +836,7 @@ static public function ctrValidarAnulacionCompra(){
 					$datosUltimoLote=ModeloFormularios::mdlNroLoteProd();
 					$ultimoNroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
 
-					if (($_POST["nroLoteAltaOP"]>$ultimoNroLote) {
+					if ($_POST["nroLoteAltaOP"]>$ultimoNroLote) {
 						$nroLote=ModeloFormularios::mdlCrearNroLoteProd();
 
 					}
