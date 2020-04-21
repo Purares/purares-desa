@@ -831,6 +831,15 @@ static public function ctrValidarAnulacionCompra(){
 					if ($validacion_Carnes=='OK') {
 					
 					#3)Validación Peso de paston=Peso total de carnes(Esta validación no se hace ya que se realizó desde la vista)
+
+					#Si el Nuro de lote no existe lo crea
+					$datosUltimoLote=ModeloFormularios::mdlNroLoteProd();
+					$ultimoNroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
+
+					if (($_POST["nroLoteAltaOP"]>$ultimoNroLote) {
+						$nroLote=ModeloFormularios::mdlCrearNroLoteProd();
+
+					}
 							
 							#Crear Alta de OP
 							$datosOP = array(	'nroLote_' 		=> $_POST["nroLoteAltaOP"],
