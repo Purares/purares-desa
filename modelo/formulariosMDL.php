@@ -678,6 +678,39 @@ static public function mdlCrearDesposte($datos){
 		$stmt =null; 
 	}
 
+#-----------------------Nro Lote de Producccion------------------------
+
+	static public function mdlNroLoteProd(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM lotes_produccion WHERE Anulado IS NULL  ORDER BY nro_lote DESC limit 1;");
+
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 		
+
+	}
+
+#-----------------------CREAR Nro Lote de Producccion------------------------
+
+	static public function mdlCrearNroLoteProd(){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarLote(NULL,0);");
+
+		if ($stmt -> execute()){
+			#Buscar el nuevo LOTE
+			$Nro_loteD=ModeloFormularios::mdlNroLoteProd();
+			$Nro_lote=$Nro_loteD[0]['nro_lote'];
+			return $Nro_lote;
+
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 	
+
+	}
 
 
 

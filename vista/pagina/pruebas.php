@@ -9,55 +9,49 @@
 
 <?php 
 
-/*
-		$tablaCompleta=ModeloFormularios::mdlComposicionStockCarnes2();
-
-		$tabla=array();
-			#/*
-			foreach ($tablaCompleta as $registro) { #navega los registros
-					
-				$carne= $registro['carne'];
-				$encontrado=array_search($carne, $tabla, true);
-			
-				if (array_search($carne, $tabla) === false) { 
-					$tabla[]=$carne;
-					$tabla[$carne]['stockActualTotal']=$registro['stockactual'];
-					#$tabla[$carne]['desposte']=[];
-					#$tabla[$carne]['stockactual']=[];
-					$tabla[$carne]['desposte']=[$registro['id_desposte']];
-					$tabla[$carne]['stockactual']=[$registro['stockactual']];
-				}else{
-					$tabla[$carne]['stockActualTotal']=$tabla[$carne]['stockActualTotal']+$registro['stockactual'];
-					array_push($tabla[$carne]['desposte'],$registro['id_desposte']);
-					array_push($tabla[$carne]['stockactual'],$registro['stockactual']);
-				}
-			}
 
 
-var_dump($tabla);
+$datosUltimoLote=ModeloFormularios::mdlNroLoteProd();
+$fechaDatos=$datosUltimoLote[0]['fecha_alta'];
+$fechaAltaDatos=date_create_from_format('Y-m-d H:i:s',$fechaDatos);
+$fechaAltaDatosC=date_format($fechaAltaDatos,"Y/m/d H:i:s");
+$fechaAltaDatosD=strtotime($fechaAltaDatosC);
+$diferencia=time()-$fechaAltaDatosD-18000;#18000= 3 hs de diferencia
 
-*/
-#Array del stock de carnes
-$respuesta=ControladorFormularios::ctrImprimirStockCarnes();
 
-$Longitud=array_search(array_key_last($respuesta), $respuesta);
+#Esta dentro de las 48 del lote raiz(el que se crea con un desposte)
+if ($diferencia< 48*60*60 &&
+	$datosUltimoLote[0]['raiz']==1) { #A las 48 hs debe crear un nuevo 
+	#Usar el Ultimo NroLote
+		$nroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
+		$creado="OK";
+}
+#Luego de las 48 hs del lote raiz
+else if($diferencia > 48*60*60 &&
+		$datosUltimoLote[0]['raiz']==1){
+	#Crear un nuevo Lote
+		$nroLote=ModeloFormularios::mdlCrearNroLoteProd();
+		$creado="OK";
+}
 
-$Carne=$respuesta[1];
-	$stockTotalCarne=$respuesta[$Carne]['stockActualTotal'];
+#Dentro de las 12 hs del No RAIZ
+else if($diferencia < 12*60*60 &&
+		$datosUltimoLote[0]['raiz']==0){
+	#Opción Crear un Lote/Usar el lote ya existente
+		$nroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
+		$creado="OK";
+}
 
-	$index=0;#Meter un for
-		$id_index_Desposte=$respuesta[$Carne]['desposte'][$index];
-		$StockActual_index=$respuesta[$Carne]['stockactual'][$index];
-		$CantidadDespostes=count($respuesta[$Carne]['desposte']);
+#Luego de las 12 hs de un lote que no sea raiz
+else if($diferencia > 12*60*60 &&
+		$datosUltimoLote[0]['raiz']==0){
+	#Opción Crear un Lote/Usar el lote ya existente
+		$nroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
+		$creado="NO";
+}
 
-var_dump($Longitud);
-var_dump($Carne);
-var_dump($stockTotalCarne);
-var_dump($CantidadDespostes);
-var_dump($id_index_Desposte);
-var_dump($StockActual_index);
-var_dump($respuesta);
-
+$respuesta = array(	'creado_' => $creado,
+					'nroLote_' => $nroLote);
 
 
 
