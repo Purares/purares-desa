@@ -76,8 +76,24 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
 					</table>
         </div>
         </div>
-        <hr>
-                    <br>
+        <br>
+   <div class="row">
+                <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Peso total de insumos:</span>
+                  </div>
+                    <input type="text" class="form-control text-right" name="pesoTotInsumosCrearReceta" value="<?php echo $receta['peso_total_insumos_kg'] ?> kilos" readonly>
+                  <div class="input-group-append">
+              <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="El total de insumos en kilos que utilizará un paston de 100 kilos.">
+  ?
+</button>
+              </div>
+                </div>
+              </div>
+              <br>
+              <br>
+              <h5>Información de producción</h5>
+              <hr>
                     <br>
                     <div class="row">
                      <div class="input-group col-6">

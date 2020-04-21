@@ -89,6 +89,26 @@ foreach($depositos as $deposito){
             <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-success btn-sm">Agregar Insumo</button>
           </div>
           <br>
+             <div class="row">
+                <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Peso total de insumos:</span>
+                  </div>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="pesototalinsumos" name="pesoTotInsumosCrearReceta" placeholder="kilos" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de insumos en kilos que utilizará un paston de 100 kilos.">
+  ?
+</button>
+              </div>
+                             <div class="invalid-feedback">
+                                   Ingrese el total de insumos en kilos que utilizará un paston de 100 kilos.
+                                    </div>
+                </div>
+              </div>
+              <br>
+              <br>
+              <h5>Información de producción</h5>
+              <hr>
           <br>
           <div class="row">
             <div class="input-group col-6"> 
@@ -284,11 +304,13 @@ foreach($depositos as $deposito){
 
           <p>Se esperan producir <a class="unidesdesfrescas"></a> unidades frescas cada 100 kilos.</p>
 
+          <p>Tendrá  <a class="pesototalinsumos"></a> kilos de insumos:</p> 
+
           <p>Tendrá la siguiente descripción:</p> 
 
           <p><a class="descripcion"></a>.</p>
 
-          <p>La receta tendrá los siguientes ingredientes:</p>
+          <p>La receta tendrá los siguientes insumos:</p>
 
           <div class="container">
           <table class="table table-hover">
@@ -349,6 +371,8 @@ function completarmodalrecetas(){
                                       unidadesfrescas=$('#unidadesfrescas').val()
                                       gramosxunidadesperado=$('#gramosxunidadesperado').val()
                                       cmxunidadesperado=$('#cmxunidadesperado').val()
+                                      pesototalinsumos=$('#pesototalinsumos').val()
+
 
                                       var nombreingredientes = [];
                                       cantidadingredientes=[];
@@ -381,7 +405,7 @@ modal.find('.largoesperado').text('' + gramosxunidadesperado);
 modal.find('.pesoesperado').text('' + cmxunidadesperado);
 modal.find('.descripcion').text('' + descripcion);
 modal.find('.unidades finales').text('' + unidadesfinalesxunidad);
-
+modal.find('.pesototalinsumos').text('' + pesototalinsumos);
 
 for (var i=0; i<=nombreingredientes.length-1;i++){
   
