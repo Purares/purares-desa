@@ -10,6 +10,8 @@ $recetas=ControladorFormularios::ctrListaRecetas();
 
 $carnes=ControladorFormularios::ctrStockCarnes();
 
+$lote=ControladorFormularios::ctrNroLoteProd()
+
 
 ?>
 
@@ -79,19 +81,22 @@ foreach($recetas as $receta){
                       <div class="input-group-prepend">
                       <span class="input-group-text">N° de lote:</span>
                     </div>
-                      <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" value="01" readonly required>
+                      <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" value="<?php echo $lote['nroLote_'];?>" readonly required>
                <div class="input-group-append">
                    <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
   ?
           </button>
                 </div>
                   </div>
+ <?php if($lote['creado_']=="NO"){echo '          
+               
                 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="defaultCheckNroLote">
   <label class="form-check-label" for="defaultCheckNroLote">
-    Usar otro numero de lote
+    Usar siguiente numero de lote
   </label>
 </div>
+';};?>" 
 
                   </div>
                           <br>
@@ -512,15 +517,16 @@ $("#defaultCheckNroLote").on( "click", function() {
   
 if ($('#defaultCheckNroLote').prop('checked')==true) {
 
-$('#nrolote').prop('readonly',false);
-$('#nrolote').val("")
+var numerodeloteviejo=$('#nrolote').val()
 
-$('#nrolote').attr("placeholder", "Ingrese el nro de lote");
+var siguientelote=numerodeloteviejo+1
+
+$('#nrolote').val(siguientelote);
 
 }else{
 
-$('#nrolote').prop('readonly',true);
-$('#nrolote').val("01")
+
+$('#nrolote').val($('#nrolote').val()-1)
 
 
 }})
