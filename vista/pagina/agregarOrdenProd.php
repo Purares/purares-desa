@@ -79,7 +79,7 @@ foreach($recetas as $receta){
                       <div class="input-group-prepend">
                       <span class="input-group-text">N° de lote:</span>
                     </div>
-                      <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" placeholder="XX" value="" readonly required>
+                      <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" value="01" readonly required>
                <div class="input-group-append">
                    <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
   ?
@@ -520,7 +520,8 @@ $('#nrolote').attr("placeholder", "Ingrese el nro de lote");
 }else{
 
 $('#nrolote').prop('readonly',true);
-$('#nrolote').val("XX")
+$('#nrolote').val("01")
+
 
 }})
 
