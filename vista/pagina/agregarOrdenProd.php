@@ -128,7 +128,7 @@ foreach($recetas as $receta){
 
 foreach($carnes as $carne){
 
-	if ($carne[0]==8) {
+	if ($carne[0]==11) {
 
 	  echo '<tr><td scope="col" width="13%" class="text-center">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="30%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="25%"><div class="input-group"><input type="number" min=0 step=0.001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="22%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
@@ -277,10 +277,18 @@ $.ajax({
                 success:function(respuestacod){
 
              
-console.log(respuestacod);
+//console.log(respuestacod);
 
-                    var kilostocino=($('#PesoPaston').val()*(1-(respuestacod[0]['porcent_carne']/100))).toFixed(3)
-                     kilosrequeridos=($('#PesoPaston').val()*(respuestacod[0]['porcent_carne']/100)).toFixed(3)
+					var pesopastontotal1=$('#PesoPaston').val()
+
+					var pesoinsumos1=parseFloat(respuestacod[0]['peso_total_insumos_kg'])
+
+                    var kilosinsumos1=(($('#PesoPaston').val())/(100+pesoinsumos1))*pesoinsumos1
+
+                    //alert(kilosinsumos)
+
+                    var kilostocino=((pesopastontotal1-kilosinsumos1)*(1-(respuestacod[0]['porcent_carne']/100))).toFixed(3)
+                     kilosrequeridos=((pesopastontotal1-kilosinsumos1)*(respuestacod[0]['porcent_carne']/100)).toFixed(3)
                     $('#kilostocino').val(kilostocino)
                     $('#kilostocinooculto').val(kilostocino)
                     $('#alertacarnes').show()
