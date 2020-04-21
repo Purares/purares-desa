@@ -216,6 +216,7 @@ class ControladorFormularios{
 			isset($_POST["diasprodCrearReceta"])||
 			isset($_POST["diasvencCrearReceta"])||
 			isset($_POST["porcentcarneCrearReceta"])||
+			isset($_POST["pesoTotInsumosCrearReceta"])|| #NEW
 			isset($_POST["largouniLoteCrearReceta"])||
 			isset($_POST["pesouniLoteCrearReceta"])||
 			isset($_POST["unidadesXpastonCrearReceta"])||
@@ -226,18 +227,19 @@ class ControladorFormularios{
 			isset($_POST["descripcionCrearReceta"])){
 
 			#COMPLETAR EN LA BD:
-					$datos= array(	'nombre_' => 				$_POST["nombreCrearReceta"],
-									'diasProd_' => 				$_POST["diasprodCrearReceta"],
-									'diasVenc_' => 				$_POST["diasvencCrearReceta"],
-									'porcentCarne_'=> 			round(($_POST["porcentcarneCrearReceta"]/100),3),
-									'largoUniLote_' => 			$_POST["largouniLoteCrearReceta"],
-									'pesoUniLote_' => 			$_POST["pesouniLoteCrearReceta"],
-									'unidadesXpaston_'=>		$_POST["unidadesXpastonCrearReceta"],
-									'merma_' => 				round(($_POST["mermaCrearReceta"]/100),3),
-									'largoUniEsperado_' =>		$_POST["largoUniEsperadoCrearReceta"],
-									'pesoUniEsperado_' =>		round($_POST["pesoUniEsperadoCrearReceta"],3),
-									'unidadesFinalXunidad_' => 	$_POST["uFinalXuCrearReceta"],
-									'descripcion_' => 			$_POST["descripcionCrearReceta"]);
+					$datos= array(	'nombre_' 				=>$_POST["nombreCrearReceta"],
+									'diasProd_' 			=>$_POST["diasprodCrearReceta"],
+									'diasVenc_' 			=>$_POST["diasvencCrearReceta"],
+									'porcentCarne_'			=>round(($_POST["porcentcarneCrearReceta"]/100),3),
+									'pesoTotInsumos_'		=>$_POST["pesoTotInsumosCrearReceta"],
+									'largoUniLote_' 		=>$_POST["largouniLoteCrearReceta"],
+									'pesoUniLote_' 			=>$_POST["pesouniLoteCrearReceta"],
+									'unidadesXpaston_'		=>$_POST["unidadesXpastonCrearReceta"],
+									'merma_' 				=>round(($_POST["mermaCrearReceta"]/100),3),
+									'largoUniEsperado_' 	=>$_POST["largoUniEsperadoCrearReceta"],
+									'pesoUniEsperado_' 		=>round($_POST["pesoUniEsperadoCrearReceta"],3),
+									'unidadesFinalXunidad_'	=>$_POST["uFinalXuCrearReceta"],
+									'descripcion_' 			=>$_POST["descripcionCrearReceta"]);
 
 				#Agrega la Receta y obtiene el ID de la mism
 					$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos);
@@ -404,9 +406,6 @@ class ControladorFormularios{
 			isset($_POST["fechaDesposteAltaDesposte"])) {
 
 			#validar que la Q de Carnes este OK
-
-			if (round($_POST["pesoTotalAltaDesposte"]*(1-($_POST["mermaInicialAltaDesposte"]/100),3)==array_sum($_POST["cantidadAltaDesposte"])) {
-			
 			
 				#COMPLETAR LA BD
 				$datos= array(	'nroRemito_' 		=> $_POST["nroRemitoAltaDesposte"],
@@ -445,9 +444,7 @@ class ControladorFormularios{
 						if ($respuesta != "OK") { return $respuesta2;}
 					}
 				} #exit for
-			}else{
-				$respuesta="La cantidad de carne seleccionada no corresponde con la cantidad ingresada";
-			}
+
 		$respuesta2 = array('validacion_' => $respuesta,
 							'idDesposte_' => $idDesposte_nuevo);
 		return $respuesta2;
@@ -757,7 +754,8 @@ static public function ctrValidarAnulacionCompra(){
 	static public function ctrAgregarOP(){
 
 		
-		if (isset($_POST["idRecetaAltaOP"])&&
+		if (isset($_POST["nroLoteAltaOP"])&& #NEW
+			isset($_POST["idRecetaAltaOP"])&&
 			isset($_POST["pesoPastonAltaOP"])&&
 			isset($_POST["qUniFrescasAltaOP"])&& 
 				#Cantidad de Unidades Frescas= [Peso_Paston * cantidad_unidad_lote(TablaReceta_n)]/100 #REDONDEAR CON CERO DECIMALES
@@ -786,7 +784,8 @@ static public function ctrValidarAnulacionCompra(){
 						if ($PesoCarneTotal==$_POST["pesoPastonAltaOP"]) {
 							# code...
 							#Crear Alta de OP
-							$datosOP = array(	'idReceta_' 	=> $_POST["idRecetaAltaOP"],
+							$datosOP = array(	'nroLote_' 		=> $_POST["nroLoteAltaOP"],
+												'idReceta_' 	=> $_POST["idRecetaAltaOP"],
 												'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"],
 												'qUniFrescas_' 	=> $_POST["qUniFrescasAltaOP"], 
 												'idUsuario_' 	=> $_SESSION['userId'] ); 
