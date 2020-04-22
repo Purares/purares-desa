@@ -517,7 +517,7 @@ $("#defaultCheckNroLote").on( "click", function() {
   
 if ($('#defaultCheckNroLote').prop('checked')==true) {
 
-var numerodeloteviejo=$('#nrolote').val()
+var numerodeloteviejo=parseInt($('#nrolote').val())
 
 var siguientelote=numerodeloteviejo+1
 
@@ -526,7 +526,7 @@ $('#nrolote').val(siguientelote);
 }else{
 
 
-$('#nrolote').val($('#nrolote').val()-1)
+$('#nrolote').val(parseInt($('#nrolote').val())-1)
 
 
 }})
