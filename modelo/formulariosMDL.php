@@ -1006,6 +1006,30 @@ static public function mdlFinOP($datosOP){
 	}
 
 
+#-------------------------Anular DECOMISO -------------------------#
+
+	static public function mdlAnularDecomiso($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call act_AnularDecomiso(:idDecomiso,:idUsuario,:motivoAnulacion);");
+
+		$stmt -> bindparam (":idDecomiso",		$datos['idDecomiso_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",		$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":motivoAnulacion",	$datos['motivoAnulacion_'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
+
+
 #ESTA FUNCION DEBERIA SER REEMPLAZADA POR LA FUNCION DEL OBJETO!!!!!!!!!
 
 #------------------------- Ultimo id de la tabla -------------------------#

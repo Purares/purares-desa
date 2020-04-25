@@ -1201,7 +1201,7 @@ static public function ctrValidarAnulacionCompra(){
 					
 					#Crear registro de Decomiso
 					$datos1 = array('destino_' 			=> $_POST["destinoCrearDecomiso"],
-									'fecha_decomiso_' 	=> $_POST["fechaDecomisoCrearDecomiso"],
+									'fecha_decomiso_' 	=> strval(date("y-m-d",strtotime($_POST["fechaDecomisoCrearDecomiso"]))),
 									'descripcion_' 		=> $_POST["descripcionCrearDecomiso"],
 									'id_usuario_' 		=> $_SESSION['userId']);
 
@@ -1235,6 +1235,46 @@ static public function ctrValidarAnulacionCompra(){
 			$respuesta2 = array('estado_' 		=> $respuesta,
 								'idDecomiso_'	=> $idDecomiso );
 			return $respuesta2; 		
+		}
+	}
+
+
+	#----------- Anular Decomiso -----------#
+
+	static public function ctrAnularDecomiso(){		
+
+		if (isset($_POST["IdDecomisoAnularDecomiso"])&&
+			isset($_POST["MotivoAnularDecomiso"])){
+
+			$datos = array(	'idDecomiso_'		=> $_POST["IdDecomisoAnularDecomiso"],
+							'idUsuario_'		=> $_SESSION['userId'],
+							'motivoAnulacion_'	=> $_POST["MotivoAnularDecomiso"]);
+
+
+			$respuesta=ModeloFormularios::mdlAnularDecomiso($datos);
+			return $respuesta; #Retorna un OK
+		}
+	}
+
+#------------------------- Lista de Decomisos -------------------------#
+
+	static public function ctrListaDecomisos(){
+
+		$respuesta= ModeloFormularios::mdlListaRecetas();
+		
+		return $respuesta;	
+	}
+
+#------------------------- Detalle de Receta -------------------------#
+
+	static public function ctrDetalleDecomisos(){
+
+		if (isset($_GET["idReceta"])){
+
+			$id_receta= $_GET["idReceta"];
+			$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
+		
+			return $respuesta;	
 		}
 	}
 
