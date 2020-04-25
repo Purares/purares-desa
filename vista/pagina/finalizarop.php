@@ -9,7 +9,11 @@
 	<div class="container">
 <br>
 
+<<<<<<< HEAD
   					<h2>Finalizar OP N° <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
+=======
+  					<h2>Finalizar OP N° <?php echo $_GET['idOrdenProdAlta_FinOP'];?> <?php echo $_GET['nombre'];?> Lote N° <?php echo $_GET['lote'];?></h2>
+>>>>>>> c6b71462df41b0c8c2df036504fb67d7f54d0bda
 
             <hr>
     <br> 
@@ -224,7 +228,12 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden Finalizada</h4><p>Usted ha finalizado la orden de produccion correctamente.</p><hr></div>')
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden Finalizada</h4><p>Usted ha finalizado la orden de produccion correctamente.</p><p>La merma obtenida esperada de esta orden era de <a class="mermaesperada"></a>% y se obtubo una merma de <a class="mermaobtenida"></a>%  </p><hr></div>')
+                  modal.find('.mermaesperada').html(<?php echo $_GET['mermaesperada'];?>)
+                  
+                  var pesopaston=parseFloat(<?php echo $_GET['pesopaston'];?>);
+                  var mermaobtenida=(1-($('#productoobtenido').val()/pesopaston)).toFixed(1)
+                  modal.find('.mermaobtenida').html(mermaobtenida)
 
                   var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+idop+"&estado=1"
                   modal.find('#botonaceptarfinalizarorden').unbind('click');

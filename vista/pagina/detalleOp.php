@@ -263,10 +263,25 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         <input class="form-control input-group-text corte" id="fecha_finalizacion_deposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['fecha_finalizacion'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                         </div>
+                        <br>
+                          <div class="row">
+                         <div class="input-group col-6">
+                        <div class="input-group-prepend">     
+                         <span class="input-group-text">Merma esperada:</span>
+                        </div>
+                        <input class="form-control input-group-text" value="<?php echo $detalleReceta[0]['merma_esperada'].'%'?>" readonly>
+                        </div>
+                          <div class="input-group col-6">
+                        <div class="input-group-prepend">     
+                         <span class="input-group-text">Merma obtenida:</span>
+                        </div>
+                        <input class="form-control input-group-text" value="<?php if ($detalleFinOp){$mermaobtenida=(1-($detalleFinOp[0]['producto_obtenido']/$detalleAltaOp[0]['peso_paston']))*100; echo $mermaobtenida.'%';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
+                        </div>
+                        </div>
 <br>
 <?php if ($detalleAltaOp[0]['estado']=="p") {
 
-               echo '<a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'">Finalizar orden...</a>';}else{
+               echo '<a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'&nombre='.$detalleAltaOp[0]['nombre_receta'].'&lote='.$detalleAltaOp[0]['nro_lote'].'&pesopaston='.$detalleAltaOp[0]['peso_paston'].'&mermaesperada='.$detalleReceta[0]['merma_esperada'].'">Finalizar orden...</a>';}else{
 
                 if($detalleAltaOp[0]['estado']=="a"){
 
@@ -419,9 +434,9 @@ function imprimirOp() {
 
       doc.setFontSize(10).text(162,58,cantidad_unidades_frescas);
 
-      doc.setFontSize(10).text(75,175,unidades_obtenidas_embutido);
+      doc.setFontSize(10).text(75,176,unidades_obtenidas_embutido);
 
-      doc.setFontSize(10).text(162,175,peso_total_embutido);
+      doc.setFontSize(10).text(162,176,peso_total_embutido);
 
       doc.setFontSize(10).text(44,237,corte);
 
@@ -431,13 +446,13 @@ function imprimirOp() {
 
       doc.setFontSize(10).text(162,244,largo_esperado);
 
-      doc.setFontSize(10).text(70,257,unidades_obtenidas_deposito);
+      doc.setFontSize(10).text(70,260,unidades_obtenidas_deposito);
 
-      doc.setFontSize(10).text(168,257,fecha_finalizacion_deposito);
+      doc.setFontSize(10).text(168,260,fecha_finalizacion_deposito);
 
-      doc.setFontSize(10).text(55,265,peso_total_deposito);
+      doc.setFontSize(10).text(55,268,peso_total_deposito);
 
-      doc.setFontSize(10).text(162,265,firma);
+      doc.setFontSize(10).text(162,268,firma);
 
 var nombrepdf="Gestión PURARES Orden de producción N° "+nro_orden;
 
