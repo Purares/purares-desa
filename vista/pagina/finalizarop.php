@@ -9,7 +9,7 @@
 	<div class="container">
 <br>
 
-  					<h2>Finalizar Orden de producción N° <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
+  					<h2>Finalizar OP N° <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
 
             <hr>
     <br> 

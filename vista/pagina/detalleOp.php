@@ -25,7 +25,7 @@ $detalleFinOp=$detalleOrden['detalleFinOP_'];
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h2>Orden N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> / Lote N° <a class="nrolotetitulo"><?php echo $detalleAltaOp[0]['nro_lote']; ?></a> / <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';
+  					<h2>OP N°<a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> / Lote N° <a class="nrolotetitulo"><?php echo $detalleAltaOp[0]['nro_lote']; ?></a> / <a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a> <span class="medalla"><?php if ($detalleAltaOp[0]['estado']=="a") {echo '     <span class="badge badge-danger medal">Anulada</span>';}if($detalleAltaOp[0]['estado']=="p"){echo '<span class="badge badge-warning medal">En producción</span>';}if($detalleAltaOp[0]['estado']=="f"){echo '<span class="badge badge-success medal">Finalizada</span>';
             };?>
 					</span>
   				</h2>

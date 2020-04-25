@@ -454,18 +454,19 @@ static public function mdlCrearDesposte($datos){
 	#!!!Tener en cuenta que no envío el nombre de la fila, sino el número de fila.
 	static public function mdlMovimientoCarne($datos){
 
-	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:idCarne, :idCuenta, :idDesposte, :cantidad, :idOrenProd, :idUsuario, :descripcion,:funcion);");
+	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:idCarne, :idCuenta, :idDesposte, :cantidad, :idOrenProd,:idDecomiso, :idUsuario, :descripcion,:funcion);");
 
-#$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(8, 2, 1, 18.41, 1, 1, null,'OrdenProd');")
+
 
 		$stmt -> bindparam (":idCarne",		$datos[0],PDO::PARAM_INT);
 		$stmt -> bindparam (":idCuenta",	$datos[1],PDO::PARAM_INT);
 		$stmt -> bindparam (":idDesposte",	$datos[2],PDO::PARAM_INT);
 		$stmt -> bindparam (":cantidad",	$datos[3],PDO::PARAM_STR);
 		$stmt -> bindparam (":idOrenProd",	$datos[4],PDO::PARAM_INT);
-		$stmt -> bindparam (":idUsuario",	$datos[5],PDO::PARAM_INT);
-		$stmt -> bindparam (":descripcion",	$datos[6],PDO::PARAM_STR);
-		$stmt -> bindparam (":funcion",		$datos[7],PDO::PARAM_STR);
+		$stmt -> bindparam (":idDecomiso",	$datos[5],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos[6],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",	$datos[7],PDO::PARAM_STR);
+		$stmt -> bindparam (":funcion",		$datos[8],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "OK";
@@ -908,9 +909,101 @@ static public function mdlFinOP($datosOP){
 		$stmt =null;
 	}
 
+# -----------DECOMISO DE CARNES--------------
+
+	#---------Lista de Carnes a Decomisar----------
+
+	static public function mdlListaCarnesDecomisar($diasPrevios){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_decomiso_lista_carnes_decomisar WHERE cantidad>0 AND mostrar>0 AND fecha_vencimiento-:diasprevios < CURDATE();");
+
+		$stmt -> bindparam (":diasprevios",	$diasPrevios ,PDO::PARAM_STR);
+
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
+#-------------Crear Decomiso-------------
 
+	static public function mdlCrearDecomiso($datos){
+
+
+		#$stmt=conexion::conectarBD()->prepare("call ins_AgregarDecomiso_reg('destinoPrueba', '2020-01-01','descripcion prueba 1', 1);");
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDecomiso_reg(:destino,:fecha_decomiso, :descripcion, :id_usuario);");
+				
+		$stmt -> bindparam (":destino",			$datos['destino_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":fecha_decomiso",	$datos['fecha_decomiso_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",		$datos['descripcion_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_usuario",		$datos['id_usuario_'],PDO::PARAM_INT);
+
+		if ($stmt -> execute()){
+			#Busca el ultimo ID insertado en la tabla
+				$campo='id_decomiso';
+				$tabla='decomiso_reg';
+				$nuevoCampoArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$nuevoID=$nuevoCampoArray[0][0];
+			return $nuevoID;
+
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Agregar Movimiento Decomiso -------------------------#
+
+	static public function mdlAgregarMovimientoDecomiso($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDecomisoCarne(:idDecomiso, :idDesposte, :idCarne, :cantidad, :idCuenta, :idUsuario);");
+		
+		$stmt -> bindparam (":idDecomiso",	$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idDesposte",	$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":idCarne",		$datos[2],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos[3],PDO::PARAM_STR);  
+		$stmt -> bindparam (":idCuenta",	$datos[4],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos[5],PDO::PARAM_INT);
+		
+		
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
+	#---------ID Ultimo Decomiso----------
+
+	static public function mdlUltimoDecomiso(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT max(id_decomiso) from decomiso_reg;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+	#---------ID Ultimo Decomiso----------
+
+	static public function mdlUltimaOrdenProd(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT max(id_ordenprod) from orden_produccion_alta;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
 #ESTA FUNCION DEBERIA SER REEMPLAZADA POR LA FUNCION DEL OBJETO!!!!!!!!!
@@ -927,10 +1020,6 @@ static public function mdlFinOP($datosOP){
 		$stmt =null;
 	}
 
-
 } #Cierra la clase
-
-
-
 
 ?>

@@ -428,6 +428,7 @@ class ControladorFormularios{
 								'idDesposte_'	=> array_fill(0,$longitud,$idDesposte_nuevo),
 								'cantidad_'		=> $_POST["cantidadAltaDesposte"],
 								'idOrenProd_'	=> array_fill(0,$longitud,null),
+								'idDecomiso_'	=> array_fill(0,$longitud,null),
 								'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
 								'descripcion_'	=> array_fill(0,$longitud,null),
 								'funcion_'		=> array_fill(0,$longitud,'Desposte'));
@@ -467,6 +468,7 @@ class ControladorFormularios{
 							'idDesposte_'	=> [$_POST["idDesposteMovimientoCarne"]],
 							'cantidad_'		=> [$_POST["cantidadMovimientoCarne"]],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
+							'idDecomiso_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
 							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]],
 							'funcion_'	=> array_fill(0,$longitud,"ActualizarCarne"));
@@ -959,6 +961,7 @@ static public function ctrValidarAnulacionCompra(){
 											'idDesposte_'	=> [$stockCarnes_composicion[$i]['id_desposte']],
 											'cantidad_'		=> [$cantidad],
 											'idOrenProd_'	=> [$idOrdenProd],
+											'idDecomiso_'	=> [null],
 											'idUsuario_'	=> [$_SESSION['userId']],
 											'descripcion_'	=> [null],
 											'funcion_'		=> ['OrdenProd']);
@@ -1135,6 +1138,106 @@ static public function ctrValidarAnulacionCompra(){
 
 		}
 	}
+#DECOMISO
+
+#----------- Mostrar lista de Carnes a Decomisar -----------#
+
+	static public function ctrListaCarnesDecomisar(){		
+
+		$diasPrevios=5; #Mostrar todas las carnes que esten a X dias del vencimiento
+		$respuesta=ModeloFormularios::mdlListaCarnesDecomisar($diasPrevios);
+		return $respuesta;
+	}
+
+#----------- Alerta Carnes A Decomisar
+
+	static public function ctrAlertaDecomisos(){		
+
+		$carnesADecomisar=ControladorFormularios::ctrListaCarnesDecomisar();
+		$contarCarnes=count($carnesADecomisar);
+
+		if ($contarCarnes>0) {
+			$alerta='SI';
+
+			$respuesta = array(	'alerta_' 	=> $alerta,
+								'cantidad_'	=> $contarCarnes);
+			return $respuesta;
+		}
+	}
+
+#----------- Ultimo Decomiso -----------#
+
+	static public function ctrIdUltimosIdDecomiso(){		
+
+		$UltimoIdDecomiso=ModeloFormularios::mdlUltimoDecomiso();
+		$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
+		
+		$respuesta = array(	'UltimoIdDecomiso_' => $UltimoIdDecomiso,
+							'UltimoIdOrdenProd_'=> $UltimoIdOrdenProd);
+		return $respuesta;
+	}
+
+
+#------------------------- ANULAR Orden de produccion -------------------------#
+
+	static public function ctrCrearDecomiso(){
+				
+		if (isset($_POST["ultimoIdDecomisCrearDecomiso"])||
+			isset($_POST["ultimoIdOrdenProdCrearDecomiso"])||
+			isset($_POST["destinoCrearDecomiso"])||
+			isset($_POST["fechaDecomisoCrearDecomiso"])||
+			isset($_POST["descripcionCrearDecomiso"])||
+			isset($_POST["arrayIdDesposteCrearDecomiso"])||
+			isset($_POST["arrayIdCarneCrearDecomiso"])||
+			isset($_POST["arrayCantidadCrearDecomiso"])||
+			isset($_POST["arrayIdCuentaCrearDecomiso"])){
+		
+				#Validar que no se haya creado ningún Decomiso
+				$ultimoIdDecomiso=ControladorFormularios::ctrAlertaDecomisos();
+				$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
+				
+				if ($ultimoIdDecomiso==$_POST["ultimoIdDecomisCrearDecomiso"]||
+					$UltimoIdOrdenProd==$_POST["ultimoIdOrdenProdCrearDecomiso"]) {
+					
+					#Crear registro de Decomiso
+					$datos1 = array('destino_' 			=> $_POST["destinoCrearDecomiso"],
+									'fecha_decomiso_' 	=> $_POST["fechaDecomisoCrearDecomiso"],
+									'descripcion_' 		=> $_POST["descripcionCrearDecomiso"],
+									'id_usuario_' 		=> $_SESSION['userId']);
+
+
+					$idDecomiso=ModeloFormularios::mdlCrearDecomiso($datos);					
+
+					#Crear Movimientos de Decomisos
+					$longitud=count($_POST["arrayIdDesposteCrearDecomiso"]);
+
+					$datos2 = array('idDecomiso_' 	=> array_fill(0,$longitud,$idDecomiso),
+									'idDesposte_' 	=> $_POST["arrayIdDesposteCrearDecomiso"],
+									'idCarne_' 		=> $_POST["arrayIdCarneCrearDecomiso"],
+									'cantidad_'		=> $_POST["arrayCantidadCrearDecomiso"],
+									'idCuenta_'		=> $_POST["arrayIdCuentaCrearDecomiso"],
+									'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']));
+
+					for ($i=0; $i <$longitud ; $i++) { 
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
+					#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta;}
+					} #exit for OK
+
+
+				}else{
+					$respuesta="Otro usuario ya ah creado un decomiso";
+					$idDecomiso=$ultimoId;
+				}
+
+			#Respuesta que se enviará 1) OK o mensaje de error 2)Id del decomiso (que se creo por detras/el nuevo creado)
+			$respuesta2 = array('estado_' 		=> $respuesta,
+								'idDecomiso_'	=> $idDecomiso );
+			return $respuesta2; 		
+		}
+	}
+
 
 
 
