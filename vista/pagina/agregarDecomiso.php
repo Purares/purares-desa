@@ -312,11 +312,13 @@ $(this).closest('tr').find('#pendientehidden').val(pendiente)
 })
 
 
-
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmardecomiso").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
-                              
+                            
        $.post("datos.php",$("#formdecomisos").serialize(),function(respuestacoddecomiso){
+
+        alert(respuestacoddecomiso)
+
                 if(respuestacoddecomiso.estado_ == "OK"){
                   $('#ConfirmarDecomiso').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
@@ -340,7 +342,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
 
 
                 }
-            },"json");
+            });
   
     });    
 });
