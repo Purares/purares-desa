@@ -8,7 +8,14 @@
 <h1>pruebas</h1>
 
 <?php 
+$valor=ModeloFormularios::mdlUltimoDecomiso();
+var_dump($valor);
 
+$imprimir=$valor[0][0];
+var_dump($imprimir);
+
+
+/*
 	
 	$array_IdDesposte=[5,6,7,8,9];
 	$array_IdCarne=[1,2,3,4,5];
@@ -44,4 +51,6 @@
 				$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
 			}
 		}
+
+*/
 ?>

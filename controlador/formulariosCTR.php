@@ -1196,8 +1196,8 @@ static public function ctrValidarAnulacionCompra(){
 				$ultimoIdDecomiso=ModeloFormularios::mdlUltimoDecomiso();
 				$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
 				
-				if ($ultimoIdDecomiso==$_POST["ultimoIdDecomisCrearDecomiso"]||
-					$UltimoIdOrdenProd==$_POST["ultimoIdOrdenProdCrearDecomiso"]) {
+				if ($ultimoIdDecomiso[0][0]==$_POST["ultimoIdDecomisCrearDecomiso"]&&
+					$UltimoIdOrdenProd[0][0]==$_POST["ultimoIdOrdenProdCrearDecomiso"]) {
 					
 					#Crear registro de Decomiso
 					$datos1 = array('destino_' 			=> $_POST["destinoCrearDecomiso"],
@@ -1206,7 +1206,7 @@ static public function ctrValidarAnulacionCompra(){
 									'id_usuario_' 		=> $_SESSION['userId']);
 
 
-					$idDecomiso=ModeloFormularios::mdlCrearDecomiso($datos);					
+					$idDecomiso=ModeloFormularios::mdlCrearDecomiso($datos1);					
 
 					#Crear Movimientos de Decomisos
 					$array_IdDesposte=$_POST["arrayIdDesposteCrearDecomiso"];
