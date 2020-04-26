@@ -1237,7 +1237,7 @@ static public function ctrValidarAnulacionCompra(){
 								$datos3[1]=$array_IdDesposte[$i];
 								$datos3[2]=$array_IdCarne[$i];
 								$datos3[3]=$array_Qpostergar[$i];
-								$datos3[4]=16;#Postergar Decomiso
+								$datos3[4]=15;#Postergar Decomiso
 								$datos3[5]=$_SESSION['userId'];	
 								#Cargarlo en la BD
 								$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
@@ -1263,7 +1263,7 @@ static public function ctrValidarAnulacionCompra(){
 
 				}else{
 					$respuesta="Otro usuario ya ah creado un decomiso";
-					$idDecomiso=$ultimoId;
+					$idDecomiso=$ultimoIdDecomiso;
 				}
 
 			#Respuesta que se enviará 1) OK o mensaje de error 2)Id del decomiso (que se creo por detras/el nuevo creado)
