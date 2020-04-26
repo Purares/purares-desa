@@ -1026,7 +1026,39 @@ static public function mdlFinOP($datosOP){
 		$stmt =null; 
 	}
 
+#------------------------- Lista Decomisos -------------------------#
 
+	static public function mdlListaDecomisos(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_decomisos");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Detalle de Decomisos -------------------------#
+
+	static public function mdlDetalleDecomisosReg($idDecomiso){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_decomiso_reg where id_receta=$idDecomiso");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Detalle de Decomisos -------------------------#
+
+	static public function mdlDetalleDecomisosCarnes($idDecomiso){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_decomiso_carnes where id_decomiso=$idDecomiso");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
 
