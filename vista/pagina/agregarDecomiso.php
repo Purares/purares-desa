@@ -335,7 +335,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
 
 
                 } else {
-                    $('#ConfirmarDecomiso').modal('hide')
+                 //   $('#ConfirmarDecomiso').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
