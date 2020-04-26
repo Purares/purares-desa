@@ -115,7 +115,7 @@ foreach($listacarnes as $carne){
             <a>'. $carne['udm'] . '</a>
             </span>
               <div class="form-check form-check-inline p-2">
-                <input class="form-check-input checkpostergar" type="checkbox" id="">
+                <input class="form-check-input checkpostergar" type="checkbox" id="" disabled>
               </div>
           </div>';
 
