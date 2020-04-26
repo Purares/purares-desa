@@ -109,7 +109,7 @@ foreach($listacarnes as $carne){
 
       }else{
 
-        echo '<input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad" disabled>
+        echo '<input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="No se puede postergar" disabled>
           <div class="input-group-append">
             <span class="input-group-text">
             <a>'. $carne['udm'] . '</a>
