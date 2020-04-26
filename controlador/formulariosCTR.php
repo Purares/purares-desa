@@ -1189,8 +1189,8 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["descripcionCrearDecomiso"])||
 			isset($_POST["arrayIdDesposteCrearDecomiso"])||
 			isset($_POST["arrayIdCarneCrearDecomiso"])||
-			isset($_POST["arrayCantidadCrearDecomiso"])||
-			isset($_POST["arrayIdCuentaCrearDecomiso"])){
+			isset($_POST["arrayCantDecomisarCrearDecomiso"])||
+			isset($_POST["arrayCantPostergarCrearDecomiso"])){
 		
 				#Validar que no se haya creado ningún Decomiso
 				$ultimoIdDecomiso=ControladorFormularios::ctrAlertaDecomisos();
@@ -1269,10 +1269,10 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrDetalleDecomisos(){
 
-		if (isset($_GET["idReceta"])){
+		if (isset($_GET["idDecomiso"])){
 
-			$id_receta= $_GET["idReceta"];
-			$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
+			$idDecomiso= $_GET["idDecomiso"];
+			$respuesta= ModeloFormularios::mdlDetalleReceta($idDecomiso);
 		
 			return $respuesta;	
 		}
