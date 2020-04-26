@@ -317,18 +317,21 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                             
        $.post("datos.php",$("#formdecomisos").serialize(),function(respuestacoddecomiso){
 
-        alert(respuestacoddecomiso)
+         var respuestacod=JSON.parse(respuestacoddecomiso) 
 
-                if(respuestacoddecomiso.estado_ == "OK"){
-                  $('#ConfirmarDecomiso').modal('hide')
+        // alert(respuestacod.estado_) 
+
+                if(respuestacod.estado_ == 'OK'){
                     var modal=$('#MensajeConfirmacion').modal('show')
+                //$('#ConfirmarDecomiso').modal('hide')
                   modal.find('.modal-body').empty()
-                  modal.find('.modal-body').html(
-                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Decomiso agregado</h4><p>Usted ha agregado el nuevo decomiso correctamente. El id del decomiso es <a id="id_decomiso"></a></p><hr></div>')
-                  modal.find("#id_decomiso").text(respuestacoddecomiso.idDecomiso_)
-                 var link="index.php?pagina=detalleDecomiso&idDecomiso="+respuestacoddecomiso.idDecomiso_+"&estado=0"
-                  modal.find('#botonaceptarnuevodecomiso').unbind('click');
-                  modal.find('#botonaceptarnuevodecomiso').attr("href", link)
+                 modal.find('.modal-body').html(
+                  '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Decomiso agregado</h4><p>Usted ha agregado el nuevo decomiso correctamente. El id del decomiso es <a id="id_decomiso"></a></p><hr></div>')
+                modal.find("#id_decomiso").text(respuestacod.idDecomiso_)
+                  //  alert(respuestacod.idDecomiso_)
+                 var link="index.php?pagina=detalleDecomiso&idDecomiso="+respuestacod.idDecomiso_+"&estado=0"
+                 modal.find('#botonaceptarnuevodecomiso').unbind('click');
+                 modal.find('#botonaceptarnuevodecomiso').attr("href", link)
 
 
                 } else {
@@ -338,7 +341,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                   modal.find('.modal-body').html(
                     '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el decomiso.  <a id="errordecomiso"></a></p><hr></div>')
                   modal.find('#erroragregarreceta').empty()
-                  modal.find('#erroragregarreceta').html(respuestacoddecomiso.estado_)
+                  modal.find('#erroragregarreceta').html(respuestacod.estado_)
 
 
                 }

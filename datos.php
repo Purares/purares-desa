@@ -334,9 +334,10 @@ echo $respuesta;
 			isset($_POST["arrayCantPostergarCrearDecomiso"])){
 		
 
-$respuestacoddecomiso=ControladorFormularios::ctrCrearDecomiso();
+$respuestacoddecomiso1=ControladorFormularios::ctrCrearDecomiso();
 
-return $respuestacoddecomiso;
+  $respuestacoddecomiso=json_encode($respuestacoddecomiso1);
+echo $respuestacoddecomiso;
 		}
 
 ?>
