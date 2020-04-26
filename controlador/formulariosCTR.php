@@ -1193,7 +1193,7 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["arrayCantPostergarCrearDecomiso"])){
 		
 				#Validar que no se haya creado ningún Decomiso
-				$ultimoIdDecomiso=ControladorFormularios::ctrAlertaDecomisos();
+				$ultimoIdDecomiso=ModeloFormularios::mdlUltimoDecomiso();
 				$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
 				
 				if ($ultimoIdDecomiso==$_POST["ultimoIdDecomisCrearDecomiso"]||
