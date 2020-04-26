@@ -323,5 +323,23 @@ echo $respuesta;
 
 }
 
+	if (isset($_POST["ultimoIdDecomisCrearDecomiso"])||
+			isset($_POST["ultimoIdOrdenProdCrearDecomiso"])||
+			isset($_POST["destinoCrearDecomiso"])||
+			isset($_POST["fechaDecomisoCrearDecomiso"])||
+			isset($_POST["descripcionCrearDecomiso"])||
+			isset($_POST["arrayIdDesposteCrearDecomiso"])||
+			isset($_POST["arrayIdCarneCrearDecomiso"])||
+			isset($_POST["arrayCantDecomisarCrearDecomiso"])||
+			isset($_POST["arrayCantPostergarCrearDecomiso"])){
+		
+
+$nuevoodecomiso=ControladorFormularios::ctrCrearDecomiso();
+
+
+    $respuestacod1=json_encode($nuevoodecomiso);
+    echo $respuestacod1;
+
+		}
 
 ?>
