@@ -915,7 +915,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlListaCarnesDecomisar($diasPrevios){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_decomiso_lista_carnes_decomisar WHERE cantidad>0 AND mostrar>0 AND fecha_vencimiento-:diasprevios < CURDATE();");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_carnes_decomisar_fecha2venc WHERE cantidad>0 AND mostrar>0 AND fecha_vencimiento-:diasprevios < CURDATE();");
 
 		$stmt -> bindparam (":diasprevios",	$diasPrevios ,PDO::PARAM_STR);
 

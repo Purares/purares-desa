@@ -1263,7 +1263,7 @@ static public function ctrValidarAnulacionCompra(){
 
 				}else{
 					$respuesta="Otro usuario ya ah creado un decomiso";
-					$idDecomiso=$ultimoIdDecomiso;
+					$idDecomiso=$ultimoIdDecomiso[0][0];
 				}
 
 			#Respuesta que se enviará 1) OK o mensaje de error 2)Id del decomiso (que se creo por detras/el nuevo creado)
