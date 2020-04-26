@@ -86,6 +86,15 @@
       <a class="dropdown-item" href="index.php?pagina=verDespostes">Ver despostes</a>
     </div>
 
+
+ 	 <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Decomisos</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="index.php?pagina=agregarDecomiso">Agregar Decomiso</a>
+      <a class="dropdown-item" href="index.php?pagina=verDecomisos">Ver decomisos</a>
+    </div>
+		</li>
+
 		</li>
 		<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Carnes</a>
@@ -162,6 +171,8 @@
 					$_GET["pagina"]=="verMasCarnes"||
 					$_GET["pagina"]=="verDespostes"||
 					$_GET["pagina"]=="detalleDesposte"||
+					$_GET["pagina"]=="agregarDecomiso"||
+					$_GET["pagina"]=="verDecomisos"||
 					$_GET["pagina"]=="finalizarop"||
 					$_GET["pagina"]=="detalleOp"||
 					$_GET["pagina"]=="verOrdenes"||
