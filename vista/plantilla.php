@@ -50,7 +50,12 @@
   
   		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<?php
 
+$alertadecomisos=ControladorFormularios::ctrAlertaDecomisos();
+
+
+?>
 
 <!--FINISH TO DO -->
   
@@ -88,7 +93,8 @@
 
 
  	 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Decomisos</a>
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Decomisos <?php if(
+$alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-danger">'.$alertadecomisos['cantidad_'].'</span>';};?></a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarDecomiso">Agregar Decomiso</a>
       <a class="dropdown-item" href="index.php?pagina=verDecomisos">Ver decomisos</a>

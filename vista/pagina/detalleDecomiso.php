@@ -18,12 +18,20 @@ $carnes=$decomiso['carnes_'];
 
 
 <div class="container">
-  <br>
-            <h2>Decomiso n° <?php echo $registro[0]['id_decomiso']?></h2>
-            <hr>
-                          <br>
-
-   
+	<br>
+	<div class="d-flex">
+  					<div class="mr-auto">
+  					<h2>Decomiso n° <a id="nrodecomiso"><?php echo $registro[0]['id_decomiso']?></a></h2>
+  					</div>
+  					<div>
+  		<div class="boton">
+  						<?php if ($registro[0]['anulado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" id="botonAnularDecomiso">Anular decomiso</button>';}?>
+  						</div>
+  					</div>	
+  					<br>
+              </div>
+      <hr>
+  <br>  
                      <div class="row ">
      <div class="input-group col-6"> 
              <div class="input-group-prepend">
@@ -70,6 +78,72 @@ foreach($carnes as $carne){
 
         </div>
 
+
+      <div class="modal fade" id="AnularDecomiso" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Anulacion</h5>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer anular">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+	
+$("#botonAnularDecomiso").on( "click", function() {
+
+                         $('#AnularDecomiso').modal('show')
+                          var modal = $('#AnularDecomiso')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación del decomiso:</label><div class="input-group"><input type="text" class="form-control text-right" name="MotivoAnularDecomiso" id="descripcionanulaciondecomiso" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del decomiso.</div></div><br><button type="button" id="botonanulardecomisoventana" class="btn btn-danger" onclick=enviamotivoanulardecomiso()>Anular decomiso</button></form>')
+    
+})
+
+
+function enviamotivoanulardecomiso(){
+
+     $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{IdDecomisoAnularDecomiso:$('#nrodecomiso').text(), MotivoAnularDecomiso:$('#descripcionanulaciondecomiso').val()},
+                success:function(respuesta){
+
+                //alert(respuesta)
+
+                  if(respuesta=="OK"){
+
+                  $('#AnularDecomiso').modal('show')
+                  var modal = $('#AnularDecomiso')
+                  modal.find('.modal-body').html("El decomiso se anuló correctamente")
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+                  $("#cerraranular").on( "click", function() {
+
+var url2=$(location).attr('href')
+
+ $(location).attr('href',url2)
+})
+
+                        
+}else{
+
+ $('#AnularDecomiso').modal('show')
+                  var modal = $('#AnularDecomiso')
+                  modal.find('.modal-body').html("Ha ocurrido un error al intentar anular el decomiso")
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+}
+                }})
+
+}
+
+
+</script>
 
 </body>
 </html>

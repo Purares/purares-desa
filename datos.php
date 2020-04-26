@@ -340,4 +340,47 @@ $respuestacoddecomiso1=ControladorFormularios::ctrCrearDecomiso();
 echo $respuestacoddecomiso;
 		}
 
+if (isset($_POST["IdDecomisoAnularDecomiso"])&&
+			isset($_POST["MotivoAnularDecomiso"])){
+
+
+$respuestaanulardecomiso=ControladorFormularios::ctrAnularDecomiso();
+
+echo $respuestaanulardecomiso;
+}
+
+if(isset($_POST["chequeadoDecomiso"])){
+
+  $decomisos=ControladorFormularios::ctrListaDecomisos();
+
+    if($_POST["chequeadoDecomiso"]==0){
+        
+    foreach($decomisos as $decomiso){
+
+        if ($decomiso["anulado"]==0) {
+    
+ echo '<tr><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col" class="text-center">' . $decomiso["id_decomiso"] . '</td><td scope="col">' . $decomiso["destino"] . '</td><td scope="col">' . $decomiso["fecha_decomiso"] . '</td><td scope="col">' . $decomiso["nombre"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDecomiso&idDecomiso=' . $decomiso["id_decomiso"] .'">Inspeccionar</a></td></tr>';
+
+
+}          else{
+    
+ echo '<tr><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulado</span></td><td scope="col" class="text-center">' . $decomiso["id_decomiso"] . '</td><td scope="col">' . $decomiso["destino"] . '</td><td scope="col">' . $decomiso["fecha_decomiso"] . '</td><td scope="col">' . $decomiso["nombre"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDecomiso&idDecomiso=' . $decomiso["id_decomiso"] .'">Inspeccionar</a></td></tr>';
+
+        }
+    }
+    }else{
+       
+    foreach($decomisos as $decomiso){
+
+
+     if ($decomiso["anulado"]==0) {
+    
+    echo '<tr><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col" class="text-center">' . $decomiso["id_decomiso"] . '</td><td scope="col">' . $decomiso["destino"] . '</td><td scope="col">' . $decomiso["fecha_decomiso"] . '</td><td scope="col">' . $decomiso["nombre"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDecomiso&idDecomiso=' . $decomiso["id_decomiso"] .'">Inspeccionar</a></td></tr>';
+
+}
+}
+}
+}
+
+
 ?>

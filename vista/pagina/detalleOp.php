@@ -607,7 +607,7 @@ function enviamotivoanularop(){
                 data:{idOrdenProd_AnularOP:$('.idorden').text(), motivo_AnularOP:$('#descripcionanulacionop').val()},
                 success:function(respuesta){
 
-                alert(respuesta)
+               //alert(respuesta)
 
                   if(respuesta=="OK"){
 
@@ -657,7 +657,7 @@ function enviamotivoanularfinop(){
                 data:{idOrdenProd_AnularOP:$('.idorden').text(), motivo_AnularFinOP:$('#descripcionanulacionfinop').val()},
                 success:function(respuesta){
 
-                alert(respuesta)
+               // alert(respuesta)
 
                   if(respuesta=="OK"){
 

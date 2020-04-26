@@ -62,7 +62,7 @@ foreach($decomisos as $decomiso){
 
 if ($decomiso["anulado"]==0) {
   
-  echo '<tr><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col" class="text-center">' . $decomiso["id_decomiso"] . '</td><td scope="col">' . $decomiso["destino"] . '</td><td scope="col">' . $decomiso["fecha_decomiso"] . '</td><td scope="col">' . $decomiso["nombre"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDecomiso&idDecomiso=' . $decomiso["id_decomiso"] . '&estado=' .  $decomiso["anulado"] . '">Inspeccionar</a></td></tr>';
+  echo '<tr><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col" class="text-center">' . $decomiso["id_decomiso"] . '</td><td scope="col">' . $decomiso["destino"] . '</td><td scope="col">' . $decomiso["fecha_decomiso"] . '</td><td scope="col">' . $decomiso["nombre"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDecomiso&idDecomiso=' . $decomiso["id_decomiso"] .'">Inspeccionar</a></td></tr>';
 
 }
 
@@ -79,15 +79,15 @@ if ($decomiso["anulado"]==0) {
 
 $( "input" ).on( "click", function() {
   
-if ($('#defaultCheckDesposte').prop('checked')==true) {
+if ($('#defaultCheckDecomisos').prop('checked')==true) {
 
    $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:'chequeadoDesposte='+ 0,
+                data:'chequeadoDecomiso='+ 0,
                 success:function(html){
-                $('#tabladespostes').children().detach();
-                    $('#tabladespostes').html(html); 
+                $('#tabladecomisos').children().detach();
+                    $('#tabladecomisos').html(html); 
                 }})}
             
 else{
@@ -95,10 +95,10 @@ else{
   $.ajax({
                type:'POST',
               url:'datos.php',
-               data:'chequeadoDesposte='+ 1,
+               data:'chequeadoDecomiso='+ 1,
                success:function(html){
-                  $('#tabladespostes').children().detach();
-                   $('#tabladespostes').html(html); 
+                  $('#tabladecomisos').children().detach();
+                   $('#tabladecomisos').html(html); 
             }
         });
 
