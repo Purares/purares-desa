@@ -11,6 +11,13 @@
 	$ultimosid=ControladorFormularios::ctrIdUltimosIdDecomiso();
   $listacarnes=ControladorFormularios::ctrListaCarnesDecomisar();
 
+  $ultimoiddecomiso=$ultimosid['UltimoIdDecomiso_'];
+
+  $ultimoidorden=$ultimosid['UltimoIdOrdenProd_'];
+
+
+
+
 	?>
 
 
@@ -20,22 +27,24 @@
                           <br>
       <form method="post" class="needs-validation" id="formdecomisos">
 
-   
+   <input type="hidden" name="ultimoIdDecomisCrearDecomiso" value="<?php echo $ultimoiddecomiso[0][0]?>">
+    <input type="hidden"name="ultimoIdOrdenProdCrearDecomiso" value="<?php echo $ultimoidorden[0][0] ?>">
+
                      <div class="row ">
      <div class="input-group col-6"> 
              <div class="input-group-prepend">
                     <span class="input-group-text">Destino:</span>
                   </div>
-                    <input type="text" class="form-control" id="destinodecomiso" name="" placeholder="Ingrese el destino" required>
+                    <input type="text" class="form-control" id="destinodecomiso" name="destinoCrearDecomiso" placeholder="Ingrese el destino" required>
                              <div class="invalid-feedback">
                                     Ingrese un destino
                                     </div>
               </div>
      <div class="input-group col-6"> 
              <div class="input-group-prepend">
-                    <span class="input-group-text">Fecha:</span>
+                    <span class="input-group-text">Fecha de decomiso:</span>
                   </div>
-                    <input type="date" class="form-control" id="fechadecomiso" name="" required>
+                    <input type="date" class="form-control" id="fechadecomiso" name="fechaDecomisoCrearDecomiso" required>
                              <div class="invalid-feedback">
                                     Ingrese una fecha
                                     </div>
@@ -60,7 +69,7 @@
 
 foreach($listacarnes as $carne){
 
-  echo '<tr><td scope="col" class="nomcarne">' . $carne["carne"] . '<input type="hidden" value="'. $carne["id_carne"].'"></td><td scope="col" class="text-center id_desposte">' . $carne["id_desposte"] . '</td><td scope="col" class="text-right cantidad">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td><td scope="col" class="text-center">'. $carne["fecha_vencimiento"].'</td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="" class="form-control text-right adecomisar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkdecomisar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="" class="form-control text-right apostergar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkpostergar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" value="'.$carne['cantidad'].'" name="" class="form-control text-right pendiente" readonly><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span></div><input type="number" style="display:none;" id="pendientehidden" min=0 step=0.001 max='.$carne['cantidad'].'" value="'.$carne['cantidad'].'" required><div class="invalid-feedback">Se excedió el total</div></div></td></tr>';
+  echo '<tr><td scope="col" class="nomcarne">' . $carne["carne"] . '<input type="hidden" name="arrayIdCarneCrearDecomiso[]" value="'. $carne["id_carne"].'"></td><td scope="col" class="text-center id_desposte">' . $carne["id_desposte"] . '<input type="hidden" name="arrayIdDesposteCrearDecomiso[]" value="'.$carne["id_desposte"].'"></td><td scope="col" class="text-right cantidad">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td><td scope="col" class="text-center">'. $carne["fecha_vencimiento"].'</td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantDecomisarCrearDecomiso[]" class="form-control text-right adecomisar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkdecomisar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkpostergar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" value="'.$carne['cantidad'].'" name="" class="form-control text-right pendiente" readonly><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span></div><input type="number" style="display:none;" id="pendientehidden" min=0 step=0.001 max='.$carne['cantidad'].'" value="'.$carne['cantidad'].'" required><div class="invalid-feedback">Se excedió el total</div></div></td></tr>';
 
 };
 
@@ -69,7 +78,7 @@ foreach($listacarnes as $carne){
           </table>
                  <h5>Descripción</h5>
               <hr>
-              <textarea class="form-control" style="min-width: 100%" name="" id="descripciondecomiso" placeholder="..."></textarea>
+              <textarea class="form-control" style="min-width: 100%" name="descripcionCrearDecomiso" id="descripciondecomiso" placeholder="..."></textarea>
   <br>
 
    <button type="button" class="btn btn-success" id="AgregarDecomiso" data-toggle="modal" data-target="#ConfirmarDecomiso">Agregar decomiso</button>
@@ -106,6 +115,21 @@ foreach($listacarnes as $carne){
         </div>
       </div>
     </div>
+
+      <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-info" id="botonaceptarnuevodecomiso" onclick="location.reload();">Aceptar</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     
@@ -286,6 +310,41 @@ $(this).closest('tr').find('.pendiente').val(pendiente)
 $(this).closest('tr').find('#pendientehidden').val(pendiente)
 
 })
+
+
+
+$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+    $("#botonconfirmardecomiso").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formdecomisos").serialize(),function(respuestacoddecomiso){
+                if(respuestacoddecomiso.estado_ == "OK"){
+                  $('#ConfirmarDecomiso').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Decomiso agregado</h4><p>Usted ha agregado el nuevo decomiso correctamente. El id del decomiso es <a id="id_decomiso"></a></p><hr></div>')
+                  modal.find("#id_decomiso").text(respuestacoddecomiso.idDecomiso_)
+                 var link="index.php?pagina=detalleDecomiso&idDecomiso="+respuestacoddecomiso.idDecomiso_+"&estado=0"
+                  modal.find('#botonaceptarnuevodecomiso').unbind('click');
+                  modal.find('#botonaceptarnuevodecomiso').attr("href", link)
+
+
+                } else {
+                    $('#ConfirmarDecomiso').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el decomiso.  <a id="errordecomiso"></a></p><hr></div>')
+                  modal.find('#erroragregarreceta').empty()
+                  modal.find('#erroragregarreceta').html(respuestacod.estado_)
+
+
+                }
+            },"json");
+  
+    });    
+});
+
 
 </script>
 

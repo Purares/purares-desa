@@ -178,6 +178,7 @@
 					$_GET["pagina"]=="verOrdenes"||
 					$_GET["pagina"]=="verCompras"||
 					$_GET["pagina"]=="detalleCompra"||
+					$_GET["pagina"]=="detalleDecomiso"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);

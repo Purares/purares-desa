@@ -24,7 +24,7 @@
 </div>
 <div class="p-2">
 <div class="container">
-   <input type="text" id="buscarId" onkeyup="buscardesposteporId()" placeholder="Buscar por ID">
+   <input type="text" id="buscarId" onkeyup="buscardesposteporId()" placeholder="Buscar por N°">
 </div>
 </div>
 
