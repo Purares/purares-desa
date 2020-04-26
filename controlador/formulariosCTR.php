@@ -1260,7 +1260,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrListaDecomisos(){
 
-		$respuesta= ModeloFormularios::mdlListaRecetas();
+		$respuesta= ModeloFormularios::mdlListaDecomisos();
 		
 		return $respuesta;	
 	}
@@ -1272,8 +1272,11 @@ static public function ctrValidarAnulacionCompra(){
 		if (isset($_GET["idDecomiso"])){
 
 			$idDecomiso= $_GET["idDecomiso"];
-			$respuesta= ModeloFormularios::mdlDetalleReceta($idDecomiso);
+			$registro= ModeloFormularios::mdlDetalleDecomisosReg($idDecomiso);
+			$carnes= ModeloFormularios::mdlDetalleDecomisosCarnes($idDecomiso);
 		
+			$respuesta = array(	'registros_' => $registro,
+								'carnes_' => $carnes);
 			return $respuesta;	
 		}
 	}
