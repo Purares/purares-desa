@@ -17,7 +17,6 @@
 
 
 
-
 	?>
 
 
@@ -69,7 +68,75 @@
 
 foreach($listacarnes as $carne){
 
-  echo '<tr><td scope="col" class="nomcarne">' . $carne["carne"] . '<input type="hidden" name="arrayIdCarneCrearDecomiso[]" value="'. $carne["id_carne"].'"></td><td scope="col" class="text-center id_desposte">' . $carne["id_desposte"] . '<input type="hidden" name="arrayIdDesposteCrearDecomiso[]" value="'.$carne["id_desposte"].'"></td><td scope="col" class="text-right cantidad">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td><td scope="col" class="text-center">'. $carne["fecha_vencimiento"].'</td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantDecomisarCrearDecomiso[]" class="form-control text-right adecomisar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkdecomisar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span><div class="form-check form-check-inline p-2"><input class="form-check-input checkpostergar" type="checkbox" id=""></div></div></div></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" value="'.$carne['cantidad'].'" name="" class="form-control text-right pendiente" readonly><div class="input-group-append"><span class="input-group-text"><a>'. $carne['udm'] . '</a></span></div><input type="number" style="display:none;" id="pendientehidden" min=0 step=0.001 max='.$carne['cantidad'].'" value="'.$carne['cantidad'].'" required><div class="invalid-feedback">Se excedió el total</div></div></td></tr>';
+  echo '<tr>
+  <td scope="col" class="nomcarne">' . $carne["carne"] . 
+  '<input type="hidden" name="arrayIdCarneCrearDecomiso[]" value="'. $carne["id_carne"].'">
+  </td>
+  <td scope="col" class="text-center id_desposte">' . $carne["id_desposte"] . 
+  '<input type="hidden" name="arrayIdDesposteCrearDecomiso[]" value="'.$carne["id_desposte"].'">
+  </td>
+  <td scope="col" class="text-right cantidad">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td>
+  <td scope="col" class="text-center">'. $carne["fecha_vencimiento"].'</td>
+  <td scope="col">
+  <div class="input-group">
+    <input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantDecomisarCrearDecomiso[]" class="form-control text-right adecomisar" placeholder="Cantidad">
+      <div class="input-group-append">
+        <span class="input-group-text"> 
+          <a>'. $carne['udm'] . '</a>
+            </span><div class="form-check form-check-inline p-2">
+            <input class="form-check-input checkdecomisar" type="checkbox" id="">
+      </div>
+    </div>
+    </td>
+    <td scope="col">
+      <div class="input-group">';
+
+      $fechahoy=Date('Y-m-d');
+      $fecha=strtotime($carne['fecha_segundo_vencimiento']);
+
+      if($fecha<=$fechahoy){
+
+        echo '<input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad">
+          <div class="input-group-append">
+            <span class="input-group-text">
+            <a>'. $carne['udm'] . '</a>
+            </span>
+              <div class="form-check form-check-inline p-2">
+                <input class="form-check-input checkpostergar" type="checkbox" id="">
+              </div>
+          </div>';
+
+
+      }else{
+
+        echo '<input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad" disabled>
+          <div class="input-group-append">
+            <span class="input-group-text">
+            <a>'. $carne['udm'] . '</a>
+            </span>
+              <div class="form-check form-check-inline p-2">
+                <input class="form-check-input checkpostergar" type="checkbox" id="">
+              </div>
+          </div>';
+
+      };
+
+       
+      echo '</div>
+    </td>
+    <td scope="col">
+      <div class="input-group">
+        <input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" value="'.$carne['cantidad'].'" name="" class="form-control text-right pendiente" readonly>
+          <div class="input-group-append">
+            <span class="input-group-text">
+            <a>'. $carne['udm'] . '</a>
+            </span>
+          </div>
+          <input type="number" style="display:none;" id="pendientehidden" min=0 step=0.001 max='.$carne['cantidad'].'" value="'.$carne['cantidad'].'" required>
+          <div class="invalid-feedback">Se excedió el total</div>
+      </div>
+    </td>
+    </tr>';
 
 };
 
