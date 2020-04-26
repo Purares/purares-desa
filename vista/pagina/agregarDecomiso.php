@@ -342,6 +342,11 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                     '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el decomiso.  <a id="errordecomiso"></a></p><hr></div>')
                   modal.find('#errordecomiso').empty()
                   modal.find('#errordecomiso').html(respuestacod.estado_)
+                  modal.find('.modal-footer').apeend('<a type="button" class="btn btn-success" id="botoniraverlo">Ir a verlo</a>')
+                         var link="index.php?pagina=detalleDecomiso&idDecomiso="+respuestacod.idDecomiso_+"&estado=0"
+                 modal.find('#botoniraverlo').unbind('click');
+                 modal.find('#botoniraverlo').attr("href", link)
+
 
 
                 }
