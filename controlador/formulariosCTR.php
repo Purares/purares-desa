@@ -1209,8 +1209,43 @@ static public function ctrValidarAnulacionCompra(){
 					$idDecomiso=ModeloFormularios::mdlCrearDecomiso($datos);					
 
 					#Crear Movimientos de Decomisos
-					$longitud=count($_POST["arrayIdDesposteCrearDecomiso"]);
+					$array_IdDesposte=$_POST["arrayIdDesposteCrearDecomiso"];
+					$array_IdCarne=$_POST["arrayIdCarneCrearDecomiso"];
+					$array_Qdecomisar=$_POST["arrayCantDecomisarCrearDecomiso"];
+					$array_Qpostergar=$_POST["arrayCantPostergarCrearDecomiso"];
 
+					$longitud=count($array_IdDesposte);
+
+						for ($i=0; $i <$longitud ; $i++) { 
+							
+							#Si tiene Carne a Decomisar
+							if ($array_Qdecomisar[$i]>0) {		
+							#CrearArray
+								$datos3[0]=$idDecomiso;
+								$datos3[1]=$array_IdDesposte[$i];
+								$datos3[2]=$array_IdCarne[$i];
+								$datos3[3]=$array_Qdecomisar[$i];
+								$datos3[4]=13;#Cuenta Decomiso
+								$datos3[5]=$_SESSION['userId'];
+								#Cargarlo en la BD
+								$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
+							} 
+							#Si tiene Carne para postergar Decomiso
+							if ($array_Qpostergar[$i]>0) {
+								#CrearArray
+								$datos3[0]=$idDecomiso;
+								$datos3[1]=$array_IdDesposte[$i];
+								$datos3[2]=$array_IdCarne[$i];
+								$datos3[3]=$array_Qpostergar[$i];
+								$datos3[4]=16;#Postergar Decomiso
+								$datos3[5]=$_SESSION['userId'];	
+								#Cargarlo en la BD
+								$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
+							}
+						}#Exit FOR
+/*
+
+					$longitud=count($_POST["arrayIdDesposteCrearDecomiso"]);
 					$datos2 = array('idDecomiso_' 	=> array_fill(0,$longitud,$idDecomiso),
 									'idDesposte_' 	=> $_POST["arrayIdDesposteCrearDecomiso"],
 									'idCarne_' 		=> $_POST["arrayIdCarneCrearDecomiso"],
@@ -1224,7 +1259,7 @@ static public function ctrValidarAnulacionCompra(){
 					#Si no dio error sigue el loop
 						if ($respuesta != "OK") { return $respuesta;}
 					} #exit for OK
-
+*/
 
 				}else{
 					$respuesta="Otro usuario ya ah creado un decomiso";

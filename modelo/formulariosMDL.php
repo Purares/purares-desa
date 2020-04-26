@@ -1042,7 +1042,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlDetalleDecomisosReg($idDecomiso){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_decomiso_reg where id_receta=$idDecomiso");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_decomiso_reg where id_decomiso=$idDecomiso");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
