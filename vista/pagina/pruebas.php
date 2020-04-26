@@ -15,8 +15,13 @@
 	$array_Qdecomisar=[10.2,0,0,3,11.7];
 	$array_Qpostergar=[1,21.2,43,3,2];
 
-foreach ($array_IdDesposte as $idDesposte => $value) {
+$longitud=count($array_IdDesposte)
 	
-}
+	for ($i=0; $i <$longitud ; $i++) { 
+		
+		if ($array_Qdecomisar>0) {
+			
+		}
 
+	}
 ?>
