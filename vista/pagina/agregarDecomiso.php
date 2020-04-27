@@ -91,10 +91,7 @@ foreach($listacarnes as $carne){
     <td scope="col">
       <div class="input-group">';
 
-      $fechahoy=Date('Y-m-d');
-      $fecha=strtotime($carne['fecha_segundo_vencimiento']);
-
-      if($fecha<=$fechahoy){
+      if($carne['ver']!="2"){
 
         echo '<input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantPostergarCrearDecomiso[]" class="form-control text-right apostergar" placeholder="Cantidad">
           <div class="input-group-append">
