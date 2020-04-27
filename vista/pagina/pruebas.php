@@ -8,13 +8,23 @@
 <h1>pruebas</h1>
 
 <?php 
-$valor=ModeloFormularios::mdlUltimoDecomiso();
-var_dump($valor);
+		$diasPrevios=5; #Mostrar todas las carnes que esten a X dias del vencimiento
+		$respuesta=ModeloFormularios::mdlListaCarnesDecomisar($diasPrevios);
 
-$imprimir=$valor[0][0];
-var_dump($imprimir);
+		#$imrpimir=date("y-m-d",strtotime($respuesta[0][7]));
+		
+		$fechaDatos=$respuesta[0][7];
+		$fechaAltaDatos=date_create_from_format('Y-m-d',$fechaDatos);
+		$fechaAltaDatosC=date_format($fechaAltaDatos,"Y/m/d");
 
+		var_dump($fechaAltaDatos);
+		var_dump($fechaAltaDatosC);
+		
 
+		#var_dump($respuesta[0][7]);
+		#var_dump($imprimir);
+		#var_dump($respuesta);
+		
 /*
 	
 	$array_IdDesposte=[5,6,7,8,9];

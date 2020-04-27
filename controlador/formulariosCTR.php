@@ -1144,8 +1144,8 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrListaCarnesDecomisar(){		
 
-		$diasPrevios=5; #Mostrar todas las carnes que esten a X dias del vencimiento
-		$respuesta=ModeloFormularios::mdlListaCarnesDecomisar($diasPrevios);
+		#Mostrar todas las carnes que esten a X dias del vencimiento
+		$respuesta=ModeloFormularios::mdlListaCarnesDecomisar();
 		return $respuesta;
 	}
 

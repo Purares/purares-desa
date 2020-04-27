@@ -913,11 +913,9 @@ static public function mdlFinOP($datosOP){
 
 	#---------Lista de Carnes a Decomisar----------
 
-	static public function mdlListaCarnesDecomisar($diasPrevios){
+	static public function mdlListaCarnesDecomisar(){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_carnes_decomisar_fecha2venc WHERE cantidad>0 AND mostrar>0 AND fecha_vencimiento-:diasprevios < CURDATE();");
-
-		$stmt -> bindparam (":diasprevios",	$diasPrevios ,PDO::PARAM_STR);
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_decomiso_7_final;");
 
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
@@ -1053,7 +1051,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlDetalleDecomisosCarnes($idDecomiso){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_decomiso_carnes where id_decomiso=$idDecomiso");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_decomiso_carnes where id_decomiso=$idDecomiso");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
