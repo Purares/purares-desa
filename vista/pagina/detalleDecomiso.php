@@ -21,7 +21,8 @@ $carnes=$decomiso['carnes_'];
 	<br>
 	<div class="d-flex">
   					<div class="mr-auto">
-  					<h2>Decomiso n° <a id="nrodecomiso"><?php echo $registro[0]['id_decomiso']?></a></h2>
+  					<h2>Decomiso n° <a id="nrodecomiso"><?php echo $registro[0]['id_decomiso']?></a>		<?php if ($registro[0]['anulado']==1) {echo '<span class="badge badge-danger">Anulado</span>';}?></h2>
+
   					</div>
   					<div>
   		<div class="boton">
@@ -48,7 +49,29 @@ $carnes=$decomiso['carnes_'];
               </div>
            </div>
            <br>
+    <?php if ($registro[0]['anulado']==1) {echo '
 
+           <div class="row ">
+     <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Anuló:</span>
+                  </div>
+                    <input type="text" class="form-control" value="'.$registro[0]['usuario_baja'].'" readonly>
+                            
+              </div>
+     <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Fecha de anulacion:</span>
+                  </div>
+                    <input type="text" class="form-control" value="'.$registro[0]['fecha_registro_baja'].'" readonly>
+              </div>
+           </div>
+           <br>
+               Motivo de anulacion:
+              <hr>
+              <textarea class="form-control" style="min-width: 100%" name="" value="'.$registro[0]['motivo_anulacion'].'" readonly></textarea>
+<br>'
+;}?>
           <table class="table table-hover" id="tabladecomisos">
                 <thead class="thead-light">
                     <tr>
