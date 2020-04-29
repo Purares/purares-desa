@@ -1219,7 +1219,8 @@ static public function ctrValidarAnulacionCompra(){
 						for ($i=0; $i <$longitud ; $i++) { 
 							
 							#Si tiene Carne a Decomisar
-							if ($array_Qdecomisar[$i]>0) {		
+							if (isset($array_Qdecomisar[$i])&&
+								$array_Qdecomisar[$i]>0) {		
 							#CrearArray
 								$datos3[0]=$idDecomiso;
 								$datos3[1]=$array_IdDesposte[$i];
@@ -1231,7 +1232,8 @@ static public function ctrValidarAnulacionCompra(){
 								$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
 							} 
 							#Si tiene Carne para postergar Decomiso
-							if ($array_Qpostergar[$i]>0) {
+							if (isset($array_Qpostergar[$i])&&
+								$array_Qpostergar[$i]>0) {
 								#CrearArray
 								$datos3[0]=$idDecomiso;
 								$datos3[1]=$array_IdDesposte[$i];
@@ -1243,24 +1245,6 @@ static public function ctrValidarAnulacionCompra(){
 								$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
 							}
 						}#Exit FOR
-/*
-
-					$longitud=count($_POST["arrayIdDesposteCrearDecomiso"]);
-					$datos2 = array('idDecomiso_' 	=> array_fill(0,$longitud,$idDecomiso),
-									'idDesposte_' 	=> $_POST["arrayIdDesposteCrearDecomiso"],
-									'idCarne_' 		=> $_POST["arrayIdCarneCrearDecomiso"],
-									'cantidad_'		=> $_POST["arrayCantidadCrearDecomiso"],
-									'idCuenta_'		=> $_POST["arrayIdCuentaCrearDecomiso"],
-									'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']));
-
-					for ($i=0; $i <$longitud ; $i++) { 
-						$datos3= array_column($datos2,$i);
-						$respuesta=ModeloFormularios::mdlAgregarMovimientoDecomiso($datos3);
-					#Si no dio error sigue el loop
-						if ($respuesta != "OK") { return $respuesta;}
-					} #exit for OK
-*/
-
 				}else{
 					$respuesta="Otro usuario ya ah creado un decomiso";
 					$idDecomiso=$ultimoIdDecomiso[0][0];
