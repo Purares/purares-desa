@@ -34,14 +34,21 @@ $carnes=$decomiso['carnes_'];
       <hr>
   <br>  
                      <div class="row ">
-     <div class="input-group col-6"> 
+      <div class="input-group col-4"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Decomisó:</span>
+                  </div>
+                    <input type="text" class="form-control" value="<?php echo $registro[0]['usuario_alta']?>" readonly>
+                            
+              </div>
+     <div class="input-group col-4"> 
              <div class="input-group-prepend">
                     <span class="input-group-text">Destino:</span>
                   </div>
                     <input type="text" class="form-control" value="<?php echo $registro[0]['destino']?>" readonly>
                             
               </div>
-     <div class="input-group col-6"> 
+     <div class="input-group col-4"> 
              <div class="input-group-prepend">
                     <span class="input-group-text">Fecha de decomiso:</span>
                   </div>
@@ -69,7 +76,7 @@ $carnes=$decomiso['carnes_'];
            <br>
                Motivo de anulacion:
               <hr>
-              <textarea class="form-control" style="min-width: 100%" name="" value="'.$registro[0]['motivo_anulacion'].'" readonly></textarea>
+              <textarea class="form-control" style="min-width: 100%" readonly>'.$registro[0]['motivo_anulacion'].'</textarea>
 <br>'
 ;}?>
           <table class="table table-hover" id="tabladecomisos">
@@ -95,7 +102,7 @@ foreach($carnes as $carne){
           </table>
                  <h5>Descripción</h5>
               <hr>
-              <textarea class="form-control" style="min-width: 100%" name="" value="<?php echo $registro[0]['descripcion']?>" readonly></textarea>
+              <textarea class="form-control" style="min-width: 100%" readonly> <?php echo $registro[0]['descripcion']?></textarea>
   <br>
 
 
