@@ -12,6 +12,17 @@ $depositos=ControladorFormularios::ctrListaDepositos();
 
 $recetas=ControladorFormularios::ctrListaRecetas();
 
+
+if (isset($_GET['idReceta'])){ 
+
+
+$detalleReceta=ControladorFormularios::ctrDetalleReceta();
+
+$receta=$detalleReceta[0];
+
+$detalleinsumos=ControladorFormularios::ctrInsumosReceta();
+
+}
 ?>
 
 <div class="container">
@@ -26,7 +37,7 @@ $recetas=ControladorFormularios::ctrListaRecetas();
              <div class="input-group-prepend">
                     <span class="input-group-text">Nombre de la nueva receta:</span>
                   </div>
-                    <input type="text" class="form-control" id="NombreReceta" name="nombreCrearReceta" placeholder="Ingrese el nombre de la nueva receta" required>
+                    <input type="text" class="form-control" id="NombreReceta" name="nombreCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['nombre'].' COPIA';}?>" placeholder="Ingrese el nombre de la nueva receta" required>
                              <div class="invalid-feedback">
                                     Ingrese un nombre para la nueva receta
                                     </div>
@@ -48,6 +59,19 @@ $recetas=ControladorFormularios::ctrListaRecetas();
                     </tr> 
                   </thead>
                 <tbody id="TablaReceta">
+
+<?php
+
+if (isset($_GET['idReceta'])){ 
+
+foreach ($detalleinsumos as $insumo) {
+
+echo '<tr><td scope="col"></td><td scope="col"><a class="idinsumoselec">'.$insumo['id_insumo'].'</a></td><td scope="col"><select class="custom-select nomingre" name="idinsumoCrearReceta[]" required><option value='.$insumo['id_insumo'].'>'.$insumo['insumo'].'</option></select></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.001 name="cantidadinsumoCrearReceta[]"" class="form-control text-right cantingre" value="'.$insumo['cantidad'].'" required><div class="input-group-append"><span class="input-group-text"><a class="unitingre">'.$insumo['udm'].'</a></span></div></div></td><td scope="col"><button type="button" class="btn btn-danger btn-sm borrar">Borrar</button></td></tr>';
+
+}};
+?>
+
+
                             <tr id="seleccioninsumos">
                         <td scope="col">
                           <select class="custom-select depo" name="depositoInsumoReceta" required>
@@ -94,7 +118,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Peso total de insumos:</span>
                   </div>
-                    <input type="number" min=0 step=0.001 class="form-control text-right" id="pesototalinsumos" name="pesoTotInsumosCrearReceta" placeholder="kilos" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="pesototalinsumos" name="pesoTotInsumosCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_total_insumos_kg'];}?>" placeholder="kilos" required>
                   <div class="input-group-append">
                   <span class="input-group-text">kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de insumos en kilos que utilizará un paston de 100 kilos.">
   ?
@@ -115,7 +139,7 @@ foreach($depositos as $deposito){
              <div class="input-group-prepend">
                     <span class="input-group-text">Porcentaje de carne:</span>
                   </div>
-                    <input type="number" min=0 step=0.1 max=100 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" placeholder="Ingrese el porcentaje de carne" required>
+                    <input type="number" min=0 step=0.1 max=100 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['porcent_carne'];}?>" placeholder="Ingrese el porcentaje de carne" required>
                   <div class="input-group-append">
                   <span class="input-group-text">%</span>
               </div>
@@ -127,7 +151,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Merma esperada:</span>
                   </div>
-                    <input type="number" min=0 step=0.1 max=99.9 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" placeholder="Porcentaje esperado" required>
+                    <input type="number" min=0 step=0.1 max=99.9 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['merma_esperada'];}?>"  placeholder="Porcentaje esperado" required>
                   <div class="input-group-append">
                   <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
   ?
@@ -144,7 +168,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Días de producción:</span>
                   </div>
-                    <input type="number" min=0 class="form-control text-right" id="DiasProduccion" name="diasprodCrearReceta" placeholder="días" required>
+                    <input type="number" min=0 class="form-control text-right" id="DiasProduccion" name="diasprodCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['dias_produccion'];}?>" placeholder="días" required>
                   <div class="input-group-append">
                   <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
   ?
@@ -159,7 +183,7 @@ foreach($depositos as $deposito){
                             <div class="input-group-prepend">
                     <span class="input-group-text">Vencimiento:</span>
                   </div>
-                    <input type="number" min=0 class="form-control text-right" id="DiasVencimiento" name="diasvencCrearReceta" placeholder="días" required>
+                    <input type="number" min=0 class="form-control text-right" id="DiasVencimiento" name="diasvencCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['dias_vencimiento'];}?>" placeholder="días" required>
                   <div class="input-group-append">
                   <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
   ?
@@ -180,7 +204,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Largo por unidad:</span>
                   </div>
-                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['largo_unidad_lote'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo de la unidad fresca, antes de que ingrese al secadero.">
   ?
@@ -194,7 +218,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Peso por unidad:</span>
                   </div>
-                    <input type="number" min=0 step=0.001 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta"  value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_unidad_lote'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso de la unidad fresca, antes de que ingrese al secadero.">
   ?
@@ -211,7 +235,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Cantidad de unidades:</span>
                   </div>
-                    <input type="number" min=0 step=1 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" placeholder="Ingrese la cantidad" required>
+                    <input type="number" min=0 step=1 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['cantidad_unidades_lote'];}?>" placeholder="Ingrese la cantidad" required>
                   <div class="input-group-append">
                   <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
   ?
@@ -232,7 +256,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Largo por unidad esperado:</span>
                   </div>
-                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" placeholder="Ingrese la medida" required>
+                    <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['largo_unidad_esperado'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
                   <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo del producto final que será envasado.">
   ?
@@ -247,7 +271,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Peso por unidad esperado:</span>
                   </div>
-                    <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidadesperado" placeholder="" disabled>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidadesperado" placeholder="" value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_unidad_esperado'];}?>" disabled>
                     <input type="hidden" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado1" value="">
                   <div class="input-group-append">
                   <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="El valor de este campo se calcula automáticamente.">
@@ -263,7 +287,7 @@ foreach($depositos as $deposito){
                     <div class="input-group-prepend">
                     <span class="input-group-text">Unidades finales por unidad producida:</span>
                   </div>
-                    <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" placeholder="Cantidad" required>
+                    <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['unidades_final_xunidad'];}?>"  placeholder="Cantidad" required>
                   <div class="input-group-append">
                   <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
   ?
@@ -278,7 +302,7 @@ foreach($depositos as $deposito){
                 <br>
               <h5>Descripción</h5>
               <hr>
-              <textarea class="form-control" style="min-width: 100%" name="descripcionCrearReceta" id="descripcionreceta" placeholder="..."></textarea>
+              <textarea class="form-control" style="min-width: 100%" name="descripcionCrearReceta" id="descripcionreceta"><?php if (isset($_GET['idReceta'])){ echo $receta['descripcion'];}?></textarea>
   
                 <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarReceta" data-toggle="modal" data-target="#ConfirmarNuevaReceta">Agregar receta</button>

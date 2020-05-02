@@ -27,7 +27,9 @@ foreach ($detalleReceta as $receta) {
   					</div>
   					<div>
   						<div class="boton">
-  						<?php if ($_GET['estado']==1) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>';}else{echo '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>';}?>
+  						<?php if ($_GET['estado']==1) {echo '<a type="button" class="btn btn-warning btn-lg" id="botonDuplicar" href="index.php?pagina=agregarReceta&idReceta='.$_GET['idReceta'].'">Duplicar</a>
+              <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>';}else{echo '<a type="button" class="btn btn-warning btn-lg" id="botonDuplicar" href="index.php?pagina=agregarReceta&idReceta='.$_GET['idReceta'].'">Duplicar</a>
+              <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>';}?>
   						</div>
   					</div>	
   					<br>
