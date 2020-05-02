@@ -34,6 +34,18 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+	#------------------------- Lista Productos -------------------------#
+
+	static public function mdlListaProductos(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT id_producto, nombre FROM producto_n;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 #------------------------- Lista CUENTAS -------------------------#
 
 
@@ -194,7 +206,6 @@ class ModeloFormularios{
 
 #------------------------- Insumos de RECETA -------------------------#
 
-
 	static public function mdlInsumosReceta($id_receta){
 
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_insumosreceta where id_receta = $id_receta;");
@@ -204,6 +215,16 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+#------------------------- Productos de RECETA -------------------------#
+
+	static public function mdlproductosReceta($id_receta){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_productosreceta where id_receta = $id_receta;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
 #------------------------- Inactivar RECETA -------------------------#
@@ -298,6 +319,26 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+
+#------------------------- Crear RECETA Agrega los Productos -------------------------#
+
+	static public function mdlAltaProductosReceta($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarPoductoXReceta(:idProducto,:idReceta,:unidadesNecesarias);");
+
+		$stmt -> bindparam (":idProducto",		$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idReceta",		$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":unidadesNecesarias",$datos[2],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 #------------------------- Lista CARNES -------------------------#
 
@@ -1057,6 +1098,95 @@ static public function mdlFinOP($datosOP){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+
+	#------------------------- AGREGAR CARNE -------------------------#
+
+	static public function mdlAgregarProducto($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarProducto(:codigo, :nombre, :descripcion);");
+		
+		$stmt -> bindparam (":codigo",		$datos['codigo_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":nombre",		$datos['nombre_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",	$datos['alertaQmin'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+#------------------------- Crear RECETA Agrega los Productos -------------------------#
+
+	static public function mdlAltaProductoInsumos($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosProducto(:idProducto,:idInsumo,:cantidad);");
+
+		$stmt -> bindparam (":idProducto",	$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idInsumo",	$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos[2],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Detalle Producto -------------------------#
+
+	static public function mdlDetallePorductos($idProducto){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM productos_n where id_producto=$idProducto;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- insumos Producto -------------------------#
+
+	static public function mdlInsumosPorductos($idProducto){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_producto_insumos where id_producto=$idProducto;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+#------------------------- STOCK PRODUCTOS -------------------------#
+
+	static public function mdlStockProductos(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockproductos");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

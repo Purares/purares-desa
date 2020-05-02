@@ -8,18 +8,23 @@ include_once 'controlador/user_session.php';
 class ControladorFormularios{
 
 #------------------------- Lista desplegable DEPOSITOS -------------------------#
-
 	static public function ctrListaDepositos(){
 		$respuesta= ModeloFormularios::mdlListaDeposito();
 		return $respuesta;
 	}	
 
 #------------------------- Lista desplegable UDM -------------------------#
-
 	static public function ctrListaUDM(){
 		$respuesta= ModeloFormularios::mdlListaUDM();
 		return $respuesta;
 	}	
+
+#------------------------- Lista desplegable UDM -------------------------#
+
+	static public function ctrListaProductos(){
+		$respuesta= ModeloFormularios::mdlListaProductos();
+		return $respuesta;
+	}
 
 
 #------------------------- Lista desplegable CUENTA -------------------------#
@@ -32,6 +37,7 @@ class ControladorFormularios{
 			return $respuesta;
 		}
 	}	
+
 
 #------------------------- Lista desplegable PROVEEDORES -------------------------#
 
@@ -165,7 +171,6 @@ class ControladorFormularios{
 		
 			return $respuesta;	
 		}
-
 	}
 
 
@@ -179,10 +184,22 @@ class ControladorFormularios{
 			$respuesta= ModeloFormularios::mdlInsumosReceta($id_receta);
 	
 			return $respuesta;	
-		}
-
-	
+		}	
 	}
+
+#------------------------- Productos de Receta -------------------------#
+
+	static public function ctrProductosReceta(){
+
+		if (isset($_GET["idReceta"])){
+
+			$id_receta=$_GET["idReceta"];
+			$respuesta= ModeloFormularios::v_productosreceta($id_receta);
+	
+			return $respuesta;	
+		}	
+	}
+
 
 #------------------------- Desactivar Receta -------------------------#
 
@@ -216,7 +233,7 @@ class ControladorFormularios{
 			isset($_POST["diasprodCrearReceta"])||
 			isset($_POST["diasvencCrearReceta"])||
 			isset($_POST["porcentcarneCrearReceta"])||
-			isset($_POST["pesoTotInsumosCrearReceta"])|| #NEW
+			isset($_POST["pesoTotInsumosCrearReceta"])||
 			isset($_POST["largouniLoteCrearReceta"])||
 			isset($_POST["pesouniLoteCrearReceta"])||
 			isset($_POST["unidadesXpastonCrearReceta"])||
@@ -224,7 +241,9 @@ class ControladorFormularios{
 			isset($_POST["largoUniEsperadoCrearReceta"])||
 			isset($_POST["pesoUniEsperadoCrearReceta"])||
 			isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidadDe Lote		
-			isset($_POST["descripcionCrearReceta"])){
+			isset($_POST["descripcionCrearReceta"])||
+			isset($_POST["idProductoCrearReceta"])||###NEW
+			isset($_POST["unidadesNecesariasCrearReceta"])){ ###NEW
 
 			#COMPLETAR EN LA BD:
 					$datos= array(	'nombre_' 				=>$_POST["nombreCrearReceta"],
@@ -260,13 +279,28 @@ class ControladorFormularios{
 						if ($respuesta != "OK") { return $respuesta;}
 					} #exit for OK
 
+				#Crea el Array de PRODUCTO por receta
+					$longitud2=count( $_POST["idProductoCrearReceta"]);	
+					$datos4= array(	'idProducto_'		=> $_POST["idProductoCrearReceta"],
+									'idReceta_'			=>array_fill(0,$longitud2,$idReceta_nueva),
+									'unidadesNecesarias_'=> $_POST["unidadesNecesariasCrearReceta"]);
+
+				#Recorre el Array de PRODUCTO agregandolos en la BD
+					for ($i=0; $i <$longitud2 ; $i++) { 
+					
+						$datos5= array_column($datos4,$i);
+						$respuesta=ModeloFormularios::mdlAltaProductosReceta($datos5);
+						
+					#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta;}
+					} #exit for OK
+
 			$respuesta2 = array('validacion_' => $respuesta,
 								'idReceta_' => $idReceta_nueva);
-
 			return $respuesta2;
 		}
-
 	}
+
 
 	#------------------------- Lista de carnes -------------------------#
 
@@ -1284,7 +1318,7 @@ static public function ctrValidarAnulacionCompra(){
 		return $respuesta;	
 	}
 
-#------------------------- Detalle de Receta -------------------------#
+#------------------------- Detalle de Decomiso -------------------------#
 
 	static public function ctrDetalleDecomisos(){
 
@@ -1300,8 +1334,74 @@ static public function ctrValidarAnulacionCompra(){
 		}
 	}
 
+#------------------------- Stock de Productos -------------------------#
+
+	static public function ctrStockProductos(){
+
+		$respuesta= ModeloFormularios::mdlStockProductos();
+		return $respuesta;
+		
+	}
 
 
+#------------------------- Agregar Producto -------------------------#
+
+	static public function ctrAgregarProducto(){
+				
+		if (isset($_POST["codigoAgregarProducto"])||
+			isset($_POST["nombreAgregarProducto"])||
+			isset($_POST["descripcionAgregarProducto"])||
+			isset($_POST["insumosAgregarProducto"])||
+			isset($_POST["cantidadAgregarProducto"])){
+
+
+				$datos= array(	'codigo_' => $_POST["codigoAgregarProducto"],
+								'nombre_' => $_POST["nombreAgregarProducto"],
+								'descripcion_' => $_POST["descripcionAgregarProducto"]);
+
+
+			$idPruductoNuevo=ModeloFormularios::mdlAgregarProducto($datos);
+
+
+			#Crea el Array de INSUMO por Producto
+					$longitud=count( $_POST["insumosAgregarProducto"]);	
+					$datos2= array(	'idProducto_'	=>array_fill(0,$longitud,$idPruductoNuevo),
+									'idInsumo_'		=>$_POST["insumosAgregarProducto"],
+									'cantidad_'		=>$_POST["cantidadAgregarProducto"]);
+
+				#Recorre el Array de INSUMOS agregandolos en la BD
+					for ($i=0; $i <$longitud ; $i++) { 
+					
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlAltaProductoInsumos($datos3);
+						
+					#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta;}
+					} #exit for OK
+
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idProducto_' => $idPruductoNuevo);
+
+			return $respuesta2;
+		}
+
+	}
+
+#------------------------- Detalle de productos -------------------------#
+
+	static public function ctrDetalleProducto(){
+
+		if (isset($_GET["idProductoDetalle"])){
+
+			$detalleProducto=ModeloFormularios::mdlDetallePorductos($_GET["idProductoDetalle"]);
+			$insumosProducto=ModeloFormularios::mdlInsumosPorductos($_GET["idProductoDetalle"]);
+
+			$respuesta = array(	'detalleProducto' 		=> $detalleProducto,
+								'insumosProducto' 		=> $insumosProducto);
+	
+			return $respuesta;	
+		}	
+	}
 
 }	#cierra la clase
 
