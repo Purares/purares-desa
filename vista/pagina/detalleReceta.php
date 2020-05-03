@@ -449,8 +449,10 @@ foreach($productos as $producto){
 
                            
        $.post("datos.php",$("#modificarproductosreceta").serialize(),function(respuestacod){
+
+alert(respuestacod)
                
-if(respuestacod=="OK"){
+if(respuestacod=='"OK"'){
 
 	   var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
