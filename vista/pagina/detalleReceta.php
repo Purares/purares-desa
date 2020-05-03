@@ -254,7 +254,7 @@ foreach($productosxreceta as $productoreceta){
 
               echo '             <tr>
                         <td scope="col">
-                          <a class="idproductoselec"></a>
+                          <a class="idproductoselec">' . $productoreceta["id_producto"] . '</a>
                         </td>
                         <td scope="col">
                           <select class="custom-select nomprodu" name="idProductoCrearReceta[]" required>
@@ -359,7 +359,7 @@ function agregarproducto() {
           .append
           (
             
-              $("<select class='custom-select nomprodu' name='' required><option value='0'>Seleccione el producto</option></select>")
+              $("<select class='custom-select nomprodu' name='idProductoCrearReceta[]' required><option value='0'>Seleccione el producto</option></select>")
 
               	<?php
 
@@ -392,6 +392,13 @@ foreach($productos as $producto){
     }
    }
    );
+
+      $(function () {
+                 $(document).on('click', '.borrar', function (event) {
+                       event.preventDefault();
+                        $(this).closest('tr').remove();
+    });
+});
 
        $('#TablaProductos').on('change', '.nomprodu',function(){
         var produID = $(this).val();
