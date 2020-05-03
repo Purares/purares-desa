@@ -398,13 +398,13 @@ class ControladorFormularios{
 	static public function ctrAgregarCarne(){
 		
 				
-		if (isset($_POST["nombreCarne"])||
+		if (isset($_POST["nombreAgregarCarne"])||
 			isset($_POST["idUdmCarne"]))
 		{
-				$datos= array(	'nombreCarne' => $_POST["nombreCarne"],
-								'idUDM' => $_POST["idUdmCarne"],
-								'alertaQmin' => $_POST["alertaQminCarne"],
-								'vencimientoDias' => $_POST["vencimientoDiasCarne"]);
+				$datos= array(	'nombre_' 		=> $_POST["nombreAgregarCarne"],
+								'udm_' 			=> $_POST["udmAgregarCarne"],
+								'vencimiento1_' => $_POST["vencimiento1"],
+								'vencimiento2_' => $_POST["vencimiento2"]);
 
 
 			$respuesta=ModeloFormularios::mdlAgregarCarne($datos);

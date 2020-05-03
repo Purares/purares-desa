@@ -398,12 +398,12 @@ class ModeloFormularios{
 
 	static public function mdlAgregarCarne($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarCarne(:nombreCarne, :idUDM, :alertaQmin);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarCarne(:nombre, :udm, :vencimiento1,:vencimiento2);");
 		
-		$stmt -> bindparam (":nombreCarne",$datos['nombreCarne'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idUDM",$datos['idUDM'],PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmin",$datos['alertaQmin'],PDO::PARAM_INT);
-		$stmt -> bindparam (":vencimientoDias",$datos['vencimientoDias'],PDO::PARAM_INT);
+		$stmt -> bindparam (":nombre",		$datos['nombre_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":udm",			$datos['udm_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":vencimiento1",$datos['vencimiento1_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":vencimiento2",$datos['vencimiento2_'],PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){
