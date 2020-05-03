@@ -320,6 +320,28 @@ class ModeloFormularios{
 	}
 
 
+#------------------------- Eliminar productos de receta -------------------------#
+
+	static public function mdlEliminarProductosReceta($idReceta){
+
+		$stmt=conexion::conectarBD()->prepare("Delete from productos_receta where id_receta=$idReceta;;");
+
+		$stmt -> bindparam (":idProducto",		$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idReceta",		$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":unidadesNecesarias",$datos[2],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
 #------------------------- Crear RECETA Agrega los Productos -------------------------#
 
 	static public function mdlAltaProductosReceta($datos){

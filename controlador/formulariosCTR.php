@@ -56,6 +56,22 @@ class ControladorFormularios{
 		}
 	}
 
+
+#------------------------- Agregar Proveedor -------------------------#
+
+	static public function ctrAgregarProveedor(){
+				
+		if (isset($_POST["nombreAgregarProveedor"])&&
+			isset($_POST["tipoAgregarProveedor"])){
+
+				$datos= array(	'nombreInsumo_' => $_POST["nombreAgregarProveedor"],
+								'idDeposito_' => $_POST["tipoAgregarProveedor"]);
+
+			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
+			return $respuesta;
+		}
+	}
+
 #------------------------- Lista desplegable INSUMOS -------------------------#
 
 	static public function ctrListaInsumos(){
@@ -316,6 +332,8 @@ class ControladorFormularios{
 					$datos4= array(	'idProducto_'		=> $_POST["idProductoCrearReceta"],
 									'idReceta_'			=>array_fill(0,$longitud2,$_POST["idReceta"]),
 									'unidadesNecesarias_'=> $_POST["unidadesNecesariasCrearReceta"]);
+
+					$respuesta=ModeloFormularios::mdlEliminarProductosReceta($_POST["idReceta"]);
 
 				#Recorre el Array de PRODUCTO agregandolos en la BD
 					for ($i=0; $i <$longitud2 ; $i++) { 
