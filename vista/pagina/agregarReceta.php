@@ -23,6 +23,8 @@ $receta=$detalleReceta[0];
 
 $detalleinsumos=ControladorFormularios::ctrInsumosReceta();
 
+$productosxreceta=ControladorFormularios::ctrProductosReceta();
+
 }
 ?>
 
@@ -312,6 +314,39 @@ foreach($depositos as $deposito){
                     </tr> 
                   </thead>
                 <tbody id="TablaProductos">
+<?php
+
+if (isset($_GET['idReceta'])){ 
+
+foreach($productosxreceta as $productoreceta){
+                           
+
+              echo '             <tr>
+                        <td scope="col">
+                          <a class="idproductoselec">' . $productoreceta["id_producto"] . '</a>
+                        </td>
+                        <td scope="col">
+                          <select class="custom-select nomprodu" name="idProductoCrearReceta[]" required>
+
+  <option selected value="' . $productoreceta["id_producto"] . '">' . $productoreceta["nombre"] . '</option>
+ </select></td>
+                         <td scope="col">
+                          <div class="input-group">
+
+ <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" value="'.$productoreceta["unidades_necesarias"].'" placeholder="Cantidad unidades necesarias" required>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a class="unitprodu">Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+
+                           <td scope="col">
+                                    <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
+                                     </td>
+                    </tr>'; 
+       }};?>
                             <tr>
                         <td scope="col">
                           <a class="idproductoselec"></a>
