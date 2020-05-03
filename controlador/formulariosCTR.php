@@ -307,8 +307,8 @@ class ControladorFormularios{
 
 	static public function ctrAgregarProductosReceta(){
 	
-		if (isset($_POST["idProductoCrearReceta"])||
-			isset($_GET["idReceta"])||
+		if (isset($_POST["idProductoCrearReceta"])&&
+			isset($_POST["idReceta"])&&
 			isset($_POST["unidadesNecesariasCrearReceta"])){
 
 				#Crea el Array de PRODUCTO por receta
@@ -868,7 +868,9 @@ static public function ctrValidarAnulacionCompra(){
 				#$detalleReceta= ModeloFormularios::ctrDetalleReceta();
 				#$qUniLote=$detalleReceta[0]['cantidad_unidades_lote'];
 			isset($_POST["idCarnesAgregarOP"])&&
-			isset($_POST["catidadCarnesAgregarOP"])){
+			isset($_POST["catidadCarnesAgregarOP"])&&
+			isset($_POST["idProductosAgregarOP"])&&
+			isset($_POST["CantidadProdAgregarOP"])){
 
 
 			$carnesOP = array(	'idCarnes' =>$_POST["idCarnesAgregarOP"] ,
@@ -913,7 +915,23 @@ static public function ctrValidarAnulacionCompra(){
 							#5)Movimiento de Carne
 								$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
 								if ($respuesta != "OK") { return $respuesta;}
+							#6)Producto esperados
 
+								#Crea el Array de INSUMO por Producto
+									$longitud=count( $_POST["idProductosAgregarOP"]);	
+									$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
+													'idProducto_'	=>$_POST["idProductosAgregarOP"],
+													'cantidad_'		=>$_POST["CantidadProdAgregarOP"]);
+
+								#Recorre el Array de INSUMOS agregandolos en la BD
+									for ($i=0; $i <$longitud ; $i++) { 
+									
+										$datos3= array_column($datos2,$i);
+										$respuesta=ModeloFormularios::mdlAltaProductoInsumos($datos3);
+										
+									#Si no dio error sigue el loop
+										if ($respuesta != "OK") { return $respuesta;}
+									} #exit for OK
 					}else{
 						$respuesta=$validacion_Carnes;
 					}

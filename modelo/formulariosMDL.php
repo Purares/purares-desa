@@ -785,6 +785,31 @@ static public function mdlAltaOP($datosOP){
 		$stmt =null; 
 	}
 
+
+#------------------------- Agregar PRODUCTOS por OP-------------------------#
+	static public function mdlAgregarProductoOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarProductoXOP(:idOrdenAlta, :idOrdenFin, :idProducto, :cantidad);");
+
+		$stmt -> bindparam (":idOrdenAlta",	$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenFin",	$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":idProducto",	$datos[3],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos[4],PDO::PARAM_STR);
+		
+
+		if ($stmt -> execute()){
+			return $stmt -> fetchAll();
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
+
 #-------------------------Lista de Oredenes de Produccion------------------------#
 
 	static public function mdlListaOP(){
