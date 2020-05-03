@@ -346,26 +346,26 @@ $(document).ready(function(){
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmarproducto").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formcrearproducto").serialize(),function(respuestacod){
-        alert(respuestacod)
+       $.post("datos.php",$("#formcrearproducto").serialize(),function(respuestacod1){
+//        alert(respuestacod)
 
-        var res=JSON.parse(respuestacod)
+        var respuestacod=JSON.parse(respuestacod1)
 
 
                 if(respuestacod.validacion_ == "OK"){
-                //	$('#ConfirmarNuevoProducto').modal('hide')
+                $('#ConfirmarNuevoProducto').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
                  	modal.find('.modal-body').html(
                  		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Producto agregado</h4><p>Usted ha agregado el nuevo producto correctamente. El id del producto es <a id="id_nuevoproducto"></a></p><hr></div>')
-                  modal.find("#id_nuevoproducto").text(respuestacod.idReceta_)
+                  modal.find("#id_nuevoproducto").text(respuestacod.idProducto_)
                  var link="index.php?pagina=detalleProducto&idProducto="+respuestacod.idProducto_+"&estado=1"
                   modal.find('#botonaceptarnuevoproducto').unbind('click');
                   modal.find('#botonaceptarnuevoproducto').attr("href", link)
 
 
                 } else {
-                //    $('#ConfirmarNuevoProducto').modal('hide')
+                  $('#ConfirmarNuevoProducto').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
                  	modal.find('.modal-body').html(
