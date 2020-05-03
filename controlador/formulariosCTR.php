@@ -314,8 +314,18 @@ class ControladorFormularios{
 				#Crea el Array de PRODUCTO por receta
 					$longitud2=count( $_POST["idProductoCrearReceta"]);	
 					$datos4= array(	'idProducto_'		=> $_POST["idProductoCrearReceta"],
-									'idReceta_'			=>array_fill(0,$longitud2,$_GET["idReceta"]),
+									'idReceta_'			=>array_fill(0,$longitud2,$_POST["idReceta"]),
 									'unidadesNecesarias_'=> $_POST["unidadesNecesariasCrearReceta"]);
+
+				#Recorre el Array de PRODUCTO agregandolos en la BD
+					for ($i=0; $i <$longitud2 ; $i++) { 
+					
+						$datos5= array_column($datos4,$i);
+						$respuesta=ModeloFormularios::mdlAltaProductosReceta($datos5);
+						
+					#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta;}
+					} #exit for OK
 
 			return $respuesta;
 		}
@@ -920,6 +930,7 @@ static public function ctrValidarAnulacionCompra(){
 								#Crea el Array de INSUMO por Producto
 									$longitud=count( $_POST["idProductosAgregarOP"]);	
 									$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
+													'idOrdenBaja_'	=>array_fill(0,$longitud,null),
 													'idProducto_'	=>$_POST["idProductosAgregarOP"],
 													'cantidad_'		=>$_POST["CantidadProdAgregarOP"]);
 
@@ -927,7 +938,7 @@ static public function ctrValidarAnulacionCompra(){
 									for ($i=0; $i <$longitud ; $i++) { 
 									
 										$datos3= array_column($datos2,$i);
-										$respuesta=ModeloFormularios::mdlAltaProductoInsumos($datos3);
+										$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
 										
 									#Si no dio error sigue el loop
 										if ($respuesta != "OK") { return $respuesta;}
@@ -1103,17 +1114,17 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["MedicionesFechaMedicion_FinOP"])){
 			#$_POST["descripcion_FinOP"]
 
-			#valida que la OP Alta no esté anulada
+		#1)valida que la OP Alta no esté anulada
 			$detalleAltaOP=ModeloFormularios::mdlDetalleOpAlta($_POST["idOrdenProdAlta_FinOP"]);
 			$opAnulada=$detalleAltaOP[0]['anulado'];
 			if ($opAnulada==0) {
 				
-				#valida que ya nose encuentre una finalización de OP que no esté anulada
+			#2)valida que ya nose encuentre una finalización de OP que no esté anulada
 				$detalleFinOP=ModeloFormularios::mdlDetalleOpFin($_POST["idOrdenProdAlta_FinOP"]);
 				$longitud=count($detalleFinOP);
 				if ($longitud==0) {
 
-					#Insertar los campos en la finalización de OP
+				#3)Insertar los campos en la finalización de OP
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
 									'pesoFresco_'		=> $_POST["pesoFresco_FinOP"],
@@ -1124,7 +1135,7 @@ static public function ctrValidarAnulacionCompra(){
 
 						$id_ordenprod_fin=ModeloFormularios::mdlFinOP($datosOP);
 
-					#insertar Datos de Mediciones
+				#4)insertar Datos de Mediciones
 					$longitud=count($_POST["MedicionesPeso_FinOP"]);
 						
 						#Formatear Array de Fechas
@@ -1149,6 +1160,27 @@ static public function ctrValidarAnulacionCompra(){
 						$respuesta=ModeloFormularios::mdlAgregarMedicionFinOP($datosM);
 						if ($respuesta != "OK") { return $respuesta;}
 					}
+
+				#5)Producto obtenidos reales
+
+					#Crea el Array de INSUMO por Producto
+					$longitud=count( $_POST["idProductosFinalizarOP"]);	
+					$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,null),
+									'idOrdenBaja_'	=>array_fill(0,$longitud,$id_ordenprod_fin),
+									'idProducto_'	=>$_POST["idProductosFinalizarOP"],
+									'cantidad_'		=>$_POST["CantidadProdFinalizarOP"]);
+
+					#Recorre el Array de INSUMOS agregandolos en la BD
+					for ($i=0; $i <$longitud ; $i++) { 
+					
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
+						
+					#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta;}
+					} #exit for OK
+
+					
 				}else{
 					$respuesta="La OP ".$_POST["idOrdenProdAlta_FinOP"]." ya está finalizada.";	
 				}
