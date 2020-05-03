@@ -331,6 +331,21 @@ foreach($productosxreceta as $productoreceta){
     </div>
   </div>
 
+<!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-info" onclick="location.reload();">Aceptar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <?php
 
@@ -339,6 +354,27 @@ foreach($productosxreceta as $productoreceta){
 ?>
 
 <script>
+
+ (function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      var button= document.getElementById('BotonGuardarProductos');
+      button.addEventListener('click', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }else{
+        //alert("cargo")
+        cargarproductos()}
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 
       $('#BotonAgregarProducto').on('click', function (event) {
 
@@ -403,20 +439,36 @@ foreach($productos as $producto){
        $('#TablaProductos').on('change', '.nomprodu',function(){
         var produID = $(this).val();
         var produ=$(this);
-          $(produ).closest('tr').find('.idproductoselec').text(''+ produID);  
-        })
-     
+          $(produ).closest('tr').find('.idproductoselec').text(''+ produID);
 
- $('#BotonGuardarProductos').on('click', function (event) {
+        })
+
+
+
+ function cargarproductos(event) {
 
                            
        $.post("datos.php",$("#modificarproductosreceta").serialize(),function(respuestacod){
                
-alert(respuestacod)
+if(respuestacod=="OK"){
+
+	   var modal=$('#MensajeConfirmacion').modal('show')
+                 	modal.find('.modal-body').empty()
+                 	modal.find('.modal-body').html(
+                 		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Productos guardados</h4><p>Se han guardado los productos correctamente</p><hr></div>')
+             
+                } else {
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                 	modal.find('.modal-body').empty()
+                 	modal.find('.modal-body').html(
+                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar guardar los productos de esta receta  </p><hr></div>')
+           
+
+}
 
                 }
             )
-  })
+  }
 
   
 var accion;
@@ -494,6 +546,8 @@ $("#aceptar").on( "click", function() {
  $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
+
+
 
 </script>
 
