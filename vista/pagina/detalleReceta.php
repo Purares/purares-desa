@@ -11,6 +11,10 @@ $detalleReceta=ControladorFormularios::ctrDetalleReceta();
 
 $detalleinsumos=ControladorFormularios::ctrInsumosReceta();
 
+$productos=ControladorFormularios::ctrStockProductos();
+
+$productosxreceta=ControladorFormularios::ctrProductosReceta();
+
 foreach ($detalleReceta as $receta) {
 
 
@@ -226,6 +230,64 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                         </div>
      		<br>
+
+     <form method="post" class="needs-validation" id="modificarproductosreceta">
+     	<input type="hidden" name="idReceta" value="<?php echo $_GET['idReceta']?>">
+ <h5>Complete los productos que se obtendran con esta receta:</h5>
+              <br>
+              <div class="container">
+                  <table class="table table-sm">
+                <thead>
+                    <tr>
+                      <td scope="col" class="text-center text-white bg-dark">Codigo</td>
+                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
+                       <td scope="col" class="text-center text-white bg-dark">Unidades Necesarias</td>
+                        <td scope="col" class="text-center text-white bg-dark"></td>
+                    </tr> 
+                  </thead>
+                <tbody id="TablaProductos">
+
+<?php
+
+foreach($productosxreceta as $productoreceta){
+                           
+
+              echo '             <tr>
+                        <td scope="col">
+                          <a class="idproductoselec"></a>
+                        </td>
+                        <td scope="col">
+                          <select class="custom-select nomprodu" name="idProductoCrearReceta[]" required>
+
+  <option selected value="' . $productoreceta["id_producto"] . '">' . $productoreceta["nombre"] . '</option>
+ </select></td>
+                         <td scope="col">
+                          <div class="input-group">
+
+ <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" value="'.$productoreceta["unidades_necesarias"].'" placeholder="Cantidad unidades necesarias" required>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a class="unitprodu">Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+
+                           <td scope="col">
+                                    <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
+                                     </td>
+                    </tr>'; 
+       };?>
+                </tbody>
+            </table>
+            <button type="button" id="BotonAgregarProducto" class="btn btn-success btn-sm">Agregar Producto</button>
+             <button type="button" id="BotonGuardarProductos" class="btn btn-info btn-sm">Guardar productos</button>
+          </div>
+     </form>
+                <br>
+
+
+
                		<a type="button" class="btn btn-warning" id="Imprimirreceta" href="pruebaotropdf.php" target="_blanck">Imprimir receta</a> 
       			</div>
 
@@ -277,6 +339,78 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
 ?>
 
 <script>
+
+      $('#BotonAgregarProducto').on('click', function (event) {
+
+agregarproducto();
+function agregarproducto() {
+
+  $("#TablaProductos")
+  .append
+  (       
+          $('<tr>').append(
+           $('<td>').attr('scope','col')
+          .append
+          (
+            $('<a class="idproductoselec"></a>')
+            ),
+
+            $('<td>').attr('scope','col')
+          .append
+          (
+            
+              $("<select class='custom-select nomprodu' name='' required><option value='0'>Seleccione el producto</option></select>")
+
+              	<?php
+
+foreach($productos as $producto){
+
+  echo '.append(`<option value="' . $producto["id_producto"] . '">' . $producto["nombre"] . '</option>`)';
+
+};
+
+?>
+
+            ),
+          $('<td>').attr('scope','col')
+          .append
+          (
+            
+              $("<div class='input-group'><input type='number' min=0 step=1 name='unidadesNecesariasCrearReceta[]' class='form-control text-right cantprodu' placeholder='Cantidad de unidades necesarias' required><div class='input-group-append'><span class='input-group-text'><a class='unitprodu'>Unidades</a></span><button type='button' class='btn' data-toggle='tooltip' data-placement='right' title='Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.'><i class='far fa-question-circle'></i></button></div></div>")
+
+            ),
+
+             $('<td>').attr('scope','col')
+          .append
+          (
+            $('<button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>')
+            ),
+
+))
+    $('[data-toggle="tooltip"]').tooltip()
+     
+    }
+   }
+   );
+
+       $('#TablaProductos').on('change', '.nomprodu',function(){
+        var produID = $(this).val();
+        var produ=$(this);
+          $(produ).closest('tr').find('.idproductoselec').text(''+ produID);  
+        })
+     
+
+ $('#BotonGuardarProductos').on('click', function (event) {
+
+                           
+       $.post("datos.php",$("#modificarproductosreceta").serialize(),function(respuestacod){
+               
+alert(respuestacod)
+
+                }
+            )
+  })
+
   
 var accion;
 

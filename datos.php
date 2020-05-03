@@ -397,5 +397,18 @@ if(isset($_POST["chequeadoDecomiso"])){
 
     }
 
+    if (isset($_POST["idProductoCrearReceta"])&&
+            isset($_POST["idReceta"])&&
+            isset($_POST["unidadesNecesariasCrearReceta"])){
+
+ $modificarproducto=ControladorFormularios::ctrAgregarProductosReceta();
+
+
+    $respuestacod=json_encode($modificarproducto);
+    echo $respuestacod;
+
+
+    }
+
 
 ?>
