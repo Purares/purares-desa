@@ -1108,9 +1108,17 @@ static public function mdlFinOP($datosOP){
 		
 		$stmt -> bindparam (":codigo",		$datos['codigo_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":nombre",		$datos['nombre_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":descripcion",	$datos['alertaQmin'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",	$datos['descripcion'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
+			#Busca el ultimo ID insertado en la tabla
+				$campo='id_producto';
+				$tabla='producto_n';
+				$nuevoCampoArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$nuevoID=$nuevoCampoArray[0][0];
+			return $nuevoID;
+	
+
 			return "OK"; #si se ejecutó correctamente le envío un OK
 
 		}else{
