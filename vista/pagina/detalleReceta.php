@@ -450,7 +450,7 @@ foreach($productos as $producto){
                            
        $.post("datos.php",$("#modificarproductosreceta").serialize(),function(respuestacod){
 
-alert(respuestacod)
+//alert(respuestacod)
                
 if(respuestacod=='"OK"'){
 
