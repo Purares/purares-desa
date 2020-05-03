@@ -132,6 +132,14 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
     </div>
 		</li>
 
+	<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Productos</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="index.php?pagina=agregarProductos">Agregar productos</a>
+    </div>
+		</li>
+
+
  	 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuraciones</a>
     <div class="dropdown-menu">
@@ -184,6 +192,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="verOrdenes"||
 					$_GET["pagina"]=="verCompras"||
 					$_GET["pagina"]=="detalleCompra"||
+					$_GET["pagina"]=="agregarProductos"||
 					$_GET["pagina"]=="detalleDecomiso"||
 					$_GET["pagina"]=="pruebas"){
 

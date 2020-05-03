@@ -382,5 +382,20 @@ if(isset($_POST["chequeadoDecomiso"])){
 }
 }
 
+    if (isset($_POST["codigoAgregarProducto"])||
+            isset($_POST["nombreAgregarProducto"])||
+            isset($_POST["descripcionAgregarProducto"])||
+            isset($_POST["insumosAgregarProducto"])||
+            isset($_POST["cantidadAgregarProducto"])){
+
+
+ $nuevoproducto=ControladorFormularios::ctrAgregarProducto();
+
+
+    $respuestacod=json_encode($nuevoproducto);
+    echo $respuestacod;
+
+    }
+
 
 ?>
