@@ -194,7 +194,7 @@ class ControladorFormularios{
 		if (isset($_GET["idReceta"])){
 
 			$id_receta=$_GET["idReceta"];
-			$respuesta= ModeloFormularios::v_productosreceta($id_receta);
+			$respuesta= ModeloFormularios::mdlproductosReceta($id_receta);
 	
 			return $respuesta;	
 		}	
@@ -301,6 +301,25 @@ class ControladorFormularios{
 		}
 	}
 
+
+
+	#------------------------- Agregar Producto a Receta -------------------------#
+
+	static public function ctrAgregarProductosReceta(){
+	
+		if (isset($_POST["idProductoCrearReceta"])||
+			isset($_GET["idReceta"])||
+			isset($_POST["unidadesNecesariasCrearReceta"])){
+
+				#Crea el Array de PRODUCTO por receta
+					$longitud2=count( $_POST["idProductoCrearReceta"]);	
+					$datos4= array(	'idProducto_'		=> $_POST["idProductoCrearReceta"],
+									'idReceta_'			=>array_fill(0,$longitud2,$_GET["idReceta"]),
+									'unidadesNecesarias_'=> $_POST["unidadesNecesariasCrearReceta"]);
+
+			return $respuesta;
+		}
+	}	
 
 	#------------------------- Lista de carnes -------------------------#
 
@@ -1122,7 +1141,8 @@ static public function ctrValidarAnulacionCompra(){
 
 		return $respuesta;
 		}
-	}	
+	}
+
 
 
 #------------------------- ANULAR Orden de produccion -------------------------#
