@@ -194,7 +194,7 @@ class ControladorFormularios{
 		if (isset($_GET["idReceta"])){
 
 			$id_receta=$_GET["idReceta"];
-			$respuesta= ModeloFormularios::v_productosreceta($id_receta);
+			$respuesta= ModeloFormularios::mdlproductosReceta($id_receta);
 	
 			return $respuesta;	
 		}	
