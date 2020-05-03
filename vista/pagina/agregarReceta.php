@@ -131,58 +131,6 @@ foreach($depositos as $deposito){
                 </div>
               </div>
               <br>
-              <h5>Complete los productos que se obtendran con esta receta:</h5>
-              <br>
-              <div class="container">
-                  <table class="table table-sm">
-                <thead>
-                    <tr>
-                      <td scope="col" class="text-center text-white bg-dark">Codigo</td>
-                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
-                       <td scope="col" class="text-center text-white bg-dark">Unidades Necesarias</td>
-                        <td scope="col" class="text-center text-white bg-dark"></td>
-                    </tr> 
-                  </thead>
-                <tbody id="TablaProductos">
-                            <tr>
-                        <td scope="col">
-                          <a class="idproductoselec"></a>
-                        </td>
-                        <td scope="col">
-                          <select class="custom-select nomprodu" name="idProductoCrearReceta[]" required>
-                                        <option value="0">Seleccione el producto</option>
-
-<?php
-
-foreach($productos as $producto){
-
-  echo '<option value="' . $producto["id_producto"] . '">' . $producto["nombre"] . '</option>';
-
-};
-
-?>
-
-
-                          </select>
-                        </td>
-                         <td scope="col">
-                          <div class="input-group"> 
-                          <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" placeholder="Cantidad unidades necesarias" required>
-                              <div class="input-group-append">
-                  <span class="input-group-text"><a class="unitprodu">Unidades</a></span>
-              </div>
-                  </div>
-                        </td>
-                           <td scope="col">
-                                    <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
-                                     </td>
-                    </tr> 
-                </tbody>
-            </table>
-            <button type="button" id="BotonAgregarProducto" class="btn btn-success btn-sm">Agregar Producto</button>
-          </div>
-          <br>
-              <br>
               <h5>Información de producción</h5>
               <hr>
           <br>
@@ -351,6 +299,58 @@ foreach($productos as $producto){
                 </div> 
                   </div>
               <hr>
+              <h5>Complete los productos que se obtendran con esta receta:</h5>
+              <br>
+              <div class="container">
+                  <table class="table table-sm">
+                <thead>
+                    <tr>
+                      <td scope="col" class="text-center text-white bg-dark">Codigo</td>
+                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
+                       <td scope="col" class="text-center text-white bg-dark">Unidades Necesarias</td>
+                        <td scope="col" class="text-center text-white bg-dark"></td>
+                    </tr> 
+                  </thead>
+                <tbody id="TablaProductos">
+                            <tr>
+                        <td scope="col">
+                          <a class="idproductoselec"></a>
+                        </td>
+                        <td scope="col">
+                          <select class="custom-select nomprodu" name="idProductoCrearReceta[]" required>
+                                        <option value="0">Seleccione el producto</option>
+
+<?php
+
+foreach($productos as $producto){
+
+  echo '<option value="' . $producto["id_producto"] . '">' . $producto["nombre"] . '</option>';
+
+};
+
+?>
+
+
+                          </select>
+                        </td>
+                         <td scope="col">
+                          <div class="input-group"> 
+                          <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" placeholder="Cantidad unidades necesarias" required>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a class="unitprodu">Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+                           <td scope="col">
+                                    <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
+                                     </td>
+                    </tr> 
+                </tbody>
+            </table>
+            <button type="button" id="BotonAgregarProducto" class="btn btn-success btn-sm">Agregar Producto</button>
+          </div>
                 <br>
               <h5>Descripción</h5>
               <hr>
@@ -631,7 +631,7 @@ foreach($productos as $producto){
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=1 name='unidadesNecesariasCrearReceta[]' class='form-control text-right cantprodu' placeholder='Cantidad de unidades necesarias' required><div class='input-group-append'><span class='input-group-text'><a class='unitprodu'>Unidades</a></span></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=1 name='unidadesNecesariasCrearReceta[]' class='form-control text-right cantprodu' placeholder='Cantidad de unidades necesarias' required><div class='input-group-append'><span class='input-group-text'><a class='unitprodu'>Unidades</a></span><button type='button' class='btn' data-toggle='tooltip' data-placement='right' title='Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.'><i class='far fa-question-circle'></i></button></div></div>")
 
             ),
 
@@ -642,6 +642,7 @@ foreach($productos as $producto){
             ),
 
 ))
+    $('[data-toggle="tooltip"]').tooltip()
      
     }
    }
