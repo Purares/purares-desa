@@ -80,8 +80,8 @@ echo $proveedores;
                   </div>
                     <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesposte" id="pesoTotalDesposte" placeholder="Peso total" required>
                               <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total que figura en el remito">
-  ?
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total que figura en el remito">
+  <i class="far fa-question-circle"></i>
 </button>
                             </div>
                              <div class="invalid-feedback">
@@ -100,8 +100,8 @@ echo $proveedores;
                   </div>
                     <input type="number" min=0 step=0.1 max=100  class="form-control text-right" name="mermaInicialAltaDesposte" id="mermainicialdesposte" placeholder="Merma" required>
                               <div class="input-group-append">
-                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la merma obtenida antes del desposte">
-  ?
+                  <span class="input-group-text">%</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la merma obtenida antes del desposte">
+  <i class="far fa-question-circle"></i>
 </button>
                             </div>
                              <div class="invalid-feedback">
@@ -112,12 +112,11 @@ echo $proveedores;
                    <div class="input-group-prepend">
                     <span class="input-group-text">Fecha de desposte:</span>
                   </div>
-                          <div class="input-group-append">
-                <input type="date" id="fechaDesposte" name="fechaDesposteAltaDesposte" required>
+                <input type="date" class="form-control text-center" id="fechaDesposte" name="fechaDesposteAltaDesposte" required>
                              <div class="invalid-feedback">
                                     Ingresa la fecha de deposte
                                     </div>
-                </div>
+                
                  </div>
 
               </div>

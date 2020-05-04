@@ -90,8 +90,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                   </div>
                     <input type="text" class="form-control text-right" name="pesoTotInsumosCrearReceta" value="<?php echo $receta['peso_total_insumos_kg'] ?> kilos" readonly>
                   <div class="input-group-append">
-              <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="El total de insumos en kilos que utilizará un paston de 100 kilos.">
-  ?
+              <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="El total de insumos en kilos que utilizará un paston de 100 kilos.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                 </div>
@@ -114,8 +114,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetamermaesperada" id="spanrecetamermaesp" value="<?php echo $receta['merma_esperada'] ?> %" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -128,8 +128,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetadiasproduccion" id="spanrecetadiasprodu" value="<?php echo $receta['dias_produccion'] ?> días" readonly>
                            <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
-                                ?
+                                <button type="button" class="btn  font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                                 </div>
@@ -139,8 +139,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetadiasvencimiento" id="spanrecetadiasven" value="<?php echo $receta['dias_vencimiento'] ?> días" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que el producto es envasado,  hasta que se vence.">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que el producto es envasado,  hasta que se vence.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -156,8 +156,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetalargoporunidad" id="spanrecetalargouni" value="<?php echo $receta['largo_unidad_lote'] ?> metros/unidad" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo de la unidad fresca, antes de que ingrese al secadero.">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo de la unidad fresca, antes de que ingrese al secadero.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -167,8 +167,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetalargoporunidadesperado" id="spanrecetalargouni" value="<?php echo $receta['peso_unidad_lote'] ?> kilos/unidad" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso de la unidad fresca, antes de que ingrese al secadero.">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso de la unidad fresca, antes de que ingrese al secadero.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -181,8 +181,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                   </div>
                     <input type="number" min=0 step=0.01 class="form-control text-right" id="cantunisfrescas" name="cantidad_unidades_lote" value="<?php echo $receta['cantidad_unidades_lote'] ?>" readonly>
                   <div class="input-group-append">
-                  <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
-  ?
+                  <span class="input-group-text">unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                 </div>
@@ -198,8 +198,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center spanrecetalargouniesperado" id="spanrecetalargouniesperado" value="<?php echo $receta['largo_unidad_esperado'] ?> metros/unidad" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo del producto final que será envasado.">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo del producto final que será envasado.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -209,8 +209,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                        </div>
                                 <input type="text" class="form-control text-center recetapesoporunidadesperado" id="spanrecetapesouniesperado" value="<?php echo $receta['peso_unidad_esperado'] ?> kilos/unidad" readonly>
                               <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso del producto final que será envasado.">
-                                ?
+                                <button type="button" class="btn  font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso del producto final que será envasado.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                             </div>
@@ -223,8 +223,8 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                                 </div>
                                 <input type="text" class="form-control text-center unidadesfinales" id="unidadesfinales" value="<?php echo $receta['unidades_final_xunidad'] ?> unidades" readonly>
                                    <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
-                                ?
+                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+                                 <i class="far fa-question-circle"></i>
                                 </button>
                               </div>
                               </div>

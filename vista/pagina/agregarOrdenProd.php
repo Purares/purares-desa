@@ -54,8 +54,8 @@ foreach($recetas as $receta){
            					</div>
           						<input type="number" min=0 step=0.01 class="form-control text-right" id="PesoPaston" name="pesoPastonAltaOP" placeholder="Ingrese el peso" required>
                               <div class="input-group-append">
-      							<span class="input-group-text">kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso total del pastón sin contar los insumos.">
-  ?
+      							<span class="input-group-text">kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso total del pastón sin contar los insumos.">
+   <i class="far fa-question-circle"></i>
           </button>
    							</div>
                                  <div class="invalid-feedback">
@@ -71,8 +71,8 @@ foreach($recetas as $receta){
                     </div>
                       <input type="text" class="form-control text-right" id="cantidadunidadesfrescas" name="qUniFrescasAltaOP" placeholder="Este campo se calcula solo" readonly required>
                <div class="input-group-append">
-                    <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
-  ?
+                    <span class="input-group-text">unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
+   <i class="far fa-question-circle"></i>
           </button>
                 </div>
                   </div>
@@ -83,8 +83,8 @@ foreach($recetas as $receta){
                     </div>
                       <input type="number" step=1 class="form-control text-right" id="nrolote" name="nroLoteAltaOP" value="<?php echo $lote['nroLote_'];?>" readonly required>
                <div class="input-group-append">
-                   <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
-  ?
+                   <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="">
+   <i class="far fa-question-circle"></i>
           </button>
                 </div>
                   </div>
@@ -327,16 +327,8 @@ $.ajax({
 
 
                     }}
-                      
-                    
-
 }}
-
-
-
 })
-
-
 
 }) 
 

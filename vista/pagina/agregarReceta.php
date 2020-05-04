@@ -123,8 +123,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.001 class="form-control text-right" id="pesototalinsumos" name="pesoTotInsumosCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_total_insumos_kg'];}?>" placeholder="kilos" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de insumos en kilos que utilizará un paston de 100 kilos.">
-  ?
+                  <span class="input-group-text">kilos</span><button type="button" class="btn  font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de insumos en kilos que utilizará un paston de 100 kilos.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -155,8 +155,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.1 max=99.9 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['merma_esperada'];}?>"  placeholder="Porcentaje esperado" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
-  ?
+                  <span class="input-group-text">%</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                                <div class="invalid-feedback">
@@ -172,8 +172,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasProduccion" name="diasprodCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['dias_produccion'];}?>" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
-  ?
+                  <span class="input-group-text">días</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -187,8 +187,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasVencimiento" name="diasvencCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['dias_vencimiento'];}?>" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
-  ?
+                  <span class="input-group-text">días</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                            <div class="invalid-feedback">
@@ -208,8 +208,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['largo_unidad_lote'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo de la unidad fresca, antes de que ingrese al secadero.">
-  ?
+                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo de la unidad fresca, antes de que ingrese al secadero.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -222,8 +222,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.001 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta"  value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_unidad_lote'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso de la unidad fresca, antes de que ingrese al secadero.">
-  ?
+                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso de la unidad fresca, antes de que ingrese al secadero.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -239,8 +239,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=1 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['cantidad_unidades_lote'];}?>" placeholder="Ingrese la cantidad" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
-  ?
+                  <span class="input-group-text">unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -260,8 +260,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.001 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['largo_unidad_esperado'];}?>" placeholder="Ingrese la medida" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo del producto final que será envasado.">
-  ?
+                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo del producto final que será envasado.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                              <div class="invalid-feedback">
@@ -276,8 +276,8 @@ foreach($depositos as $deposito){
                     <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidadesperado" placeholder="" value="<?php if (isset($_GET['idReceta'])){ echo $receta['peso_unidad_esperado'];}?>" disabled>
                     <input type="hidden" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado1" value="">
                   <div class="input-group-append">
-                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="El valor de este campo se calcula automáticamente.">
-  ?
+                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn  font-weight-bold" data-toggle="tooltip" data-placement="right" title="El valor de este campo se calcula automáticamente.">
+   <i class="far fa-question-circle"></i>
 </button>
               </div>
                 </div>
@@ -291,8 +291,8 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" value="<?php if (isset($_GET['idReceta'])){ echo $receta['unidades_final_xunidad'];}?>"  placeholder="Cantidad" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
-  ?
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+   <i class="far fa-question-circle"></i>
           </button>
               </div>
                              <div class="invalid-feedback">

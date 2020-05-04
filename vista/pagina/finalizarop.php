@@ -9,11 +9,7 @@
 	<div class="container">
 <br>
 
-<<<<<<< HEAD
-  					<h2>Finalizar OP N° <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
-=======
   					<h2>Finalizar OP N° <?php echo $_GET['idOrdenProdAlta_FinOP'];?> <?php echo $_GET['nombre'];?> Lote N° <?php echo $_GET['lote'];?></h2>
->>>>>>> c6b71462df41b0c8c2df036504fb67d7f54d0bda
 
             <hr>
     <br> 
@@ -28,8 +24,8 @@
                   </div>
                     <input type="number" min=0 step=0.0001 class="form-control text-center" name="unidadesFrescas_FinOP" id="unidadesfrescas" placeholder="Ingrese la cantidad" required>
                      <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de unidades frescas obtenidas tras el embutido">
-  ?
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de unidades frescas obtenidas tras el embutido">
+  <i class="far fa-question-circle"></i>
 </button>
               </div>
                                     <div class="invalid-feedback">
@@ -42,8 +38,8 @@
                   </div>
                     <input type="number" min=0 step=0.0001 class="form-control text-center" name="pesoFresco_FinOP" id="productofrescoembutido" placeholder="Ingrese la cantidad" required>
                      <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de kilos de producto fresco obtenidos tras el embutido">
-  ?
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de kilos de producto fresco obtenidos tras el embutido">
+  <i class="far fa-question-circle"></i>
 </button>
               </div>
                                     <div class="invalid-feedback">
@@ -91,8 +87,8 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
          					</div>
         						<input type="number" min=0 step=0.0001 class="form-control text-center" name="productoObtenido_FinOp" id="productoobtenido" placeholder="Ingrese la cantidad" required>
                      <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total en kilogramos de produto obtenido">
-  ?
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total en kilogramos de produto obtenido">
+  <i class="far fa-question-circle"></i>
 </button>
               </div>
                                     <div class="invalid-feedback">
@@ -105,8 +101,8 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
                   </div>
                     <input type="number" min=0 step=1 class="form-control text-center" name="unidades_FinOP" id="unidadesobtenidas" placeholder="Ingrese la cantidad" required>
                       <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese las unidades totales obtenidas">
-  ?
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese las unidades totales obtenidas">
+  <i class="far fa-question-circle"></i>
 </button>
               </div>
                        <div class="invalid-feedback">
