@@ -197,6 +197,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="agregarProductos"||
 					$_GET["pagina"]=="detalleDecomiso"||
 					$_GET["pagina"]=="AgregarProveedor"||
+					$_GET["pagina"]=="detalleProducto"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);

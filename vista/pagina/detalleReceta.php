@@ -278,13 +278,19 @@ foreach($productosxreceta as $productoreceta){
                                      </td>
                     </tr>'; 
        };?>
+
                 </tbody>
             </table>
+<br>
             <button type="button" id="BotonAgregarProducto" class="btn btn-success btn-sm">Agregar Producto</button>
              <button type="button" id="BotonGuardarProductos" class="btn btn-info btn-sm">Guardar productos</button>
           </div>
      </form>
                 <br>
+   <h5>Descripción</h5>
+              <hr>
+              <textarea class="form-control" style="min-width: 100%" readonly> <?php echo $receta['descripcion']?></textarea>
+              <br>
 
 
 

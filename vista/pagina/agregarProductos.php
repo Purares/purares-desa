@@ -359,7 +359,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                  	modal.find('.modal-body').html(
                  		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Producto agregado</h4><p>Usted ha agregado el nuevo producto correctamente. El id del producto es <a id="id_nuevoproducto"></a></p><hr></div>')
                   modal.find("#id_nuevoproducto").text(respuestacod.idProducto_)
-                 var link="index.php?pagina=detalleProducto&idProducto="+respuestacod.idProducto_+"&estado=1"
+                 var link="index.php?pagina=detalleProducto&idProductoDetalle="+respuestacod.idProducto_
                   modal.find('#botonaceptarnuevoproducto').unbind('click');
                   modal.find('#botonaceptarnuevoproducto').attr("href", link)
 
