@@ -64,10 +64,10 @@ class ControladorFormularios{
 		if (isset($_POST["nombreAgregarProveedor"])&&
 			isset($_POST["tipoAgregarProveedor"])){
 
-				$datos= array(	'nombreInsumo_' => $_POST["nombreAgregarProveedor"],
-								'idDeposito_' => $_POST["tipoAgregarProveedor"]);
+				$datos= array(	'nombre_' 	=> $_POST["nombreAgregarProveedor"],
+								'tipo_' 	=> $_POST["tipoAgregarProveedor"]);
 
-			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
+			$respuesta=ModeloFormularios::mdlAgregarProveedor($datos);
 			return $respuesta;
 		}
 	}
@@ -832,6 +832,39 @@ static public function ctrValidarAnulacionCompra(){
 		}
 	}
 
+#------------------------- Calculo de Insumos Productos-------------------------#
+
+	static public function ctrCalculoInsumosProductos(){
+
+	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
+		
+		if (isset($_POST["idRecetaAltaOP"])&&
+			isset($_POST["pesoPastonaAltaOP"])){
+
+			$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
+							'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
+			
+			$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
+			$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
+
+				#Valida si alcanza el stock actual de insumo
+				if (count($respuesta2)>0) {
+					$validacion="NO";
+				}else{
+					$validacion="SI";
+				}
+			
+			$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
+								'validacion_'	 => $validacion);
+
+		return $respuesta;
+		}
+	}
+
+
+
+
+
 	#--------------Nro Lote de Producccion------------------------
 
 	static public function ctrNroLoteProd(){
@@ -1479,6 +1512,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrDetalleProducto(){
 
+
 		if (isset($_GET["idProductoDetalle"])){
 
 			$detalleProducto=ModeloFormularios::mdlDetallePorductos($_GET["idProductoDetalle"]);
@@ -1489,6 +1523,7 @@ static public function ctrValidarAnulacionCompra(){
 	
 			return $respuesta;	
 		}	
+
 	}
 
 }	#cierra la clase

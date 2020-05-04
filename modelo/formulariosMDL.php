@@ -71,6 +71,27 @@ class ModeloFormularios{
 	}
 
 
+	#------------------------- AGREGAR INSUMO -------------------------#
+
+	static public function mdlAgregarProveedor($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarProveedor( :nombre,:tipo );");
+		
+		$stmt -> bindparam (":nombre",$datos['nombre_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":tipo",$datos ['tipo_'],PDO::PARAM_STR);
+
+
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
 
 
 #------------------------- Lista INSUMOS -------------------------#
@@ -742,6 +763,46 @@ static public function mdlCrearDesposte($datos){
 		$stmt =null; 
 	}
 
+
+#------------------------- Tabla de Insumo PRODUCTOS------------------------#
+	static public function mdlListaInsumosOPProductos($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call v_insumoAltaOP_Productos(:idProducto, :qUnidades);");
+
+		$stmt -> bindparam (":idProducto",	$datos['idProducto_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":qUnidades",	$datos['qProducto_'],PDO::PARAM_INT);
+		
+		if ($stmt -> execute()){
+			return $stmt -> fetchAll();
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Validacion Insumo PRODUCTOS------------------------#
+	static public function mdlValidacionInsumosOPProductos($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call v_ValidacionInsumosAltaOpProducto(:idProducto, :qUnidades);");
+
+		$stmt -> bindparam (":idProducto",	$datos['idProducto_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":qUnidades",	$datos['qProducto_'],PDO::PARAM_INT);
+		
+		if ($stmt -> execute()){
+			return $stmt -> fetchAll();
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
 #-----------------------Nro Lote de Producccion------------------------
 
 	static public function mdlNroLoteProd(){
@@ -1200,7 +1261,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlDetallePorductos($idProducto){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM productos_n where id_producto=$idProducto;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM producto_n where id_producto=$idProducto;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
