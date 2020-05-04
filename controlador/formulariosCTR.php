@@ -836,34 +836,50 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrCalculoInsumosProductos(){
 
-	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
-		
-		if (isset($_POST["idRecetaAltaOP"])&&
-			isset($_POST["pesoPastonaAltaOP"])){
+		if (isset($_POST["array_ProductoAltaOP"])&&
+			isset($_POST["array_QProductoAltaOP"])){
 
-			$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
-							'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
-			
-			$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
-			$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
+			$array_Producto=$_POST["array_ProductoAltaOP"];
+			$array_QProducto=$_POST["array_QProductoAltaOP"];
 
-				#Valida si alcanza el stock actual de insumo
-				if (count($respuesta2)>0) {
-					$validacion="NO";
-				}else{
-					$validacion="SI";
+
+			$longitud=count($array_Producto);
+
+			for ($i=0; $i < $longitud ; $i++) { 
+				
+				#Buscar los insumos correspondiente a la tabla
+				$idProducto=$array_Producto[$i];
+				$qProducto=$array_QProducto[$i];
+
+
+				$datos = array(	'idProducto_'	=> $idProducto,
+								'qProducto_' 	=> $qProducto);
+
+				$insXProd=ModeloFormularios::mdlListaInsumosOPProductos($datos);	
+				$validacion1=ModeloFormularios::mdlValidacionInsumosOPProductos($datos);
+
+				#Cuanta la cantidad de registros que la diferencia es negativa
+				$validacion2=count($validacion1);
+				if ($validacion2>0) {
+					$validacion3="NO";
 				}
-			
-			$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
-								'validacion_'	 => $validacion);
 
-		return $respuesta;
+				#Si es el primer registro no hace el Merge
+				if ($i==0) {
+					$tablaInsumosOP=$insXProd;
+				}else{
+					$tablaInsumosOP=array_merge($tablaInsumosOP,$insXProd);
+				}
+			}#Termina el for
+			
+			#Si la variable validacion 3 no esta declarada le asigna un "si"
+			if (isset($validacion3)==false) {$validacion3="SI";}
+
+				$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
+									'validacion_'	 => $validacion3);
+			return $respuesta;
 		}
 	}
-
-
-
-
 
 	#--------------Nro Lote de Producccion------------------------
 
@@ -930,8 +946,8 @@ static public function ctrValidarAnulacionCompra(){
 				#$qUniLote=$detalleReceta[0]['cantidad_unidades_lote'];
 			isset($_POST["idCarnesAgregarOP"])&&
 			isset($_POST["catidadCarnesAgregarOP"])&&
-			isset($_POST["idProductosAgregarOP"])&&
-			isset($_POST["CantidadProdAgregarOP"])){
+			isset($_POST["array_ProductoAltaOP"])&&
+			isset($_POST["array_QProductoAltaOP"])){
 
 
 			$carnesOP = array(	'idCarnes' =>$_POST["idCarnesAgregarOP"] ,
@@ -943,61 +959,70 @@ static public function ctrValidarAnulacionCompra(){
 			$validacion_Insumos=$calculo_Insumos['validacion_'];
 
 				if ($validacion_Insumos=="SI") {
+
+				#1B)Validacion de insumos para los produtos
+					$calculo_Insumos_productos=ControladorFormularios::ctrCalculoInsumosProductos();
+					$Validacion_insumos_productos=$calculo_Insumos_productos['validacion_'];
 					
-				#2)Validacion de Carnes
-					$validacion_Carnes= ControladorFormularios::ctrValidarStockCarnesOP($carnesOP);
-					if ($validacion_Carnes=='OK') {
-					
-					#3)Validación Peso de paston=Peso total de carnes(Esta validación no se hace ya que se realizó desde la vista)
+					if ($Validacion_insumos_productos=="SI") {
 
-					#Si el Nuro de lote no existe lo crea
-					$datosUltimoLote=ModeloFormularios::mdlNroLoteProd();
-					$ultimoNroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
+					#2)Validacion de Carnes
+						$validacion_Carnes= ControladorFormularios::ctrValidarStockCarnesOP($carnesOP);
+						if ($validacion_Carnes=='OK') {
+						
+						#3)Validación Peso de paston=Peso total de carnes(Esta validación no se hace ya que se realizó desde la vista)
 
-					if ($_POST["nroLoteAltaOP"]>$ultimoNroLote) {
-						$nroLote=ModeloFormularios::mdlCrearNroLoteProd();
+						#Si el Nuro de lote no existe lo crea
+						$datosUltimoLote=ModeloFormularios::mdlNroLoteProd();
+						$ultimoNroLote=$fechaDatos=$datosUltimoLote[0]['nro_lote'];
 
-					}
-							
-							#Crear Alta de OP
-							$datosOP = array(	'nroLote_' 		=> $_POST["nroLoteAltaOP"],
-												'idReceta_' 	=> $_POST["idRecetaAltaOP"],
-												'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"],
-												'qUniFrescas_' 	=> $_POST["qUniFrescasAltaOP"], 
-												'idUsuario_' 	=> $_SESSION['userId'] ); 
+						if ($_POST["nroLoteAltaOP"]>$ultimoNroLote) {
+							$nroLote=ModeloFormularios::mdlCrearNroLoteProd();
 
-							$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
-
-							#4)Movimiento de Insumos
-
-								$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
-								if ($respuesta != "OK") { return $respuesta;}
-
-							#5)Movimiento de Carne
-								$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
-								if ($respuesta != "OK") { return $respuesta;}
-							#6)Producto esperados
-
-								#Crea el Array de INSUMO por Producto
-									$longitud=count( $_POST["idProductosAgregarOP"]);	
-									$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
-													'idOrdenBaja_'	=>array_fill(0,$longitud,null),
-													'idProducto_'	=>$_POST["idProductosAgregarOP"],
-													'cantidad_'		=>$_POST["CantidadProdAgregarOP"]);
-
-								#Recorre el Array de INSUMOS agregandolos en la BD
-									for ($i=0; $i <$longitud ; $i++) { 
-									
-										$datos3= array_column($datos2,$i);
-										$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
-										
-									#Si no dio error sigue el loop
-										if ($respuesta != "OK") { return $respuesta;}
-									} #exit for OK
-					}else{
-						$respuesta=$validacion_Carnes;
-					}
+						}
 								
+								#Crear Alta de OP
+								$datosOP = array(	'nroLote_' 		=> $_POST["nroLoteAltaOP"],
+													'idReceta_' 	=> $_POST["idRecetaAltaOP"],
+													'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"],
+													'qUniFrescas_' 	=> $_POST["qUniFrescasAltaOP"], 
+													'idUsuario_' 	=> $_SESSION['userId'] ); 
+
+								$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
+
+								#4)Movimiento de Insumos
+									$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+									if ($respuesta != "OK") { return $respuesta;}
+								#4b)Movimiento de insumos 
+									$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+									if ($respuesta != "OK") { return $respuesta;}
+
+								#5)Movimiento de Carne
+									$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
+									if ($respuesta != "OK") { return $respuesta;}
+								#6)Producto esperados
+
+									#Crea el Array de INSUMO por Producto
+										$longitud=count( $_POST["idProductosAgregarOP"]);	
+										$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
+														'idOrdenBaja_'	=>array_fill(0,$longitud,null),
+														'idProducto_'	=>$_POST["idProductosAgregarOP"],
+														'cantidad_'		=>$_POST["CantidadProdAgregarOP"]);
+
+									#Recorre el Array de INSUMOS agregandolos en la BD
+										for ($i=0; $i <$longitud ; $i++) { 
+										
+											$datos3= array_column($datos2,$i);
+											$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
+											
+										#Si no dio error sigue el loop
+											if ($respuesta != "OK") { return $respuesta;}
+										} #exit for OK
+						}else{
+							$respuesta=$validacion_Carnes;
+						}
+				
+					}else{$respuesta="Stock de Insumos insuficientes para los productos";}					
 				}else{$respuesta="Stock de Insumos insuficientes";}#cierre de la validación de insumos
 			
 

@@ -35,18 +35,12 @@ for ($i=0; $i < $longitud ; $i++) {
 	}else{
 		$tablaInsumosOPProd=array_merge($tablaInsumosOPProd,$insXProd);
 	}
-
-
-
 }
+ 
 
-#var_dump($tablaInsumosOPProd);
+if (isset($validacion3)==false) {$validacion3="SI";}
 
+var_dump($validacion3);
 
-
-
-$respuesta=ControladorFormularios::ctrDetalleProducto();
-
-var_dump($respuesta);
 
 ?>
