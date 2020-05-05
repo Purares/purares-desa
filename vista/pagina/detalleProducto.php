@@ -9,7 +9,7 @@
 
 $detalleProducto=ControladorFormularios::ctrDetalleProducto();
 
-$productos=['detalleProducto'];
+$productos=$detalleProducto['detalleProducto'];
 
 $detalleinsumos=$detalleProducto['insumosProducto'];
 
@@ -35,13 +35,13 @@ foreach ($productos as $producto) {
                               <div class="input-group-prepend">
                          <span class="input-group-text">Código:</span>
                                 </div>
-                                <input type="text" class="form-control text-center" value="<?php echo $producto['nombre']?>" readonly>
+                                <input type="text" class="form-control text-center" value="<?php echo $producto['codigo']?>" readonly>
                               </div>
                             <div class="input-group col-6">
                                 <div class="input-group-prepend">
                          <span class="input-group-text">Nombre:</span>
                                 </div>
-                                <input type="text" class="form-control text-center" value="<?php echo $producto['sda'] ?>" readonly>
+                                <input type="text" class="form-control text-center" value="<?php echo $producto['nombre'] ?>" readonly>
         				            </div>
                     </div>
                     <br>
@@ -77,7 +77,7 @@ echo '<tr><td scope="col" class="text-center"></td><td scope="col">' . $insumo[1
         <br>
             <h5>Descripción</h5>
               <hr>
-              <textarea class="form-control" style="min-width: 100%" readonly> <?php echo $producto[0]['descripcion']?></textarea>
+              <textarea class="form-control" style="min-width: 100%" readonly> <?php echo $producto['descripcion']?></textarea>
   
 </body>
 </html>

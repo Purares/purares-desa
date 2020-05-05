@@ -138,6 +138,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Productos</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarProductos">Agregar productos</a>
+      <a class="dropdown-item" href="index.php?pagina=verProductos">Ver productos</a>
     </div>
 		</li>
 
@@ -198,6 +199,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="detalleDecomiso"||
 					$_GET["pagina"]=="AgregarProveedor"||
 					$_GET["pagina"]=="detalleProducto"||
+					$_GET["pagina"]=="verProductos"||	
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);

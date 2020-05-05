@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ver Recetas</title>
+  <title>Ver Recetas</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
 <div class="mr-auto p-2">
 
-	<h2>Listado de recetas</h2>  
+  <h2>Listado de recetas</h2>  
 
 </div>
 <div class="p-2">
@@ -36,34 +36,34 @@
 </div>
 </div>
 <hr>
-	<br>
+  <br>
              
                         <table class="table table-hover">
-    						<thead class="thead-light">
-        						<tr>
-           							<th scope="col">ID</th>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">ID</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Descripción</th>
-           							<th scope="col">Detalle</th>
-        						</tr>
-      						</thead>
-  							<tbody id="tablarecetas">
+                        <th scope="col">Detalle</th>
+                    </tr>
+                  </thead>
+                <tbody id="tablarecetas">
 <?php
 
 foreach($recetas as $receta){
 
 if ($receta["activo"]==1) {
-	
-	echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col"><span class="badge badge-pill badge-success">Activa</span></td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
+  
+  echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col"><span class="badge badge-pill badge-success">Activa</span></td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
 
 }
 
 };
 
 ?>
-  							</tbody>
-					</table>
+                </tbody>
+          </table>
  
         </div>
 
@@ -71,7 +71,7 @@ if ($receta["activo"]==1) {
 
 
 $( "input" ).on( "click", function() {
-	
+  
 if ($('#defaultCheck1').prop('checked')==true) {
 
    $.ajax({
@@ -85,12 +85,12 @@ if ($('#defaultCheck1').prop('checked')==true) {
             
 else{
 
-	$.ajax({
+  $.ajax({
                type:'POST',
               url:'datos.php',
                data:'chequeado='+ 0,
                success:function(html){
-                	$('#tablarecetas').children().detach();
+                  $('#tablarecetas').children().detach();
                    $('#tablarecetas').html(html); 
             }
         });

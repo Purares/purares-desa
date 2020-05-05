@@ -411,4 +411,15 @@ if(isset($_POST["chequeadoDecomiso"])){
     }
 
 
+if (isset($_POST["nombreAgregarProveedor"])&&
+            isset($_POST["tipoAgregarProveedor"])){
+
+$nuevoproveedor=ControladorFormularios::ctrAgregarProveedor();
+
+
+    $respuestacod=json_encode($nuevoproveedor);
+    echo $respuestacod;
+
+}
+
 ?>
