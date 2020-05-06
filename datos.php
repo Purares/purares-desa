@@ -258,10 +258,17 @@ echo $respuestacod1;
 }
 
 
-if (isset($_POST["idRecetaAltaOP"])&&
+if (isset($_POST["nroLoteAltaOP"])&& #NEW
+            isset($_POST["idRecetaAltaOP"])&&
             isset($_POST["pesoPastonAltaOP"])&&
+            isset($_POST["qUniFrescasAltaOP"])&& 
+                #Cantidad de Unidades Frescas= [Peso_Paston * cantidad_unidad_lote(TablaReceta_n)]/100 #REDONDEAR CON CERO DECIMALES
+                #$detalleReceta= ModeloFormularios::ctrDetalleReceta();
+                #$qUniLote=$detalleReceta[0]['cantidad_unidades_lote'];
             isset($_POST["idCarnesAgregarOP"])&&
-            isset($_POST["catidadCarnesAgregarOP"])){
+            isset($_POST["catidadCarnesAgregarOP"])&&
+            isset($_POST["array_ProductoAltaOP"])&&
+            isset($_POST["array_QProductoAltaOP"])){
 
 
     $nuevaorden=ControladorFormularios::ctrAgregarOP();
@@ -421,5 +428,28 @@ $nuevoproveedor=ControladorFormularios::ctrAgregarProveedor();
     echo $respuestacod;
 
 }
+
+if (isset($_POST["idReceta"])&&
+            isset($_POST["productos"])){
+
+    $_GET["idReceta"]=$_POST["idReceta"];
+
+$productos=ControladorFormularios::ctrProductosReceta();
+
+
+    $respuestacod=json_encode($productos);
+    echo $respuestacod;
+
+}
+
+if (isset($_POST["array_ProductoAltaOP"])&&
+            isset($_POST["array_QProductoAltaOP"])){
+
+$insumosproductos=ControladorFormularios::ctrCalculoInsumosProductos();
+
+$respuestacod=json_encode($insumosproductos);
+echo $respuestacod;
+
+    }
 
 ?>

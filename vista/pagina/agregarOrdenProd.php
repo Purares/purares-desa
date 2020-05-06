@@ -91,15 +91,25 @@ foreach($recetas as $receta){
  <?php if($lote['creado_']=="NO"){echo '          
                
                 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="defaultCheckNroLote">
+  <input class="form-check-input" type="checkbox" id="defaultCheckNroLote">
   <label class="form-check-label" for="defaultCheckNroLote">
     Usar siguiente numero de lote
   </label>
 </div>
-';};?>" 
+';};?> 
 
                   </div>
                           <br>
+                       
+                   <div id="titulodivproductos"></div>       
+                          <br>
+                  <div id="divproductos" class="row"></div>
+                  <br>
+                           <div id="alertaproductos">
+				<div class="alert alert-info alertproductos" role="alert">
+				</div>
+			</div>
+			<br>
                            <h6 class="infoinsumos"></h6>
                            <br>
                          <table class="table table-hover table-bordered table-sm">
@@ -108,9 +118,20 @@ foreach($recetas as $receta){
                 <tbody class="bodyinsumosop">
                 </tbody>
                   </table>
+                  <br>
+                  <h6 class="infoinsumosxproducto"></h6>
+                           <br>
+                         <table class="table table-hover table-bordered table-sm">
+                <thead class="thead-light headinsumosproductoop">
+                </thead>
+                <tbody class="bodyinsumosproductoop">
+                </tbody>
+                  </table>
                   <input type="hidden" name="establecerorden" value="1">
                   <input  class="form-control" type="text" id="contadorcarne" value="1" required style="display:none;">
+                  <input  class="form-control" type="text" id="contadorproductos" value="1" required style="display:none;">
                            <br>
+				<br>
               <h5>2 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
               <hr>
 			<div id="alertacarnes">
@@ -237,7 +258,8 @@ foreach($carnes as $carne){
 
       button.addEventListener('click', function(event) {
          var contadorcarne=$('#contadorcarne').val();
-        if ((form.checkValidity() === false) || (contadorcarne!="0")) {
+         var contadorproducto=$('#contadorproductos').val();
+        if ((form.checkValidity() === false) || (contadorcarne!="0") || (contadorproducto!="0")) {
           event.preventDefault();
           event.stopPropagation();
         }
@@ -273,6 +295,146 @@ $.ajax({
 
                         
                         $('.bodyinsumosop').append('<tr><td scope="col" class="text-center">'+respuestacod.tablaInsumos_[i][1]+'</td><td scope="col" class="nominsu">'+respuestacod.tablaInsumos_[i][2]+'</td><td scope="col" class="stockinsu text-center">'+respuestacod.tablaInsumos_[i][5]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestacod.tablaInsumos_[i][6]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestacod.tablaInsumos_[i][7]+' '+respuestacod.tablaInsumos_[i][4]+'</td></tr>')
+
+$.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idReceta: $('#idReceta').val(),productos:1},
+                dataType: "json",
+                success:function(respuestaproduxreceta){
+
+$('#titulodivproductos').find('h6').remove()
+$('#divproductos').find('.input-group').remove()
+
+if(respuestaproduxreceta.length==0){
+
+$('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h6>')
+
+}else{
+
+$('#titulodivproductos').append('<h6>Distribuya las '+$('#cantidadunidadesfrescas').val()+' unidades entre los productos</h6>')
+
+$('#divproductos').append('<form id="formdistribucionproducto"></form>')
+
+ for (var h = 0; h < respuestaproduxreceta.length; h++) { 
+
+
+$('#formdistribucionproducto').append('<div class="input-group col-12"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div>')
+}
+
+}
+
+$('.cantidadproducto').bind("keyup change", function(e) {
+
+ $.post("datos.php",$("#formdistribucionproducto").serialize(),function(respuestainsumoproductos1){
+
+var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
+
+console.log(respuestainsumoproductos)
+
+                 if (respuestainsumoproductos['validacion_']=="SI") {
+
+                        //alert('alcanza')
+                         $('.infoinsumosxproducto').html("Se requeriran estas cantidades de insumos para los productos:")
+
+                        $('.headinsumosproductoop').html('<tr><th scope="col"  class="text-center">ID Insumo</th><th scope="col">Insumo</th><th scope="col"  class="text-center">Stock Actual</th><th scope="col"  class="text-center">Cantidad para orden</th><th scope="col"  class="text-center">Cantidad después de orden</th></tr>')
+
+                               $('.bodyinsumosproductoop').find('tr').remove()
+                    for (var i = 0; i < respuestainsumoproductos.tablaInsumos_.length; i++) {
+
+
+                        
+                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
+
+
+}}else{
+
+                      if (respuestainsumoproductos['validacion_']=="NO") {
+
+                             //alert('no alcanza')
+                      $('.infoinsumosxproducto').html('<p class="text-danger">No hay insumos suficientes para estos productos</p>')
+
+                            $('.headinsumosproductoop').html('<tr><th scope="col"  class="text-center">ID Insumo</th><th scope="col">Insumo</th><th scope="col"  class="text-center">Stock Actual</th><th scope="col"  class="text-center">Cantidad para orden</th><th scope="col"  class="text-center">Cantidad después de orden</th></tr>')
+
+                               $('.bodyinsumosproductoop').find('tr').remove()
+                    for (var i = 0; i < respuestainsumoproductos.tablaInsumos_.length; i++) {
+
+
+                        
+                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
+
+
+}
+
+}}})
+
+
+
+
+$('.cantidadproducto').bind("keyup change", function(e) {
+
+//alert("anda el codigo")
+	var valoresproductos=$('.cantidadproducto').filter(":input")
+	var total1=0
+    var total=parseFloat(total1)
+    var valoresproducto
+for (var i=0; i<=valoresproductos.length-1;i++){
+	//alert("esto es lo que entra antes de convertirse"+valorescarnes[i].value)
+	if (valoresproductos[i].value!="") {
+		valoresproducto=(parseFloat(valoresproductos[i].value))
+		//alert("este es el tipo con el que lee"+typeof(valoresvarne))
+		//alert("este es lo que lee"+valoresvarne)
+	
+  	total= total+valoresproducto
+  //	alert("asi queda el total despues de suamr cada campo"+total)
+  	}else{
+      valoresproducto=0
+	total= total+valoresproducto
+  //	alert("asi queda el total despues de suamr como 0"+total)
+  	}
+
+  	}
+//console.log(valorescarnes[1]);
+ var productosactual=$('#cantidadunidadesfrescas').val()-total
+ //alert(kilosactual)
+ if(productosactual==0){
+
+ 	$('.alertproductos').empty()
+ $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
+    $('#alertaproductos').show()
+$('.alertproductos').html("Se completaron los productos")
+$('#contadorproductos').val("0")
+
+ }else{
+  if(productosactual<0){
+$('.alertproductos').empty()
+$('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
+  $('#alertaproductos').show()
+$('.alertproductos').html("Se ingresaron <a id='productosrequeridos'></a> unidades de productos demás")
+var productosactualpositivo=-productosactual
+$('#productosrequeridos').html(productosactualpositivo)
+$('#contadorproductos').val("1")
+
+  }else{
+$('.alertproductos').empty()
+$('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
+  $('#alertaproductos').show()
+$('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades de productos")
+var productosrequeridos=$('#cantidadunidadesfrescas').val()-total
+$('#productosrequeridos').html(productosrequeridos)
+$('#contadorproductos').val("1")
+
+
+
+
+}}}) 
+
+
+})
+
+
+}})
+
 
 
               $.ajax({
@@ -411,14 +573,16 @@ $(document).ready(function(){
 })   
 
 	$('#alertacarnes').hide()
+	$('#alertaproductos').hide()
+
 
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
  //      alert(respuestacod1)
 
-                 // alert(respuestacod)
-// console.log(respuestacod1);
+                 alert(respuestacod1)
+                  console.log(respuestacod1);
 
                 if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarOrden').modal('hide')
@@ -505,6 +669,8 @@ $('#contadorcarne').val("1")
 }}}) 
 
 
+
+
 $("#defaultCheckNroLote").on( "click", function() {
   
 if ($('#defaultCheckNroLote').prop('checked')==true) {
@@ -522,6 +688,7 @@ $('#nrolote').val(parseInt($('#nrolote').val())-1)
 
 
 }})
+
 
 </script>
 
