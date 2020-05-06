@@ -578,8 +578,8 @@ $(document).ready(function(){
 
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
- //      alert(respuestacod1)
+       $.post("datos.php",$('#formorden,#formdistribucionproducto').serialize(),function(respuestacod1){
+ //      alert(respuestacod1
 
                  alert(respuestacod1)
                   console.log(respuestacod1);
