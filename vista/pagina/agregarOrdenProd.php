@@ -316,7 +316,7 @@ $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h
 
 $('#titulodivproductos').append('<h6>Distribuya las '+parseInt($('#cantidadunidadesfrescas').val())*cantidadunidadesfinales+' unidades finales entre los productos</h6>')
 
-$('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" name="boleanocalculoproductos" value="1"></form>')
+$('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" id="boleanocalculoproductos" name="boleanocalculoproductos" value="1"></form>')
 
 //console.log(respuestaproduxreceta)
 
