@@ -443,7 +443,7 @@ $productos=ControladorFormularios::ctrProductosReceta();
 }
 
 if (isset($_POST["array_ProductoAltaOP"])&&
-            isset($_POST["array_QProductoAltaOP"])){
+            isset($_POST["array_QProductoAltaOP"])&&$_POST["boleanocalculoproductos"]==1){
 
 $insumosproductos=ControladorFormularios::ctrCalculoInsumosProductos();
 

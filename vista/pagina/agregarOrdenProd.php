@@ -103,7 +103,7 @@ foreach($recetas as $receta){
                        
                    <div id="titulodivproductos"></div>       
                           <br>
-                  <div id="divproductos" class="row"></div>
+                  <div id="divproductos"></div>
                   <br>
                            <div id="alertaproductos">
 				<div class="alert alert-info alertproductos" role="alert">
@@ -304,7 +304,7 @@ $.ajax({
                 success:function(respuestaproduxreceta){
 
 $('#titulodivproductos').find('h6').remove()
-$('#divproductos').find('.input-group').remove()
+$('#divproductos').find('form').remove()
 
 if(respuestaproduxreceta.length==0){
 
@@ -314,12 +314,14 @@ $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h
 
 $('#titulodivproductos').append('<h6>Distribuya las '+$('#cantidadunidadesfrescas').val()+' unidades entre los productos</h6>')
 
-$('#divproductos').append('<form id="formdistribucionproducto"></form>')
+$('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" name="boleanocalculoproductos" value="1"></form>')
+
+console.log(respuestaproduxreceta)
 
  for (var h = 0; h < respuestaproduxreceta.length; h++) { 
 
 
-$('#formdistribucionproducto').append('<div class="input-group col-12"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div>')
+$('#formdistribucionproducto').append('<div class="row"><div class="input-group col-6"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div><div class="input-group col-6"><div class="input-group-prepend"><span class="input-group-text">Unidades necesarias</span></div><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title=""><i class="far fa-question-circle"></i></button></div></div></div>')
 }
 
 }
@@ -375,13 +377,14 @@ $('.cantidadproducto').bind("keyup change", function(e) {
 
 //alert("anda el codigo")
 	var valoresproductos=$('.cantidadproducto').filter(":input")
+	var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
 	var total1=0
     var total=parseFloat(total1)
     var valoresproducto
 for (var i=0; i<=valoresproductos.length-1;i++){
 	//alert("esto es lo que entra antes de convertirse"+valorescarnes[i].value)
 	if (valoresproductos[i].value!="") {
-		valoresproducto=(parseFloat(valoresproductos[i].value))
+		valoresproducto=(parseFloat(valoresproductos[i].value))*(parseFloat(unidadesxproducto[i].value))
 		//alert("este es el tipo con el que lee"+typeof(valoresvarne))
 		//alert("este es lo que lee"+valoresvarne)
 	
@@ -504,6 +507,7 @@ $('#contadorproductos').val("1")
  })
 
 $('#ConfirmarOrden').on('show.bs.modal', function (event) {
+$('#boleanocalculoproductos').val(0)
 var button = $(event.relatedTarget);
 var modal = $(this)
 completarmodalorden()
