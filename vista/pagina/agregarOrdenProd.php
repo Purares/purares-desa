@@ -245,6 +245,7 @@ foreach($carnes as $carne){
 
 	var kilosrequeridos;
 	var total=0;
+	var cantidadunidadesfinales;
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
@@ -312,16 +313,16 @@ $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h
 
 }else{
 
-$('#titulodivproductos').append('<h6>Distribuya las '+$('#cantidadunidadesfrescas').val()+' unidades entre los productos</h6>')
+$('#titulodivproductos').append('<h6>Distribuya las '+parseInt($('#cantidadunidadesfrescas').val())*cantidadunidadesfinales+' unidades finales entre los productos</h6>')
 
 $('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" name="boleanocalculoproductos" value="1"></form>')
 
-console.log(respuestaproduxreceta)
+//console.log(respuestaproduxreceta)
 
  for (var h = 0; h < respuestaproduxreceta.length; h++) { 
 
 
-$('#formdistribucionproducto').append('<div class="row"><div class="input-group col-6"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div><div class="input-group col-6"><div class="input-group-prepend"><span class="input-group-text">Unidades necesarias</span></div><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title=""><i class="far fa-question-circle"></i></button></div></div></div>')
+$('#formdistribucionproducto').append('<div class="row"><div class="input-group col-6"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()*cantidadunidadesfinales+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div><div class="input-group col-6"><div class="input-group-prepend"><span class="input-group-text">Unidades finales necesarias</span></div><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title=""><i class="far fa-question-circle"></i></button></div></div></div>')
 }
 
 }
@@ -332,7 +333,7 @@ $('.cantidadproducto').bind("keyup change", function(e) {
 
 var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 
-console.log(respuestainsumoproductos)
+//console.log(respuestainsumoproductos)
 
                  if (respuestainsumoproductos['validacion_']=="SI") {
 
@@ -398,14 +399,14 @@ for (var i=0; i<=valoresproductos.length-1;i++){
 
   	}
 //console.log(valorescarnes[1]);
- var productosactual=$('#cantidadunidadesfrescas').val()-total
+ var productosactual=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
  //alert(kilosactual)
  if(productosactual==0){
 
  	$('.alertproductos').empty()
  $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
     $('#alertaproductos').show()
-$('.alertproductos').html("Se completaron los productos")
+$('.alertproductos').html("Se completó la distribución de unidades finales entre los productos")
 $('#contadorproductos').val("0")
 
  }else{
@@ -413,7 +414,7 @@ $('#contadorproductos').val("0")
 $('.alertproductos').empty()
 $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertaproductos').show()
-$('.alertproductos').html("Se ingresaron <a id='productosrequeridos'></a> unidades de productos demás")
+$('.alertproductos').html("Se excedieron <a id='productosrequeridos'></a> unidades finales de los productos")
 var productosactualpositivo=-productosactual
 $('#productosrequeridos').html(productosactualpositivo)
 $('#contadorproductos').val("1")
@@ -422,8 +423,8 @@ $('#contadorproductos').val("1")
 $('.alertproductos').empty()
 $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertaproductos').show()
-$('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades de productos")
-var productosrequeridos=$('#cantidadunidadesfrescas').val()-total
+$('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades finales entre los productos")
+var productosrequeridos=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
 $('#productosrequeridos').html(productosrequeridos)
 $('#contadorproductos').val("1")
 
@@ -447,7 +448,7 @@ $('#contadorproductos').val("1")
                 success:function(respuestacod){
 
              
-//console.log(respuestacod);
+cantidadunidadesfinales=parseInt(respuestacod[0]['unidades_final_xunidad'])
 
 					var pesopastontotal1=$('#PesoPaston').val()
 
@@ -507,7 +508,7 @@ $('#contadorproductos').val("1")
  })
 
 $('#ConfirmarOrden').on('show.bs.modal', function (event) {
-$('#boleanocalculoproductos').val(0)
+$('#boleanocalculoproductos').val("0")
 var button = $(event.relatedTarget);
 var modal = $(this)
 completarmodalorden()
@@ -585,8 +586,8 @@ $(document).ready(function(){
        $.post("datos.php",$('#formorden,#formdistribucionproducto').serialize(),function(respuestacod1){
  //      alert(respuestacod1
 
-                 alert(respuestacod1)
-                  console.log(respuestacod1);
+                // alert(respuestacod1)
+                //  console.log(respuestacod1);
 
                 if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarOrden').modal('hide')
