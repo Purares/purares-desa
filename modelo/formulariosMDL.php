@@ -34,6 +34,7 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+
 	#------------------------- Lista Productos -------------------------#
 
 	static public function mdlListaProductos(){
@@ -881,7 +882,7 @@ static public function mdlAltaOP($datosOP){
 		
 
 		if ($stmt -> execute()){
-			return $stmt -> fetchAll();
+			return "OK";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -950,6 +951,17 @@ static public function mdlAltaOP($datosOP){
 static public function mdlDetalleOpMediciones($id_OrdenProd){
  
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op_mediciones where id_ordenprod_alta=$id_OrdenProd;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Detalle OP Productos -------------------------#
+
+	static public function mdlDetalleOPProductos($id_OrdenProd){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_productos_op_3_final where id_orde_alta=$id_OrdenProd;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -1259,7 +1271,7 @@ static public function mdlFinOP($datosOP){
 
 #------------------------- Detalle Producto -------------------------#
 
-	static public function mdlDetallePorductos($idProducto){
+	static public function mdlDetalleProductos($idProducto){
 
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM producto_n where id_producto=$idProducto;");
 		$stmt -> execute();

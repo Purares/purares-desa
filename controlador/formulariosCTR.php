@@ -949,6 +949,7 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["array_ProductoAltaOP"])&&
 			isset($_POST["array_QProductoAltaOP"])){
 
+			
 
 			$carnesOP = array(	'idCarnes' =>$_POST["idCarnesAgregarOP"] ,
 								'cantidad' =>$_POST["catidadCarnesAgregarOP"]);
@@ -1002,12 +1003,12 @@ static public function ctrValidarAnulacionCompra(){
 									if ($respuesta != "OK") { return $respuesta;}
 								#6)Producto esperados
 
-									#Crea el Array de INSUMO por Producto
-										$longitud=count( $_POST["idProductosAgregarOP"]);	
+									#Crea el Array de Producto
+										$longitud=count( $_POST["array_ProductoAltaOP"]);	
 										$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
 														'idOrdenBaja_'	=>array_fill(0,$longitud,null),
-														'idProducto_'	=>$_POST["idProductosAgregarOP"],
-														'cantidad_'		=>$_POST["CantidadProdAgregarOP"]);
+														'idProducto_'	=>$_POST["array_ProductoAltaOP"],
+														'cantidad_'		=>$_POST["array_QProductoAltaOP"]);
 
 									#Recorre el Array de INSUMOS agregandolos en la BD
 										for ($i=0; $i <$longitud ; $i++) { 
@@ -1158,6 +1159,7 @@ static public function ctrValidarAnulacionCompra(){
 			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
 			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			$detalleMediciones=ModeloFormularios::mdlDetalleOpMediciones($id_OrdenProd);
+			$productos=ModeloFormularios::mdlDetalleOPProductos($id_OrdenProd);
 
 			$id_Receta=$detalleAltaOP[0]['id_receta'];
 
@@ -1540,7 +1542,7 @@ static public function ctrValidarAnulacionCompra(){
 
 		if (isset($_GET["idProductoDetalle"])){
 
-			$detalleProducto=ModeloFormularios::mdlDetallePorductos($_GET["idProductoDetalle"]);
+			$detalleProducto=ModeloFormularios::mdlDetalleProductos($_GET["idProductoDetalle"]);
 			$insumosProducto=ModeloFormularios::mdlInsumosPorductos($_GET["idProductoDetalle"]);
 
 			$respuesta = array(	'detalleProducto' 		=> $detalleProducto,
@@ -1550,6 +1552,33 @@ static public function ctrValidarAnulacionCompra(){
 		}	
 
 	}
+
+
+#------------------------- Detalle de productos -------------------------#
+
+	static public function ctrAjusteStockInsumos(){
+
+
+		if (isset($_GET["ArrayIdInsumosAjusteStock"])&&
+			isset($_GET["ArrayCantidadAjusteStock"])&&
+			isset($_GET["DescripcionAjusteStock"])){
+
+			#$idAjusteInventario=;
+
+
+
+
+			$respuesta = array(	'detalleProducto' 		=> $detalleProducto,
+								'insumosProducto' 		=> $insumosProducto);
+	
+			return $respuesta;	
+		}	
+
+	}
+
+
+
+
 
 }	#cierra la clase
 
