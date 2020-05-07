@@ -264,6 +264,7 @@ foreach($carnes as $carne){
           event.preventDefault();
           event.stopPropagation();
         }
+        $('#boleanocalculoproductos').val("0")
         form.classList.add('was-validated');
       }, false);
     });
@@ -508,7 +509,7 @@ cantidadunidadesfinales=parseInt(respuestacod[0]['unidades_final_xunidad'])
  })
 
 $('#ConfirmarOrden').on('show.bs.modal', function (event) {
-$('#boleanocalculoproductos').val("0")
+
 var button = $(event.relatedTarget);
 var modal = $(this)
 completarmodalorden()
