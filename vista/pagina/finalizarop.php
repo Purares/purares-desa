@@ -6,6 +6,13 @@
 </head>
 <body>
 
+  <?php 
+  $_GET['idOrdenProdDetalle']=$_GET['idOrdenProdAlta_FinOP'];
+$detalleOrden=ControladorFormularios::ctrDetalleOP();
+$productos=$detalleOrden['productos_'];
+
+   ?>
+
 	<div class="container">
 <br>
 
@@ -111,6 +118,54 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
                 </div>
         			</div>
                      <br>
+
+ <div class="col-8">
+                  <table class="table table-sm">
+                <thead>
+                    <tr>
+                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
+                      <td scope="col" class="text-center text-white bg-dark">Cantidad esperada</td>
+                       <td scope="col" class="text-center text-white bg-dark">Cantidad obtenida</td>
+                    </tr> 
+                  </thead>
+                <tbody id="TablaProductos">
+
+<?php
+
+foreach($productos as $producto){
+                           
+
+              echo '             <tr>
+                        <td scope="col">
+                          <a>' . $producto["producto"] . '</a>
+                        </td>
+                        <td scope="col">
+                           <div class="input-group">
+ <input type="number" class="form-control text-right" value="'.$producto["q_esperada"].'" readonly>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+                         <td scope="col">
+                           <div class="input-group">
+ <input type="number" min="0" step="1" class="form-control text-right" placeholder="Ingrese las unidades finales obtenidas">
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+                    </tr>'; 
+       };?>
+
+                </tbody>
+            </table>
+                </div>
+
               <h5>Descripción</h5>
               <hr>
                 <textarea class="form-control" style="min-width: 100%" name="descripcion_FinOP" id="descripcionfinop" placeholder="..."></textarea>
