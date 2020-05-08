@@ -949,7 +949,7 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["array_ProductoAltaOP"])&&
 			isset($_POST["array_QProductoAltaOP"])){
 
-			
+
 
 			$carnesOP = array(	'idCarnes' =>$_POST["idCarnesAgregarOP"] ,
 								'cantidad' =>$_POST["catidadCarnesAgregarOP"]);
@@ -1159,7 +1159,7 @@ static public function ctrValidarAnulacionCompra(){
 			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
 			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			$detalleMediciones=ModeloFormularios::mdlDetalleOpMediciones($id_OrdenProd);
-			$productos=ModeloFormularios::mdlDetalleOPProductos($id_OrdenProd);
+			$productosOP=ModeloFormularios::mdlDetalleOPProductos($id_OrdenProd);
 
 			$id_Receta=$detalleAltaOP[0]['id_receta'];
 
@@ -1170,7 +1170,8 @@ static public function ctrValidarAnulacionCompra(){
 								'detalleInsumosOP_' 	=> $detalleInsumosOP,
 								'detalleCarnesOP_' 		=> $detalleCarnesOP,
 								'detalleMedicionesesOP_'=> $detalleMediciones,
-								'detalleReceta_'		=> $detalleReceta);
+								'detalleReceta_'		=> $detalleReceta
+								'productos_'			=> $productosOP);
 	
 			return $respuesta;	
 		}	

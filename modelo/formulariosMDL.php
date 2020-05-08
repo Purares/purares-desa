@@ -961,7 +961,7 @@ static public function mdlDetalleOpMediciones($id_OrdenProd){
 
 	static public function mdlDetalleOPProductos($id_OrdenProd){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_productos_op_3_final where id_orde_alta=$id_OrdenProd;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_productos_op_3_final where id_orden_alta=$id_OrdenProd;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
