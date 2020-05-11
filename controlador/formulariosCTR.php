@@ -1242,14 +1242,14 @@ static public function ctrValidarAnulacionCompra(){
 
 				#5)Producto obtenidos reales
 
-					#Crea el Array de INSUMO por Producto
+					#Crea el Array de Productos
 					$longitud=count( $_POST["idProductosFinalizarOP"]);	
 					$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,null),
 									'idOrdenBaja_'	=>array_fill(0,$longitud,$id_ordenprod_fin),
 									'idProducto_'	=>$_POST["idProductosFinalizarOP"],
 									'cantidad_'		=>$_POST["CantidadProdFinalizarOP"]);
 
-					#Recorre el Array de INSUMOS agregandolos en la BD
+					#Recorre el Array de PRODUCTOS agregandolos en la BD
 					for ($i=0; $i <$longitud ; $i++) { 
 					
 						$datos3= array_column($datos2,$i);
@@ -1259,7 +1259,14 @@ static public function ctrValidarAnulacionCompra(){
 						if ($respuesta != "OK") { return $respuesta;}
 					} #exit for OK
 
-					
+					#Ajustar los insumos por la 
+					$respuesta2=ControladorFormularios::ctrFinOPAjusteInsumoProductos($id_OrdenProd);
+					if ($respuesta2 =="OK") {
+						$respuesta="OK";
+					}else{
+						$respuesta="Error en el ajuste de insumo. Comunicare con soporte";
+					}
+
 				}else{
 					$respuesta="La OP ".$_POST["idOrdenProdAlta_FinOP"]." ya está finalizada.";	
 				}
@@ -1306,7 +1313,36 @@ static public function ctrValidarAnulacionCompra(){
 
 #------------------------- Fin OP Ajuste insumos-------------------------#
 
-	static public function ctrFinOPAjusteInsumoProductos(){
+	static public function ctrFinOPAjusteInsumoProductos($id_OrdenProd){
+
+	#1)tomar el valor de la id_orden_alta
+	#$id_OrdenProd=1;
+#2)Ir a buscar a la vista "v_productos_op_1_esperado" el ajuste de stock 
+	$productosTabla=ModeloFormularios::mdlDiferenciaOPProductos($id_OrdenProd);	
+#3)genero un array al cual debero recorrer
+	$longitud=count($productosTabla);
+#4)recorrer el array con la lista de producto
+	for ($i=0; $i <$longitud ; $i++) { 
+		#Si el ejuste es != a 0, caso contrario no tiene sentido
+		if ($productosTabla[$i]['ajuste'] !== 0){
+			#5)Armar el array para ajustar los insumos por el producto
+			$datos1 = array('ajuste_' 		=>$productosTabla[$i]['ajuste'],
+							'idUsuario_'	=>$_SESSION['userId'],
+							'idOrdenFin_'	=>$productosTabla[$i]['id_orden_fin'],
+							'idProducto_'	=>$productosTabla[$i]['id_producto']);
+			#6)EL siguiente procedure busca los insumos de los products y hace el ajsute que sea necesario.
+			$ajusteProducto=ModeloFormularios::mdlDiferenciaOPProductos($datos1);
+			if ($ajusteProducto!="OK") {return $respuesta;}
+		}
+	}
+return $respuesta;
+/*
+IMPORTANTE:
+-Modificar la vista InsumosXop, debe incluir el ajuste de la op finalizada
+-Al anular la finalización de OP debe hacerse el contraasiente de movimiento de insumos del ajuste de los productos.
+*/
+
+
 
 	}
 
