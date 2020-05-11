@@ -1170,7 +1170,7 @@ static public function ctrValidarAnulacionCompra(){
 								'detalleInsumosOP_' 	=> $detalleInsumosOP,
 								'detalleCarnesOP_' 		=> $detalleCarnesOP,
 								'detalleMedicionesesOP_'=> $detalleMediciones,
-								'detalleReceta_'		=> $detalleReceta
+								'detalleReceta_'		=> $detalleReceta,
 								'productos_'			=> $productosOP);
 	
 			return $respuesta;	
@@ -1303,6 +1303,13 @@ static public function ctrValidarAnulacionCompra(){
 		return $respuesta;
 		}
 	}
+
+#------------------------- Fin OP Ajuste insumos-------------------------#
+
+	static public function ctrFinOPAjusteInsumoProductos(){
+
+	}
+
 
 #------------------------- ANULAR Finalizacion Orden de produccion -------------------------#
 
@@ -1576,7 +1583,6 @@ static public function ctrValidarAnulacionCompra(){
 		}	
 
 	}
-
 
 
 

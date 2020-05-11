@@ -1025,6 +1025,41 @@ static public function mdlFinOP($datosOP){
 		$stmt =null;
 	}
 
+	#Ajuste de Stock de insumos por la ^ de los productos al finalizar la OP
+	#------------------------- Diferencia Productos -------------------------#
+
+	static public function mdlDiferenciaOPProductos($id_OrdenProd){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT *,q_esperada-q_real as ajuste FROM v_productos_op_3_final where id_orden_alta=$id_OrdenProd;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Anular FIn OP -------------------------#
+
+	static public function mdlAjustarInsumosOPxProducto($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AjusteInsumosFinOP_Productos(:ajuste, :idUsuario, :idOrdenFin, :idProducto);");
+		
+		$stmt -> bindparam (":ajuste",		$datos['ajuste_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenFin",	$datos['idOrdenFin_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idProducto",	$datos['idProducto_'],PDO::PARAM_INT);
+		
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
 #------------------------- Anular FIn OP -------------------------#
 
 	static public function mdlAnularOP($datos){
