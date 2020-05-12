@@ -133,11 +133,13 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
 <?php
 
 foreach($productos as $producto){
+
+
                            
 
               echo '             <tr>
                         <td scope="col">
-                          <a>' . $producto["producto"] . '</a>
+                          <a>' . $producto["producto"] . '</a><input type="hidden" name="idProductosFinalizarOP[]" value="'. $producto["id_producto"].'">
                         </td>
                         <td scope="col">
                            <div class="input-group">
@@ -151,7 +153,7 @@ foreach($productos as $producto){
                         </td>
                          <td scope="col">
                            <div class="input-group">
- <input type="number" min="0" step="1" class="form-control text-right" placeholder="Ingrese las unidades finales obtenidas">
+ <input type="number" min="0" step="1" name="CantidadProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese las unidades finales obtenidas">
                               <div class="input-group-append">
                   <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
   <i class="far fa-question-circle"></i>

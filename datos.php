@@ -452,4 +452,53 @@ echo $respuestacod;
 
     }
 
+
+if (isset($_POST["ajustecarnes"])||
+            isset($_POST["ajusteinsumos"])){
+
+if(isset($_POST["ajustecarnes"])){
+
+       $listacarnes=ControladorFormularios::ctrListaCarnes();
+
+    if($listacarnes){
+
+       /* echo '<thead><th>N°</th><th>Carne</th></thead><tbody>';
+        foreach ($listacarnes as $carne) {
+
+            $_GET["idCarneVerComposicion"]=1;
+             $composicioncarne=ControladorFormularios::ctrComposicionStockCarnes();
+             echo '<tr><td>'.$composicioncarne[0].'</td><td>'.$composicioncarne[1].'</td></tr>';
+        };
+        echo '<tbody>';*/
+    }else{
+        echo '<option value="">Carnes no disponibles</option>';
+    }
+}else{
+
+$depositos=ControladorFormularios::ctrListaDepositos();
+
+ echo '<option value="">Seleccione el depósito</option>';
+
+foreach($depositos as $deposito){
+
+  echo '<option value="' . $deposito["id_deposito"] . '">' . $deposito["nombre"] . '</option>';
+
+}}
+
+}
+
+if (isset($_POST["idDepositoAjusteStock"])){
+    $inusmosxdeposito=ControladorFormularios::ctrStockInsumos();
+
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N°</th><th scope="col" class="text-center text-white bg-dark">Insumo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+        foreach ($inusmosxdeposito as $insumo) {
+
+            if($insumo[4]==$_POST["idDepositoAjusteStock"]){
+
+             echo '<tr><td scope="col" class="text-center" width="15%">' . $insumo[0] . '<input type="hidden" name="" value="' . $insumo[0] . '"></td><td scope="col"  width="25%">' . $insumo[1] . '<input type="hidden" class="nominsumo" value="' . $insumo[1] . '"></td><td scope="col"  width="20%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" value="'.$insumo[2].'" readonly><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td><td scope="col"  width="40%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" placeholder="Ajuste de stock"><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td></tr>';
+        }};
+        echo '<tbody>';
+
+}
+
 ?>

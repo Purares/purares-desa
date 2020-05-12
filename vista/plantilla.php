@@ -149,6 +149,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
       <a class="dropdown-item" href="index.php?pagina=agregarInsumo">Agregar insumo</a>
       <a class="dropdown-item" href="index.php?pagina=agregarCorte">Agregar carne</a>
       <a class="dropdown-item" href="index.php?pagina=AgregarProveedor">Agregar proveedor</a>
+       <a class="dropdown-item" href="index.php?pagina=AjusteStock">Ajuste Stock</a>
     </div>
 		</li>
 
@@ -200,6 +201,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="AgregarProveedor"||
 					$_GET["pagina"]=="detalleProducto"||
 					$_GET["pagina"]=="verProductos"||	
+					$_GET["pagina"]=="AjusteStock"||	
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
