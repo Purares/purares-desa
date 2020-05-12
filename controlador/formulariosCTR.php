@@ -1612,8 +1612,8 @@ IMPORTANTE:
 
 
 
-			$respuesta = array(	'detalleProducto' 		=> $detalleProducto,
-								'insumosProducto' 		=> $insumosProducto);
+			$respuesta = array(	'idAjuste_' 		=> $,
+								'respuesta_' 		=> $);
 	
 			return $respuesta;	
 		}	
