@@ -149,19 +149,18 @@ class ModeloFormularios{
 
 	static public function mdlMovimientoInsumo($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :idInsumo,:cantidad,:idCuenta, :idOrden,:idCompra,:idUsuario,:comentario,:funcion);");
-		
-
-		#$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( 6,234,10,null,12,1,123);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :idInsumo,:cantidad,:idCuenta, :idOrden,:idCompra,:idOrdenFin,:idAjusteStock, :idUsuario,:comentario,:funcion);");
 
 		$stmt -> bindparam (":idInsumo",	$datos[0],PDO::PARAM_INT);
 		$stmt -> bindparam (":cantidad",	$datos[1],PDO::PARAM_STR); 
 		$stmt -> bindparam (":idCuenta",	$datos[2],PDO::PARAM_INT);
 		$stmt -> bindparam (":idOrden",		$datos[3],PDO::PARAM_INT);
-		$stmt -> bindparam (":idCompra",	$datos[4],PDO::PARAM_INT); 
-		$stmt -> bindparam (":idUsuario",	$datos[5],PDO::PARAM_INT);
-		$stmt -> bindparam (":comentario",	$datos[6],PDO::PARAM_STR);
-		$stmt -> bindparam (":funcion",		$datos[7],PDO::PARAM_STR);
+		$stmt -> bindparam (":idCompra",	$datos[4],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenFin",	$datos[5],PDO::PARAM_INT);
+		$stmt -> bindparam (":idAjusteStock",$datos[6],PDO::PARAM_INT); 
+		$stmt -> bindparam (":idUsuario",	$datos[7],PDO::PARAM_INT);
+		$stmt -> bindparam (":comentario",	$datos[8],PDO::PARAM_STR);
+		$stmt -> bindparam (":funcion",		$datos[9],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "OK"; #si se ejecutó correctamente le envío un OK
@@ -423,6 +422,19 @@ class ModeloFormularios{
 	}
 
 #------------------------- Composicion Stock de CARNES------------------------#
+
+	static public function mdlComposicionStockCarnesTodos(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_composicionstockcarne where stock>0;");
+
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+#------------------------- Composicion Stock de CARNES------------------------#
 	/*Esta función es utulizada para la impresion del stock de carnes*/
 
 	static public function mdlComposicionStockCarnes2(){
@@ -539,19 +551,20 @@ static public function mdlCrearDesposte($datos){
 	#!!!Tener en cuenta que no envío el nombre de la fila, sino el número de fila.
 	static public function mdlMovimientoCarne($datos){
 
-	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:idCarne, :idCuenta, :idDesposte, :cantidad, :idOrenProd,:idDecomiso, :idUsuario, :descripcion,:funcion);");
+	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:idCarne, :idCuenta, :idDesposte, :cantidad, :idOrenProd,:idDecomiso,:idAjusteStock,:idUsuario, :descripcion,:funcion);");
 
 
 
-		$stmt -> bindparam (":idCarne",		$datos[0],PDO::PARAM_INT);
-		$stmt -> bindparam (":idCuenta",	$datos[1],PDO::PARAM_INT);
-		$stmt -> bindparam (":idDesposte",	$datos[2],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",	$datos[3],PDO::PARAM_STR);
-		$stmt -> bindparam (":idOrenProd",	$datos[4],PDO::PARAM_INT);
-		$stmt -> bindparam (":idDecomiso",	$datos[5],PDO::PARAM_INT);
-		$stmt -> bindparam (":idUsuario",	$datos[6],PDO::PARAM_INT);
-		$stmt -> bindparam (":descripcion",	$datos[7],PDO::PARAM_STR);
-		$stmt -> bindparam (":funcion",		$datos[8],PDO::PARAM_STR);
+		$stmt -> bindparam (":idCarne",			$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idCuenta",		$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":idDesposte",		$datos[2],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",		$datos[3],PDO::PARAM_STR);
+		$stmt -> bindparam (":idOrenProd",		$datos[4],PDO::PARAM_INT);
+		$stmt -> bindparam (":idDecomiso",		$datos[5],PDO::PARAM_INT);
+		$stmt -> bindparam (":idAjusteStock",	$datos[6],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",		$datos[7],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",		$datos[8],PDO::PARAM_STR);
+		$stmt -> bindparam (":funcion",			$datos[9],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "OK";
@@ -844,13 +857,14 @@ static public function mdlCrearDesposte($datos){
 
 static public function mdlAltaOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:nro_lote, :idReceta, :pesoPaston,:qUniFrescas, :idUsuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:nro_lote, :idReceta, :pesoPaston,:qUniFrescas,:unidadesSinAsignar :idUsuario);");
 
-		$stmt -> bindparam (":nro_lote",	$datosOP['nroLote_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":idReceta",	$datosOP['idReceta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":pesoPaston",	$datosOP['pesoPaston_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":qUniFrescas",	$datosOP['qUniFrescas_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":idUsuario",	$datosOP['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":nro_lote",			$datosOP['nroLote_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idReceta",			$datosOP['idReceta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoPaston",			$datosOP['pesoPaston_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":qUniFrescas",			$datosOP['qUniFrescas_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":unidadesSinAsignar",	$datosOP['unidadesSinAsignar_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",			$datosOP['idUsuario_'],PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){

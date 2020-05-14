@@ -108,33 +108,6 @@ class ControladorFormularios{
 		}
 	}
 
-#------------------------- Actualizar stock de Insumo -------------------------#
-
-	static public function ctrActualizarInsumo(){
-
-		if (isset($_GET["idInsumoActI"])&&
-			isset($_POST["cantidadActI"])&&
-			isset($_POST["idCuentaActI"])) {
-	
-	#session_start();
-	$longitud=1;
-
-			$datos= array(	'idInsumo_'		=>[$_GET["idInsumoActI"]],
-							'cantidad_'		=>[$_POST["cantidadActI"]],
-							'idCuenta_'		=>[$_POST["idCuentaActI"]], #Número fijo para la cuenta compra
-							'idOrdenProd_'	=>array_fill(0,$longitud,null),
-							'idCompra_'		=>array_fill(0,$longitud,null),
-							'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']),
-							'comentario_'	=>[$_POST["comentarioActI"]],
-							'funcion_'		=>array_fill(0,$longitud,'ActualizarInsumo'));
-
-		$datos2=array_column($datos,0);
-		$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos2);
-
-		return $respuesta;
-		}
-	}
-
 #------------------------- InsumosXdeposito -------------------------#
 
 	static public function ctrInsumosDeposito(){
@@ -510,6 +483,7 @@ class ControladorFormularios{
 								'cantidad_'		=> $_POST["cantidadAltaDesposte"],
 								'idOrenProd_'	=> array_fill(0,$longitud,null),
 								'idDecomiso_'	=> array_fill(0,$longitud,null),
+								'idAjusteStock_'=> array_fill(0,$longitud,null),
 								'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
 								'descripcion_'	=> array_fill(0,$longitud,null),
 								'funcion_'		=> array_fill(0,$longitud,'Desposte'));
@@ -550,9 +524,10 @@ class ControladorFormularios{
 							'cantidad_'		=> [$_POST["cantidadMovimientoCarne"]],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idDecomiso_'	=> array_fill(0,$longitud,null),
+							'idAjusteStock_'=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
 							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]],
-							'funcion_'	=> array_fill(0,$longitud,"ActualizarCarne"));
+							'funcion_'		=> array_fill(0,$longitud,"ActualizarCarne"));
 				
 			$datos3 = array_column($datos2,0);
 			
@@ -741,6 +716,8 @@ static public function ctrValidarAnulacionCompra(){
 							'idCuenta_'		=>array_fill(0,$longitud,10), #Número fijo para la cuenta compra
 							'idOrdenProd_'	=>array_fill(0,$longitud,null),
 							'idCompra_'		=>array_fill(0,$longitud,$id_compra_nueva),
+							'idOrdenFin_'	=>array_fill(0,$longitud,null),
+							'idAjusteStock_'=>array_fill(0,$longitud,null),
 							'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']),
 							'descripcion_'	=>array_fill(0,$longitud,null),
 							'funcion_'		=>array_fill(0,$longitud,'CompraInsumo'));
@@ -987,6 +964,7 @@ static public function ctrValidarAnulacionCompra(){
 													'idReceta_' 	=> $_POST["idRecetaAltaOP"],
 													'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"],
 													'qUniFrescas_' 	=> $_POST["qUniFrescasAltaOP"], 
+													'unidadesSinAsignar_'=> $_POST["unidadesSinAsignarAltaOP"],
 													'idUsuario_' 	=> $_SESSION['userId'] ); 
 
 								$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
@@ -1075,6 +1053,8 @@ static public function ctrValidarAnulacionCompra(){
 							'idCuenta_'		=>array_fill(0,$longitud,2), #Número fijo para la cuenta compra
 							'idOrdenProd_'	=>array_fill(0,$longitud,$idOrdenProd),
 							'idCompra_'		=>array_fill(0,$longitud,null),
+							'idOrdenFin_'	=>array_fill(0,$longitud,null),
+							'idAjusteStock_'=>array_fill(0,$longitud,null),
 							'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']),
 							'descripcion_'	=>array_fill(0,$longitud,null),
 							'funcion_'		=>array_fill(0,$longitud,'OrdenProd'));
@@ -1121,6 +1101,7 @@ static public function ctrValidarAnulacionCompra(){
 											'cantidad_'		=> [$cantidad],
 											'idOrenProd_'	=> [$idOrdenProd],
 											'idDecomiso_'	=> [null],
+											'idAjusteStock_'=> [null],
 											'idUsuario_'	=> [$_SESSION['userId']],
 											'descripcion_'	=> [null],
 											'funcion_'		=> ['OrdenProd']);
@@ -1597,29 +1578,111 @@ IMPORTANTE:
 
 	}
 
+#----------------- Ajuste de Stock -------------------
 
-#------------------------- Detalle de productos -------------------------#
+	static public function ctrAjusteStockEncabezado(){
 
-	static public function ctrAjusteStockInsumos(){
+		if (isset($_GET["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
+			isset($_GET["motivoAjusteStock"])&& #ControlStock/
+			isset($_GET["DescripcionAjusteStock"])&&(
+			( #Insumos
+				isset($_GET["ArrayIdInsumosAjusteStock"])&&
+				isset($_GET["ArrayCantidadAjusteStock"]))||
+			(#Carnes
+				isset($_POST["ArrayIdCarnesAjusteStock"])&&
+				isset($_POST["ArrayIdDesposteAjusteStock"])&&
+				isset($_POST["ArrayCantidadAjusteStock"]))
+			)) {
 
+			$datos = array(	'tipo_' 	=> $_GET["tipoAjusteStock"],
+							'motiovo_' 	=> $_GET["motivoAjusteStock"],
+							'tipo' 		=> $_GET["DescripcionAjusteStock"]);
 
-		if (isset($_GET["ArrayIdInsumosAjusteStock"])&&
-			isset($_GET["ArrayCantidadAjusteStock"])&&
-			isset($_GET["DescripcionAjusteStock"])){
+			$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
 
-			#$idAjusteInventario=;
+			if ($_GET["tipoAjusteStock"]=="Insumos") {
+				$respuesta=ControladorFormularios::ctrAjusteStockInsumos($idAjusteStock);
+			}else if ($_GET["tipoAjusteStock"]=="Carnes") {
+				$respuesta=ControladorFormularios::ctrAjusteStockCarnes($idAjusteStock);
+			}else{
+				$respuesta="No existe la Categoría a ajustar";
+			}
 
-
-
-
-			$respuesta = array(	'idAjuste_' 		=> $,
-								'respuesta_' 		=> $);
-	
-			return $respuesta;	
-		}	
-
+			$respuesta2 = array('idAjuste_' => $idAjusteStock,
+								'respuesta_' => $respuesta);	
+			return $respuesta2;	
+			
+		}
 	}
 
+#------------------------- Ajuste Stock Insumos -------------------------#
+
+	static public function ctrAjusteStockInsumos($idAjusteStock){
+
+		if (isset($_GET["ArrayIdInsumosAjusteStock"])&&
+			isset($_GET["ArrayCantidadAjusteStock"])) {
+
+			$longitud=count($_GET["DescripcionAjusteStock"]);
+
+			#Array Insumos
+			$datosInsumos=array('idInsumo_'		=>$_GET["ArrayIdInsumosAjusteStock"],
+								'cantidad_'		=>$_GET["ArrayCantidadAjusteStock"],
+								'idCuenta_'		=>array_fill(0,$longitud,8), #Número fijo para la cuenta Ajuste de Insumo
+								'idOrdenProd_'	=>array_fill(0,$longitud,null),
+								'idCompra_'		=>array_fill(0,$longitud,null),
+								'idOrdenFin_'	=>array_fill(0,$longitud,null),
+								'idAjusteStock_'=>array_fill(0,$longitud,$idAjusteStock),
+								'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']),
+								'descripcion_'	=>array_fill(0,$longitud,null),
+								'funcion_'		=>array_fill(0,$longitud,'ActualizarStockInsumo'));
+
+			#Cargar los Movimientos de Insumo
+			for ($i=0; $i < $longitud ; $i++) { 
+				if($datosInsumos['cantidad_'][$i]!=0){	
+					$datos=array_column($datosInsumos,$i);	
+					$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
+					if ($respuesta != "OK") { return $respuesta;}
+				}
+			}
+			return $respuesta;	
+		}	
+	}
+
+#------------------------- Ajuste Stock Carnes -------------------------#
+
+	static public function ctrAjusteStockCarnes($idAjusteStock){
+
+		if (isset($_POST["ArrayIdCarnesAjusteStock"])&&
+			isset($_POST["ArrayIdDesposteAjusteStock"])&&
+			isset($_POST["ArrayCantidadAjusteStock"])) {
+
+				$longitud=count($_POST["ArrayIdCarnesAjusteStock"]);
+				
+				$datos2= array(	'idCarne_'		=> $_POST["ArrayIdCarnesAjusteStock"],
+								'idCuenta_'		=> array_fill(0,$longitud,8), #VariableFIJA!
+								'idDesposte_'	=> $_POST["ArrayIdDesposteAjusteStock"],
+								'cantidad_'		=> $_POST["ArrayCantidadAjusteStock"],
+								'idOrenProd_'	=> array_fill(0,$longitud,null),
+								'idDecomiso_'	=> array_fill(0,$longitud,null),
+								'idAjusteStock_'=> array_fill(0,$longitud,$idAjusteStock),
+								'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
+								'descripcion_'	=> array_fill(0,$longitud,null),
+								'funcion_'		=> array_fill(0,$longitud,'ActualizarStockCarne'));
+
+				#Recorre el Array de insumos agregandolos en la BD
+				for ($i=0; $i <$longitud ; $i++) { 
+					
+				
+					if ($datos2['cantidad_'][$i]>0) {
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+						
+						#Si no dio error sigue el loop
+						if ($respuesta != "OK") { return $respuesta2;}
+					}
+				} #exit for
+		}
+	}		
 
 
 
