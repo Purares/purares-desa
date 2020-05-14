@@ -105,6 +105,7 @@ foreach($recetas as $receta){
                           <br>
                   <div id="divproductos"></div>
                   <br>
+                  <input type="hidden" id="contadorproductos" name=unidadesSinAsignarAltaOP>
                            <div id="alertaproductos">
 				<div class="alert alert-info alertproductos" role="alert">
 				</div>
@@ -129,7 +130,7 @@ foreach($recetas as $receta){
                   </table>
                   <input type="hidden" name="establecerorden" value="1">
                   <input  class="form-control" type="text" id="contadorcarne" value="1" required style="display:none;">
-                  <input  class="form-control" type="text" id="contadorproductos" value="1" required style="display:none;">
+                  <input  class="form-control" type="text" id="validadorproductos" value="1" required style="display:none;">
                            <br>
 				<br>
               <h5>2 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
@@ -259,8 +260,8 @@ foreach($carnes as $carne){
 
       button.addEventListener('click', function(event) {
          var contadorcarne=$('#contadorcarne').val();
-         var contadorproducto=$('#contadorproductos').val();
-        if ((form.checkValidity() === false) || (contadorcarne!="0") || (contadorproducto!="0")) {
+         var validadorrproducto=$('#validadorproductos').val();
+        if ((form.checkValidity() === false) || (contadorcarne!="0") || (validadorrproducto=="1")) {
           event.preventDefault();
           event.stopPropagation();
         }
@@ -381,6 +382,7 @@ $('.cantidadproducto').bind("keyup change", function(e) {
 	var valoresproductos=$('.cantidadproducto').filter(":input")
 	var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
 	var total1=0
+  var  unidadesrequeridasint= new Array()
     var total=parseFloat(total1)
     var valoresproducto
 for (var i=0; i<=valoresproductos.length-1;i++){
@@ -389,7 +391,8 @@ for (var i=0; i<=valoresproductos.length-1;i++){
 		valoresproducto=(parseFloat(valoresproductos[i].value))*(parseFloat(unidadesxproducto[i].value))
 		//alert("este es el tipo con el que lee"+typeof(valoresvarne))
 		//alert("este es lo que lee"+valoresvarne)
-	
+	unidadesrequeridasint.push(parseInt(unidadesxproducto[i].value))
+
   	total= total+valoresproducto
   //	alert("asi queda el total despues de suamr cada campo"+total)
   	}else{
@@ -408,6 +411,7 @@ for (var i=0; i<=valoresproductos.length-1;i++){
  $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
     $('#alertaproductos').show()
 $('.alertproductos').html("Se completó la distribución de unidades finales entre los productos")
+$('#validadorproductos').val("0")
 $('#contadorproductos').val("0")
 
  }else{
@@ -418,7 +422,7 @@ $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-su
 $('.alertproductos').html("Se excedieron <a id='productosrequeridos'></a> unidades finales de los productos")
 var productosactualpositivo=-productosactual
 $('#productosrequeridos').html(productosactualpositivo)
-$('#contadorproductos').val("1")
+$('#validadorproductos').val("1")
 
   }else{
 $('.alertproductos').empty()
@@ -427,7 +431,19 @@ $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-su
 $('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades finales entre los productos")
 var productosrequeridos=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
 $('#productosrequeridos').html(productosrequeridos)
-$('#contadorproductos').val("1")
+//alert(unidadesrequeridasint)
+var minimo=Math.min(...unidadesrequeridasint)
+if(productosrequeridos>=minimo){
+
+  $('#validadorproductos').val("1")
+
+}else{
+$('#validadorproductos').val("0")
+$('#contadorproductos').val(productosrequeridos)
+
+}
+
+
 
 
 

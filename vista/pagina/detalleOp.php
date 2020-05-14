@@ -112,7 +112,6 @@ $productos=$detalleOrden['productos_'];
 <?php
 
 foreach($productos as $producto){
-                           
 
               echo '             <tr>
                         <td scope="col">
