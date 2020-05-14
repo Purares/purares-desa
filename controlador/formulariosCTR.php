@@ -352,6 +352,20 @@ class ControladorFormularios{
 		}		
 	}
 
+#------------------------- Stock de Carnes -------------------------#
+
+	static public function ctrComposicionStockCarnesTodos(){
+
+		if (isset($_GET["idCarneVerComposicion"])){
+
+			$id_carne=$_GET["idCarneVerComposicion"];
+			$respuesta= ModeloFormularios::mdlComposicionStockCarnesTodos();
+			
+			return $respuesta;
+		}		
+	}
+
+
 
 #------------------------- IMPRIMIR STOCK DE CARNES -------------------------#
 
