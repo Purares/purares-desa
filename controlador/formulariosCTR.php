@@ -986,8 +986,8 @@ static public function ctrValidarAnulacionCompra(){
 								#4)Movimiento de Insumos
 									$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
 									if ($respuesta != "OK") { return $respuesta;}
-								#4b)Movimiento de insumos 
-									$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+								#4b)Movimiento de insumos de productos
+									$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos_productos,$idOrdenProd);
 									if ($respuesta != "OK") { return $respuesta;}
 
 								#5)Movimiento de Carne
@@ -996,18 +996,21 @@ static public function ctrValidarAnulacionCompra(){
 								#6)Producto esperados
 
 									#Crea el Array de Producto
-										$longitud=count( $_POST["array_ProductoAltaOP"]);	
+										$longitud=count($_POST["array_ProductoAltaOP"]);	
+										
 										$datos2= array(	'idOrdenAlta_'	=>array_fill(0,$longitud,$idOrdenProd),
 														'idOrdenBaja_'	=>array_fill(0,$longitud,null),
 														'idProducto_'	=>$_POST["array_ProductoAltaOP"],
-														'cantidad_'		=>$_POST["array_QProductoAltaOP"]);
+														'cantidad_'		=>$_POST["array_QProductoAltaOP"],
+														'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']));	
 
 									#Recorre el Array de INSUMOS agregandolos en la BD
 										for ($i=0; $i <$longitud ; $i++) { 
-										
-											$datos3= array_column($datos2,$i);
-											$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
+											if ($datos2['cantidad_'][$i]!=0) {
 											
+												$datos3= array_column($datos2,$i);
+												$respuesta=ModeloFormularios::mdlAgregarProductoOP($datos3);
+											}
 										#Si no dio error sigue el loop
 											if ($respuesta != "OK") { return $respuesta;}
 										} #exit for OK

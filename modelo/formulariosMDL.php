@@ -857,7 +857,7 @@ static public function mdlCrearDesposte($datos){
 
 static public function mdlAltaOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:nro_lote, :idReceta, :pesoPaston,:qUniFrescas,:unidadesSinAsignar :idUsuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:nro_lote, :idReceta, :pesoPaston,:qUniFrescas,:unidadesSinAsignar, :idUsuario);");
 
 		$stmt -> bindparam (":nro_lote",			$datosOP['nroLote_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":idReceta",			$datosOP['idReceta_'],PDO::PARAM_INT);
@@ -887,13 +887,13 @@ static public function mdlAltaOP($datosOP){
 #------------------------- Agregar PRODUCTOS por OP-------------------------#
 	static public function mdlAgregarProductoOP($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarProductoXOP(:idOrdenAlta, :idOrdenFin, :idProducto, :cantidad);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarProductoXOP(:idOrdenAlta, :idOrdenFin, :idProducto, :cantidad, :idUsuario);");
 
 		$stmt -> bindparam (":idOrdenAlta",	$datos[0],PDO::PARAM_INT);
 		$stmt -> bindparam (":idOrdenFin",	$datos[1],PDO::PARAM_INT);
-		$stmt -> bindparam (":idProducto",	$datos[3],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",	$datos[4],PDO::PARAM_STR);
-		
+		$stmt -> bindparam (":idProducto",	$datos[2],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos[3],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos[4],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			return "OK";
