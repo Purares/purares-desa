@@ -18,6 +18,7 @@
                     </div>
             
                   <select class="custom-select"  id="SelectCarneInsumo" required>
+                           <option value="">Seleccione</option>    
             <option value="Carnes">Carnes</option> 
              <option value="Insumos">Insumos</option>      
                      </select>           
@@ -28,7 +29,7 @@
                  </div>
                    <div class="input-group col-6">
                      <div class="input-group-prepend"> 
-                  <span class="input-group-text">Depósito:</span>
+                  <span class="input-group-text" id="textoselect">Depósito:</span>
                     </div>
             
                   <select class="custom-select"  id="SelectDeposito" >   
@@ -145,10 +146,12 @@ $(document).ready( function() {
                 url:'datos.php',
                 data:'ajustecarnes',
                 success:function(html){
-                  $('#SelectDeposito').prop('disabled',true)
-                  $('#SelectDeposito').find('option').remove()
-                  $('#TablaAjuste').find('tr').remove()
-                    $('#TablaAjuste').append(html); 
+                 $('#textoselect').html('Carne:')
+                 $('#SelectDeposito').find('option').remove()
+                    $('#SelectDeposito').removeClass('selecdeposito')
+                   $('#SelectDeposito').addClass('selecCarne')
+                
+                    $('#SelectDeposito').append(html); 
                 }
             }); 
         }else{
@@ -157,7 +160,11 @@ $(document).ready( function() {
                 url:'datos.php',
                 data:'ajusteinsumos',
                 success:function(html){
-          $('#SelectDeposito').prop('disabled',false)
+                  $('#textoselect').html('Depósito:')
+                   $('#SelectDeposito').find('option').remove()
+                  $('#SelectDeposito').removeClass('selecCarne')
+                   $('#SelectDeposito').addClass('selecdeposito')
+        //  $('#SelectDeposito').prop('disabled',false)
            $('#SelectDeposito').append(html); 
              $('#TablaAjuste').find('tr').remove()
                     $('#TablaAjuste').append('<tr><td>Seleccione el depósito</td></tr>') 
@@ -165,8 +172,9 @@ $(document).ready( function() {
     }});
 
     $('#SelectDeposito').on('change',function(){
-        var depoID = $('#SelectDeposito option:selected').text();
-        //alert(depoID)
+        var depoID = $('.selecdeposito option:selected').text();
+        var carneID = $('.selecCarne option:selected').val();
+        //alert(carneID)
         if(depoID){
             $.ajax({
                 type:'POST',
@@ -178,8 +186,20 @@ $(document).ready( function() {
                     $('#TablaAjuste').append(html)  
                 }
             }); 
-        }else{
-            
+        }
+        if(carneID){
+             // alert("llamo carne")
+            $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:'idCarneAjusteStock='+carneID,
+                success:function(html){
+                 // alert("funciona")
+
+                   $('#TablaAjuste').find('tr').remove()
+                    $('#TablaAjuste').append(html)  
+                }
+            }); 
         }
     });
 

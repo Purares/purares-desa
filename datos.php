@@ -460,20 +460,14 @@ if(isset($_POST["ajustecarnes"])){
 
        $listacarnes=ControladorFormularios::ctrListaCarnes();
 
-    if($listacarnes){
+ echo '<option value="">Seleccione la carne</option>';
 
-       /* echo '<thead><th>N°</th><th>Carne</th></thead><tbody>';
-        foreach ($listacarnes as $carne) {
+     foreach ($listacarnes as $carne) {
 
-            $_GET["idCarneVerComposicion"]=1;
-             $composicioncarne=ControladorFormularios::ctrComposicionStockCarnes();
-             echo '<tr><td>'.$composicioncarne[0].'</td><td>'.$composicioncarne[1].'</td></tr>';
-        };
-        echo '<tbody>';*/
-    }else{
-        echo '<option value="">Carnes no disponibles</option>';
-    }
-}else{
+   
+             echo '<option value="' . $carne[0] . '">' . $carne[1] . '</option>';
+        
+    }}else{
 
 $depositos=ControladorFormularios::ctrListaDepositos();
 
@@ -497,6 +491,23 @@ if (isset($_POST["idDepositoAjusteStock"])){
 
              echo '<tr><td scope="col" class="text-center" width="15%">' . $insumo[0] . '<input type="hidden" name="" value="' . $insumo[0] . '"></td><td scope="col"  width="25%">' . $insumo[1] . '<input type="hidden" class="nominsumo" value="' . $insumo[1] . '"></td><td scope="col"  width="20%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" value="'.$insumo[2].'" readonly><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td><td scope="col"  width="40%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" placeholder="Ajuste de stock"><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td></tr>';
         }};
+        echo '<tbody>';
+
+}
+
+if (isset($_POST["idCarneAjusteStock"])){
+
+	$_GET["idCarneVerComposicion"]=$_POST["idCarneAjusteStock"];
+
+    $composicioncarne=ControladorFormularios::ctrComposicionStockCarnes();
+
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° Desposte</th><th scope="col" class="text-center text-white bg-dark">Carne</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+        foreach ($composicioncarne as $desposte) {
+
+           
+
+             echo '<tr><td scope="col" class="text-center" width="15%">' . $desposte[2] . '<input type="hidden" name="" value="' . $desposte[2] . '"></td><td scope="col"  width="25%">' . $desposte[1] . '<input type="hidden" class="nominsumo" value="' . $desposte[1] . '"></td><td scope="col"  width="20%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" value="'.$desposte[3].'" readonly><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $desposte[4] . '</a></span></div></div></td><td scope="col"  width="40%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" placeholder="Ajuste de stock"><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $desposte[4] . '</a></span></div></div></td></tr>';
+        };
         echo '<tbody>';
 
 }
