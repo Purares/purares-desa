@@ -1616,6 +1616,8 @@ IMPORTANTE:
 			)) {
 
 			
+			$arrayUltimosID=ControladorFormularios::ctrUltimosId();
+
 			if ($_GET["tipoAjusteStock"]=="Carnes" && 
 				$_GET["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0])||
 				$_GET["tipoAjusteStock"]=="Insumos"&& 
