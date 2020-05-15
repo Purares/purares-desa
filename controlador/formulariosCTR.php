@@ -1389,15 +1389,19 @@ IMPORTANTE:
 		}
 	}
 
-#----------- Ultimo Decomiso -----------#
+#----------- Ultimos ID movimientos -----------#
 
-	static public function ctrIdUltimosIdDecomiso(){		
+	static public function ctrUltimosId(){		
 
 		$UltimoIdDecomiso=ModeloFormularios::mdlUltimoDecomiso();
 		$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
-		
-		$respuesta = array(	'UltimoIdDecomiso_' => $UltimoIdDecomiso,
-							'UltimoIdOrdenProd_'=> $UltimoIdOrdenProd);
+		$idUltimoMovCarne=ModeloFormularios::mdlIdUltimoMovCarne();
+		$idUltimoMovInsumo=ModeloFormularios::mdlIdUltimoMovInsumo();
+
+		$respuesta = array(	'UltimoIdDecomiso_' 	=> $UltimoIdDecomiso,
+							'UltimoIdOrdenProd_'	=> $UltimoIdOrdenProd,
+							'idUltimoMovCarne_'		=> $idUltimoMovCarne,
+							'idUltimoMovInsumo_'	=> $idUltimoMovInsumo);
 		return $respuesta;
 	}
 
@@ -1611,22 +1615,33 @@ IMPORTANTE:
 				isset($_POST["ArrayCantidadAjusteStock"]))
 			)) {
 
-			$datos = array(	'tipo_' 	=> $_GET["tipoAjusteStock"],
-							'motiovo_' 	=> $_GET["motivoAjusteStock"],
-							'tipo' 		=> $_GET["DescripcionAjusteStock"]);
+			
+			if ($_GET["tipoAjusteStock"]=="Carnes" && 
+				$_GET["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0])||
+				$_GET["tipoAjusteStock"]=="Insumos"&& 
+				$_GET["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0])
+			) {
 
-			$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
+				$datos = array(	'tipo_' 	=> $_GET["tipoAjusteStock"],
+								'motiovo_' 	=> $_GET["motivoAjusteStock"],
+								'tipo' 		=> $_GET["DescripcionAjusteStock"]);
 
-			if ($_GET["tipoAjusteStock"]=="Insumos") {
-				$respuesta=ControladorFormularios::ctrAjusteStockInsumos($idAjusteStock);
-			}else if ($_GET["tipoAjusteStock"]=="Carnes") {
-				$respuesta=ControladorFormularios::ctrAjusteStockCarnes($idAjusteStock);
+				$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
+
+				if ($_GET["tipoAjusteStock"]=="Insumos") {
+					$respuesta=ControladorFormularios::ctrAjusteStockInsumos($idAjusteStock);
+				}else if ($_GET["tipoAjusteStock"]=="Carnes") {
+					$respuesta=ControladorFormularios::ctrAjusteStockCarnes($idAjusteStock);
+				}else{
+					$respuesta="No existe la Categoría a ajustar";
+				}
 			}else{
-				$respuesta="No existe la Categoría a ajustar";
+				$idAjusteStock=0;
+				$respuesta="La operación no se pudo realizar. Se registraron movimientos de ".$_GET["tipoAjusteStock"]." mientras realizaba el ajuste de stock.";
 			}
-
-			$respuesta2 = array('idAjuste_' => $idAjusteStock,
-								'respuesta_' => $respuesta);	
+				$respuesta2 = array('idAjuste_' => $idAjusteStock,
+									'respuesta_' => $respuesta);	
+			
 			return $respuesta2;	
 			
 		}

@@ -1214,6 +1214,29 @@ static public function mdlFinOP($datosOP){
 	}
 
 
+#---------ID Ultimo Movimieto Carne ----------
+
+	static public function mdlIdUltimoMovCarne(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT max(id_movimiento) from carnes_mov;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+	#---------ID Ultimo Movimieto Insumo ----------
+
+	static public function mdlIdUltimoMovInsumo(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT max(id_movimiento) from insumos_mov;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 #-------------------------Anular DECOMISO -------------------------#
 
 	static public function mdlAnularDecomiso($datos){
