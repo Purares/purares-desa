@@ -17,7 +17,7 @@
                   <span class="input-group-text">Tipo:</span>
                     </div>
             
-                  <select class="custom-select"  id="SelectCarneInsumo" required>
+                  <select class="custom-select" name="tipoAjusteStock" id="SelectCarneInsumo" required>
                            <option value="">Seleccione</option>    
             <option value="Carnes">Carnes</option> 
              <option value="Insumos">Insumos</option>      
@@ -44,7 +44,7 @@
                <table id="TablaAjuste" class="table-sm table-hover"></table>
                <br>
                             <br>
-              <textarea type="text" class="form-control" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="Describa" required>Describa</textarea>
+              <textarea type="text" class="form-control" name="DescripcionAjusteStock" id="DescripcionAjusteStock" placeholder="Describa" required>Describa</textarea>
                              <div class="invalid-feedback">
                                     Ingrese una descripción
                                     </div>
@@ -147,6 +147,7 @@ $(document).ready( function() {
                 data:'ajustecarnes',
                 success:function(html){
                  $('#textoselect').html('Carne:')
+                 $('#SelectDeposito').attr('name', 'ArrayIdCarnesAjusteStock[]');
                  $('#SelectDeposito').find('option').remove()
                     $('#SelectDeposito').removeClass('selecdeposito')
                    $('#SelectDeposito').addClass('selecCarne')
@@ -161,6 +162,7 @@ $(document).ready( function() {
                 data:'ajusteinsumos',
                 success:function(html){
                   $('#textoselect').html('Depósito:')
+                  $('#SelectDeposito').attr('name', 'Deposito');
                    $('#SelectDeposito').find('option').remove()
                   $('#SelectDeposito').removeClass('selecCarne')
                    $('#SelectDeposito').addClass('selecdeposito')
@@ -194,7 +196,7 @@ $(document).ready( function() {
                 url:'datos.php',
                 data:'idCarneAjusteStock='+carneID,
                 success:function(html){
-                 // alert("funciona")
+                 // alert(html)
 
                    $('#TablaAjuste').find('tr').remove()
                     $('#TablaAjuste').append(html)  
@@ -203,7 +205,23 @@ $(document).ready( function() {
         }
     });
 
+ $('#TablaAjuste').on('change, keyup', '.stockrealinsumo',function(){
 
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockactualinsumo').val())
+var ajusteredondeado=ajuste.toFixed(3)
+$(this).closest('tr').find('.ajustestockinsumo').val(ajusteredondeado)
+
+
+ })
+
+  $('#TablaAjuste').on('change, keyup', '.stockcarnereal',function(){
+
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockcarneactual').val())
+var ajusteredondeado=ajuste.toFixed(3)
+$(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
+
+
+ })
   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmaragregarproveedor").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               

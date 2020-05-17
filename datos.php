@@ -484,12 +484,22 @@ foreach($depositos as $deposito){
 if (isset($_POST["idDepositoAjusteStock"])){
     $inusmosxdeposito=ControladorFormularios::ctrStockInsumos();
 
-    echo '<thead><th scope="col" class="text-center text-white bg-dark">N°</th><th scope="col" class="text-center text-white bg-dark">Insumo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N°</th><th scope="col" class="text-center text-white bg-dark">Insumo</th><th scope="col" class="text-center text-white bg-dark">Tipo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
         foreach ($inusmosxdeposito as $insumo) {
 
             if($insumo[4]==$_POST["idDepositoAjusteStock"]){
 
-             echo '<tr><td scope="col" class="text-center" width="15%">' . $insumo[0] . '<input type="hidden" name="" value="' . $insumo[0] . '"></td><td scope="col"  width="25%">' . $insumo[1] . '<input type="hidden" class="nominsumo" value="' . $insumo[1] . '"></td><td scope="col"  width="20%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" value="'.$insumo[2].'" readonly><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td><td scope="col"  width="40%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" placeholder="Ajuste de stock"><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $insumo[3] . '</a></span></div></div></td></tr>';
+             echo '<tr><td scope="col" class="text-center" width="5%">' . $insumo[0] . '<input type="hidden" name="ArrayIdInsumosAjusteStock[]" value="' . $insumo[0] . '"></td>'.
+             '<td scope="col"  width="20%">' . $insumo[1] . '<input type="hidden" value="' . $insumo[1] . '"></td>'.
+             '<td scope="col"  width="15%"><div class="input-group"><select class="custom-select" name="motivoAjusteStock[]"><option selected>Ajuste Stock</option></div></select></td>'.
+             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 class="form-control text-right stockactualinsumo" value="'.$insumo[2].'" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>'. $insumo[3] . '</a></span></div></div></td>'.
+             '<td scope="col"  width="20%"><div class="input-group"><input type="number" min=0 step=0.001 class="form-control text-right stockrealinsumo" placeholder="Stock Real">'.'
+             <div class="input-group-append"><span class="input-group-text"><a>'. $insumo[3] . '</a></span></div></div>'.
+             '</td><td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockinsumo" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>'. $insumo[3] . '</a></span></div></div></td></tr>';
         }};
         echo '<tbody>';
 
@@ -501,15 +511,42 @@ if (isset($_POST["idCarneAjusteStock"])){
 
     $composicioncarne=ControladorFormularios::ctrComposicionStockCarnes();
 
-    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° Desposte</th><th scope="col" class="text-center text-white bg-dark">Carne</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° Desposte</th><th scope="col" class="text-center text-white bg-dark">Carne</th><th scope="col" class="text-center text-white bg-dark">Tipo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+         
+
+         if(empty($composicioncarne[0])){
+
+           	echo '<tr><td>No hay stock de esa carne</td></tr></tbody>';
+
+           }else{
+
+
         foreach ($composicioncarne as $desposte) {
 
-           
 
-             echo '<tr><td scope="col" class="text-center" width="15%">' . $desposte[2] . '<input type="hidden" name="" value="' . $desposte[2] . '"></td><td scope="col"  width="25%">' . $desposte[1] . '<input type="hidden" class="nominsumo" value="' . $desposte[1] . '"></td><td scope="col"  width="20%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" value="'.$desposte[3].'" readonly><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $desposte[4] . '</a></span></div></div></td><td scope="col"  width="40%"><div class="input-group cantinsumo"><input type="number" min=0 step=0.001 name="" class="form-control text-right cantinsumo" placeholder="Ajuste de stock"><div class="input-group-append"><span class="input-group-text"><a class="unitinsumo">'. $desposte[4] . '</a></span></div></div></td></tr>';
-        };
+             echo '<tr><td scope="col" class="text-center" width="5%">' . $desposte[2] . 
+             '<input type="hidden" name="ArrayIdDesposteAjusteStock[]" value="' . $desposte[2] . '"></td>'.
+             '<td scope="col"  width="20%">' . $desposte[1] . 
+             '<input type="hidden" value="' . $desposte[1] . '"></td>'.
+              '<td scope="col"  width="15%"><div class="input-group"><select class="custom-select" name="motivoAjusteStock[]"><option selected>Ajuste Stock</option></div></select></td>'.
+             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 class="form-control text-right stockcarneactual" value="'.$desposte[3].'" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>'. $desposte[4] . '</a></span></div></div></td>'.
+             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 name="" class="form-control text-right stockcarnereal" placeholder="Stock Real">'.
+             '<div class="input-group-append"><span class="input-group-text"><a>'. $desposte[4] . '</a></span></div></div></td>'.
+             '<td scope="col"  width="20%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockcarne" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>'. $desposte[4] . '</a></span></div></div></td></tr>';
+        
         echo '<tbody>';
+    }
 
+    	
+
+    }
+
+    
 }
 
 ?>
