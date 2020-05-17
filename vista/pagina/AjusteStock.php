@@ -51,23 +51,23 @@
                             
                       
                             <br>
-                  <button type="button" class="btn btn-success" id="BotonAgregarProveedor" data-toggle="modal" data-target="#ConfirmarNuevoProveedor">Ajustar stock</button>
+                  <button type="button" class="btn btn-success" id="BotonAgregarAjuste" data-toggle="modal" data-target="#ConfirmarNuevoAjuste">Ajustar stock</button>
             </div>
 
   <!-- ConfirmarNuevaReceta -->
-  <div class="modal fade" id="ConfirmarNuevoProveedorxad" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="ConfirmarNuevoAjuste" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmar Nuevo Proveedor</h5>
+          <h5 class="modal-title">Confirmar Nuevo Ajuste</h5>
         </div>
         <div class="modal-body">
-          <p>Usted está a punto de cargar el proveedor <a class="nombre"></a>, del tipo <a class="proveedor_tipo"></a>.</p>
+          <p>Usted está a punto de cargar el siguiente ajuste.</p>
             <br>
-          <p>¿Confirma que desea CARGAR ESTE NUEVO PROVEEDOR?</p>
+          <p>¿Confirma que desea CARGAR ESTE AJUSTE?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" id="botonconfirmaragregarproveedor" class="btn btn-success">Sí, cargar proveedor</button>
+          <button type="button" id="botonconfirmarajuste" class="btn btn-success">Sí, cargar ajuste</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, volver a atrás</button>
         </div>
       </div>
@@ -102,7 +102,7 @@
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
-      var button= document.getElementById('BotonAgregarProveedor');
+      var button= document.getElementById('BotonAgregarAjuste');
       button.addEventListener('click', function(event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
@@ -115,18 +115,12 @@
 })();
     
 
-$('#ConfirmarNuevoProveedor54').on('show.bs.modal', function (event) {
+$('#ConfirmarNuevoAjuste').on('show.bs.modal', function (event) {
 var button = $(event.relatedTarget);
 var modal = $(this)
-completarmodalagregarproveedor()
-function completarmodalagregarproveedor(){             
-                                  var nombre=$('#nombreproveedor').val()
-                                      tipoproveedor=$('#tipoproveedor option:selected').text()
-                                      
-
-                                       
-modal.find('.nombre').text('' + nombre);
-modal.find('.proveedor_tipo').text('' + tipoproveedor);
+completarmodalagregarajuste()
+function completarmodalagregarajuste(){             
+                                
 
 
 
@@ -223,12 +217,12 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
 
  })
   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
-    $("#botonconfirmaragregarproveedor").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+    $("#botonconfirmarajuste").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formagregarproveedor").serialize(),function(respuestacodprove){
+       $.post("datos.php",$("#formajustestock").serialize(),function(respuestacodajuste){
 
-
-                if(respuestacodprove == '"OK"'){
+alert("se ha realiizado un nuevo ajuste macrista neoliberal"+respuestacodajuste) 
+             /*   if(respuestacodprove == '"OK"'){
                   $('#ConfirmarNuevoProveedor').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
@@ -243,7 +237,7 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
                    modal.find('#erroragregarproveedor').empty()
                   modal.find('#erroragregarproveedor').html(respuestacodprove)
                 }
-            })
+            */})
   
 
 });

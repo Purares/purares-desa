@@ -549,4 +549,23 @@ if (isset($_POST["idCarneAjusteStock"])){
     
 }
 
+		if (isset($_GET["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
+			isset($_GET["motivoAjusteStock"])&& #ControlStock/
+			isset($_GET["DescripcionAjusteStock"])&&(
+			( #Insumos
+				isset($_GET["ArrayIdInsumosAjusteStock"])&&
+				isset($_GET["ArrayCantidadAjusteStock"]))||
+			(#Carnes
+				isset($_POST["ArrayIdCarnesAjusteStock"])&&
+				isset($_POST["ArrayIdDesposteAjusteStock"])&&
+				isset($_POST["ArrayCantidadAjusteStock"]))
+			)) {
+
+$nuevoajuste=ControladorFormularios::ctrAjusteStockEncabezado();
+
+$respuestacod=json_encode($nuevoajuste);
+echo $respuestacod;
+		}
+
+
 ?>
