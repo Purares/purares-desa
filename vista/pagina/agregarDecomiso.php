@@ -8,7 +8,7 @@
 
 	<?php
 
-	$ultimosid=ControladorFormularios::ctrIdUltimosIdDecomiso();
+	$ultimosid=ControladorFormularios::ctrUltimosId();
   $listacarnes=ControladorFormularios::ctrListaCarnesDecomisar();
 
   $ultimoiddecomiso=$ultimosid['UltimoIdDecomiso_'];
@@ -228,9 +228,11 @@ function completarmodaldecomiso(){
 
 for (var i=0; i<=carnes.length-1;i++){
   
+if(adecomisar[i]>0||apostergar[i]>0){
+
   modal.find('#tablaconfirmardecomiso').append($('<tr class="trdeco"><td scope="col">' + carnes[i] +'</td><td scope="col" class="text-center">'+ id_desposte[i] + '</td><td scope="col">' + adecomisar[i]+ '</td><td scope="col">' + apostergar[i]+ '</td><td scope="col">' + pendiente[i]+ '</td></tr>'))
 
-  }}})
+  }}}})
 
 
 

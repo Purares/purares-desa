@@ -202,9 +202,36 @@ foreach($carnes as $carne){
           </table>
           </div>
             <br>
+            <p>Se harán los siguientes productos:</p>
+           <div class="container">
+          <table class="table table-hover table-sm col-6">
+            <thead>
+            <tr><th scope="col">Producto</th><th scope="col" class="text-right">Cantidad</th></tr>
+            </thead>
+            <tbody id="tablaconfirmarproductos">
+              
+            </tbody>
+          </table>
+             <a class="unidadessobrantes"></a>
+          </div>
+          <br>
+
+          <p>Utilizará los siguientes insumos para los productos:</p>
+
+          <div class="container">
+          <table class="table table-hover table-sm">
+            <thead>
+            <tr><th scope="col">Insumo</th><th scope="col">Cantidad OP</th><th scope="col">Stock actual</th><th scope="col">Stock fúturo</th></tr>
+            </thead>
+            <tbody id="tablaconfirmarinsumoproductos">
+              
+            </tbody>
+          </table>
+          </div>
+            <br>
           <p>Utilizará los siguientes carnes:</p>
            <div class="container">
-          <table class="table table-hover table-sm">
+          <table class="table table-hover table-sm col-6">
             <thead>
             <tr><th scope="col">Carne</th><th scope="col" class="text-right">Cantidad</th></tr>
             </thead>
@@ -324,7 +351,7 @@ $('#divproductos').append('<form id="formdistribucionproducto"><input type="hidd
  for (var h = 0; h < respuestaproduxreceta.length; h++) { 
 
 
-$('#formdistribucionproducto').append('<div class="row"><div class="input-group col-6"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()*cantidadunidadesfinales+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div><div class="input-group col-6"><div class="input-group-prepend"><span class="input-group-text">Unidades finales necesarias</span></div><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title=""><i class="far fa-question-circle"></i></button></div></div></div>')
+$('#formdistribucionproducto').append('<div class="row"><div class="input-group col-6"><div class="input-group-prepend"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'"><span class="input-group-text nombreproducto">'+respuestaproduxreceta[h][2]+'</span></div><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()*cantidadunidadesfinales+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div><div class="invalid-feedback">Ingrese la cantidad de unidades del producto</div></div><div class="input-group col-6"><div class="input-group-prepend"><span class="input-group-text">Unidades finales necesarias</span></div><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title=""><i class="far fa-question-circle"></i></button></div></div></div>')
 }
 
 }
@@ -349,7 +376,7 @@ var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 
 
                         
-                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
+                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsuprodu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsuprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturoprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
 
 
 }}else{
@@ -366,7 +393,7 @@ var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 
 
                         
-                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
+                        $('.bodyinsumosproductoop').append('<tr><td scope="col" class="text-center">'+respuestainsumoproductos.tablaInsumos_[i]['id_insumo']+'</td><td scope="col" class="nominsuprodu">'+respuestainsumoproductos.tablaInsumos_[i]['insumo']+'</td><td scope="col" class="stockinsuprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][5]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][6]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturoprodu text-center">'+respuestainsumoproductos.tablaInsumos_[i][7]+' '+respuestainsumoproductos.tablaInsumos_[i][4]+'</td></tr>')
 
 
 }
@@ -410,6 +437,7 @@ for (var i=0; i<=valoresproductos.length-1;i++){
  	$('.alertproductos').empty()
  $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
     $('#alertaproductos').show()
+$('#productosrequeridos').html(0)
 $('.alertproductos').html("Se completó la distribución de unidades finales entre los productos")
 $('#validadorproductos').val("0")
 $('#contadorproductos').val("0")
@@ -538,6 +566,7 @@ function completarmodalorden(){
                                       cantidadinsumosop=[];
                                       stockactualinsumos=[];
                                       stockfututoinsumos=[];
+                                    
 
                                       $('.trinsu').remove();
 
@@ -564,8 +593,45 @@ function completarmodalorden(){
                                       })
                                        $('.cantcarneop').each(function(){
                                         cantidadcarnesop.push($(this).val());
+                                      })   
+
+  									var nombreproductos=[];
+                                    var cantidadproductos=[];
+                                    var unidadesquesobran=0;
+                                    	unidadesquesobran=parseInt($('#productosrequeridos').text());
+
+										$('.trprodu').remove();  
+
+                                       $('.nombreproducto').each(function(){
+                                        nombreproductos.push($(this).text());
                                       })
+                                       $('.cantidadproducto').each(function(){
+                                        cantidadproductos.push($(this).val());
+                                      })
+
+                                       var nombreinsumosproductos = [];
+                                      cantidadinsumosproductos=[];
+                                      stockactualinsumosproductos=[];
+                                      stockfututoinsumosproductos=[];
                                     
+
+                                      $('.trinsuprodu').remove();
+
+                                      $('.nominsuprodu').each(function(){
+                                        nombreinsumosproductos.push($(this).text());
+                                      })
+                                       $('.cantinsuprodu').each(function(){
+                                        cantidadinsumosproductos.push($(this).text());
+                                      })
+                                         $('.stockinsuprodu').each(function(){
+                                        stockactualinsumosproductos.push($(this).text());
+                                      })
+                                          $('.stockinsufuturoprodu').each(function(){
+                                        stockfututoinsumosproductos.push($(this).text());
+                                      })
+
+
+                   
                             
 modal.find('.nombre_receta').text('' + nombrereceta);
 modal.find('.pesopaston').text('' + pesopaston);
@@ -579,12 +645,36 @@ for (var i=0; i<=nombreinsumos.length-1;i++){
   }
 
 for (var i=0; i<=nombrecarnes.length-1;i++){
+
+	if(cantidadcarnesop[i]>0){
   
   modal.find('#tablaconfirmarcarneop').append($('<tr class="trcarne"><td scope="col">' + nombrecarnes[i] +'</td><td scope="col" class="text-right">'+ cantidadcarnesop[i] + ' kilos</td></tr>'))
 
+  }}
+
+
+for (var i=0; i<=nombreproductos.length-1;i++){
+  
+  modal.find('#tablaconfirmarproductos').append($('<tr class="trprodu"><td scope="col">' + nombreproductos[i] +'</td><td scope="col" class="text-right">'+ cantidadproductos[i] + ' Unidades</td></tr>'))
+
+ }
+
+if(unidadesquesobran>0){
+
+ modal.find('.unidadessobrantes').html('Y sobran '+unidadesquesobran+ ' unidades frescas.')
+
+}else{
+
+ modal.find('.unidadessobrantes').html('')
+
+}
+
+
+for (var i=0; i<=nombreinsumosproductos.length-1;i++){
+  
+  modal.find('#tablaconfirmarinsumoproductos').append($('<tr class="trinsuprodu"><td scope="col">' + nombreinsumosproductos[i] +'</td><td scope="col" class="text-right">'+ cantidadinsumosproductos[i] + '</td><td scope="col">' + stockactualinsumosproductos[i]+ '</td><td scope="col">'+ stockfututoinsumosproductos[i]+'</td></tr>'))
+
   }
-
-
 
 }})
 
