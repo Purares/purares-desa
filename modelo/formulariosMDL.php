@@ -1300,7 +1300,7 @@ static public function mdlFinOP($datosOP){
 		
 		$stmt -> bindparam (":codigo",		$datos['codigo_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":nombre",		$datos['nombre_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":descripcion",	$datos['descripcion'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",	$datos['descripcion_'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			#Busca el ultimo ID insertado en la tabla
