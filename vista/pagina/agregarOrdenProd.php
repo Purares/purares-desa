@@ -464,9 +464,9 @@ var productosrequeridos=($('#cantidadunidadesfrescas').val()*cantidadunidadesfin
 
 //alert(unidadesrequeridasint)
 var minimo=Math.min(...unidadesrequeridasint)
-if(productosrequeridos>=minimo){
+if(productosrequeridos<minimo){
 
-  $('#validadorproductos').val("1")
+  $('#validadorproductos').val("0")
 
   $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
   $('#alertaproductos').show()
@@ -474,7 +474,7 @@ $('.alertproductos').html("Se cargara el sobrante de <a id='productosrequeridos'
 $('#productosrequeridos').html(productosrequeridos)
 
 }else{
-$('#validadorproductos').val("0")
+$('#validadorproductos').val("1")
 $('#contadorproductos').val(productosrequeridos)
 
   $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
