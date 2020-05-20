@@ -24,8 +24,8 @@ $ultimosid=ControladorFormularios::ctrUltimosId();
             <br>
           <form method="post" class="needs-validation" id="formajustestock">
 
-  <input type="hidden" name="utlimoIdCarneAjusteStock" value="<?php echo $ultimoidmovinsumo[0][0]?>">
-    <input type="hidden"name="utlimoIdInsumosAjusteStock" value="<?php echo $ultimoidmovcarne[0][0] ?>">
+  <input type="hidden" name="utlimoIdCarneAjusteStock" value="<?php echo $ultimoidmovcarne[0][0]?>">
+    <input type="hidden"name="utlimoIdInsumosAjusteStock" value="<?php echo $ultimoidmovinsumo[0][0] ?>">
 
             <div class="row">
                <div class="input-group col-6">
