@@ -1604,12 +1604,12 @@ IMPORTANTE:
 
 	static public function ctrAjusteStockEncabezado(){
 
-		if (isset($_GET["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
-			isset($_GET["motivoAjusteStock"])&& #ControlStock/
-			isset($_GET["DescripcionAjusteStock"])&&(
+		if (isset($_POST["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
+			isset($_POST["motivoAjusteStock"])&& #ControlStock/
+			isset($_POST["DescripcionAjusteStock"])&&(
 			( #Insumos
-				isset($_GET["ArrayIdInsumosAjusteStock"])&&
-				isset($_GET["ArrayCantidadAjusteStock"]))||
+				isset($_POST["ArrayIdInsumosAjusteStock"])&&
+				isset($_POST["ArrayCantidadAjusteStock"]))||
 			(#Carnes
 				isset($_POST["ArrayIdCarnesAjusteStock"])&&
 				isset($_POST["ArrayIdDesposteAjusteStock"])&&
@@ -1619,28 +1619,28 @@ IMPORTANTE:
 			
 			$arrayUltimosID=ControladorFormularios::ctrUltimosId();
 
-			if ($_GET["tipoAjusteStock"]=="Carnes" && 
-				$_GET["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0])||
-				$_GET["tipoAjusteStock"]=="Insumos"&& 
-				$_GET["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0])
+			if (($_POST["tipoAjusteStock"]=="Carnes" && 
+				$_POST["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0]))||
+				($_POST["tipoAjusteStock"]=="Insumos"&& 
+				$_POST["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0]))
 			) {
 
-				$datos = array(	'tipo_' 	=> $_GET["tipoAjusteStock"],
-								'motiovo_' 	=> $_GET["motivoAjusteStock"],
-								'tipo' 		=> $_GET["DescripcionAjusteStock"]);
+				$datos = array(	'tipo_' 	=> $_POST["tipoAjusteStock"],
+								'motiovo_' 	=> $_POST["motivoAjusteStock"],
+								'tipo' 		=> $_POST["DescripcionAjusteStock"]);
 
 				$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
 
-				if ($_GET["tipoAjusteStock"]=="Insumos") {
+				if ($_POST["tipoAjusteStock"]=="Insumos") {
 					$respuesta=ControladorFormularios::ctrAjusteStockInsumos($idAjusteStock);
-				}else if ($_GET["tipoAjusteStock"]=="Carnes") {
+				}else if ($_POST["tipoAjusteStock"]=="Carnes") {
 					$respuesta=ControladorFormularios::ctrAjusteStockCarnes($idAjusteStock);
 				}else{
 					$respuesta="No existe la Categoría a ajustar";
 				}
 			}else{
 				$idAjusteStock=0;
-				$respuesta="La operación no se pudo realizar. Se registraron movimientos de ".$_GET["tipoAjusteStock"]." mientras realizaba el ajuste de stock.";
+				$respuesta="La operación no se pudo realizar. Se registraron movimientos de ".$_POST["tipoAjusteStock"]." mientras realizaba el ajuste de stock.";
 			}
 				$respuesta2 = array('idAjuste_' => $idAjusteStock,
 									'respuesta_' => $respuesta);	
@@ -1654,14 +1654,14 @@ IMPORTANTE:
 
 	static public function ctrAjusteStockInsumos($idAjusteStock){
 
-		if (isset($_GET["ArrayIdInsumosAjusteStock"])&&
-			isset($_GET["ArrayCantidadAjusteStock"])) {
+		if (isset($_POST["ArrayIdInsumosAjusteStock"])&&
+			isset($_POST["ArrayCantidadAjusteStock"])) {
 
-			$longitud=count($_GET["DescripcionAjusteStock"]);
+			$longitud=count($_POST["DescripcionAjusteStock"]);
 
 			#Array Insumos
-			$datosInsumos=array('idInsumo_'		=>$_GET["ArrayIdInsumosAjusteStock"],
-								'cantidad_'		=>$_GET["ArrayCantidadAjusteStock"],
+			$datosInsumos=array('idInsumo_'		=>$_POST["ArrayIdInsumosAjusteStock"],
+								'cantidad_'		=>$_POST["ArrayCantidadAjusteStock"],
 								'idCuenta_'		=>array_fill(0,$longitud,8), #Número fijo para la cuenta Ajuste de Insumo
 								'idOrdenProd_'	=>array_fill(0,$longitud,null),
 								'idCompra_'		=>array_fill(0,$longitud,null),
