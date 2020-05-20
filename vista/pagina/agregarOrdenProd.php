@@ -468,6 +468,7 @@ if(productosrequeridos<minimo){
 
   $('#validadorproductos').val("0")
 
+$('#contadorproductos').val(productosrequeridos)
   $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
   $('#alertaproductos').show()
 $('.alertproductos').html("Se cargara el sobrante de <a id='productosrequeridos'></a> unidades")
@@ -475,7 +476,6 @@ $('#productosrequeridos').html(productosrequeridos)
 
 }else{
 $('#validadorproductos').val("1")
-$('#contadorproductos').val(productosrequeridos)
 
   $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertaproductos').show()
@@ -666,10 +666,12 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
 
 
 for (var i=0; i<=nombreproductos.length-1;i++){
+
+	if(cantidadproductos[i]>0){
   
   modal.find('#tablaconfirmarproductos').append($('<tr class="trprodu"><td scope="col">' + nombreproductos[i] +'</td><td scope="col" class="text-right">'+ cantidadproductos[i] + ' Unidades</td></tr>'))
 
- }
+ }}
 
 if(unidadesquesobran>0){
 
