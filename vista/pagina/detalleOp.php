@@ -98,54 +98,6 @@ $productos=$detalleOrden['productos_'];
                         </div>
                         </div>
                     <br>
- <div class="col-8">
-                  <table class="table table-sm">
-                <thead>
-                    <tr>
-                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
-                      <td scope="col" class="text-center text-white bg-dark">Cantidad esperada</td>
-                       <td scope="col" class="text-center text-white bg-dark">Cantidad obtenida</td>
-                    </tr> 
-                  </thead>
-                <tbody id="TablaProductos">
-
-<?php
-
-foreach($productos as $producto){
-
-              echo '             <tr>
-                        <td scope="col">
-                          <a>' . $producto["producto"] . '</a>
-                        </td>
-                        <td scope="col">
-                           <div class="input-group">
- <input type="number" class="form-control text-right" value="'.$producto["q_esperada"].'" readonly>
-                              <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
-  <i class="far fa-question-circle"></i>
-          </button>
-              </div>
-                  </div>
-                        </td>
-                         <td scope="col">
-                           <div class="input-group">
- <input type="text" class="form-control text-right" value="';
-
- if ($detalleFinOp){echo $producto["q_esperada"];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}};
- echo'" readonly>
-                              <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
-  <i class="far fa-question-circle"></i>
-          </button>
-              </div>
-                  </div>
-                        </td>
-                    </tr>'; 
-       };?>
-
-                </tbody>
-            </table>
-                </div>
                 <br>    
                     <h6>Insumos de la orden</h6>
                     <hr>
@@ -327,8 +279,68 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         </div>
                         <input class="form-control input-group-text" value="<?php if ($detalleFinOp){$mermaobtenida=(1-($detalleFinOp[0]['producto_obtenido']/$detalleAltaOp[0]['peso_paston']))*100; echo $mermaobtenida.'%';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
+                      </div>
+                        <br>
+                         <h5>6 - Productos terminados</h5>
+                        <hr>
+                  <table class="table table-sm">
+                <thead>
+                    <tr>
+                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
+                      <td scope="col" class="text-center text-white bg-dark">Cantidad esperada</td>
+                       <td scope="col" class="text-center text-white bg-dark">Cantidad obtenida</td>
+                    </tr> 
+                  </thead>
+                <tbody id="TablaProductos">
+
+<?php
+
+foreach($productos as $producto){
+
+              echo '             <tr>
+                        <td scope="col"  width="30%" >
+                          <a>' . $producto["producto"] . '</a>
+                        </td>
+                        <td scope="col"  width="30%" >
+                           <div class="input-group">
+ <input type="number" class="form-control text-right" value="'.$producto["q_esperada"].'" readonly>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+                         <td scope="col"  width="30%" >
+                           <div class="input-group">
+ <input type="text" class="form-control text-right" value="';
+
+ if ($detalleFinOp){echo $producto["q_real"];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}};
+ echo'" readonly>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad de unidades que se obtuvieron realmente al finalizar la orden">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
+                    </tr>'; 
+       };?>
+
+                </tbody>
+            </table>    
+  <div class="row">
+                         <div class="input-group col-6">
+                        <div class="input-group-prepend">     
+                         <span class="input-group-text">Unidades sin asignar:</span>
                         </div>
-<br>
+                        <input class="form-control input-group-text" value="<?php echo $detalleAltaOp[0]['unidades_sin_asignar'].' unidades'?>" readonly><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Unidades que no fueron asignadas al momento de cargar la op">
+  <i class="far fa-question-circle"></i>
+          </button>
+                        </div>
+                    
+                      </div>
+                      <br>
 <?php if ($detalleAltaOp[0]['estado']=="p") {
 
                echo '<a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP='.$_GET["idOrdenProdDetalle"].'&nombre='.$detalleAltaOp[0]['nombre_receta'].'&lote='.$detalleAltaOp[0]['nro_lote'].'&pesopaston='.$detalleAltaOp[0]['peso_paston'].'&mermaesperada='.$detalleReceta[0]['merma_esperada'].'">Finalizar orden...</a>';}else{

@@ -56,17 +56,17 @@ foreach($ordenes as $orden){
 
 if ($orden["estado"]=="a") {
 	
-	echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] . ' kilos</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 if ($orden["estado"]=="p") {
   
-  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-warning">En producción</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-warning">En producción</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] .' kilos</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 if ($orden["estado"]=="f") {
   
-  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Finalizada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Finalizada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["fecha_alta"] . '</td><td scope="col">' . $orden["peso_paston"] .' kilos</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 
