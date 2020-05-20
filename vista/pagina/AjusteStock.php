@@ -3,6 +3,18 @@
 <html>
 <head>
 </head>
+
+<?php
+
+
+$ultimosid=ControladorFormularios::ctrUltimosId();
+
+  $ultimoidmovinsumo=$ultimosid['idUltimoMovInsumo_'];
+
+  $ultimoidmovcarne=$ultimosid['idUltimoMovCarne_'];
+
+
+?>
 <body>
 
 <div class="container">
@@ -11,6 +23,10 @@
             <hr> 
             <br>
           <form method="post" class="needs-validation" id="formajustestock">
+
+  <input type="hidden" name="utlimoIdCarneAjusteStock" value="<?php echo $ultimoidmovinsumo[0][0]?>">
+    <input type="hidden"name="utlimoIdInsumosAjusteStock" value="<?php echo $ultimoidmovcarne[0][0] ?>">
+
             <div class="row">
                <div class="input-group col-6">
                      <div class="input-group-prepend"> 
@@ -39,7 +55,15 @@
                                     </div>
               
                  </div>
-               </div>
+            </div>
+               <br>
+                  <div class="row">
+               <div class="input-group col-6">
+                  <select class="custom-select" name="motivoAjusteStock" required>
+                           <option value="Ajuste Stock" selected>Ajuste Stock</option>   
+                     </select>             
+                 </div>
+ 					</div>
                <br>
                <table id="TablaAjuste" class="table-sm table-hover"></table>
                <br>

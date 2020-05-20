@@ -484,14 +484,13 @@ foreach($depositos as $deposito){
 if (isset($_POST["idDepositoAjusteStock"])){
     $inusmosxdeposito=ControladorFormularios::ctrStockInsumos();
 
-    echo '<thead><th scope="col" class="text-center text-white bg-dark">N°</th><th scope="col" class="text-center text-white bg-dark">Insumo</th><th scope="col" class="text-center text-white bg-dark">Tipo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N°</th><th scope="col" class="text-center text-white bg-dark">Insumo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual en el sistema</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
         foreach ($inusmosxdeposito as $insumo) {
 
             if($insumo[4]==$_POST["idDepositoAjusteStock"]){
 
              echo '<tr><td scope="col" class="text-center" width="5%">' . $insumo[0] . '<input type="hidden" name="ArrayIdInsumosAjusteStock[]" value="' . $insumo[0] . '"></td>'.
              '<td scope="col"  width="20%">' . $insumo[1] . '<input type="hidden" value="' . $insumo[1] . '"></td>'.
-             '<td scope="col"  width="15%"><div class="input-group"><select class="custom-select" name="motivoAjusteStock[]"><option selected>Ajuste Stock</option></div></select></td>'.
              '<td scope="col"  width="20%"><div class="input-group">'.
              '<input type="number" min=0 step=0.001 class="form-control text-right stockactualinsumo" value="'.$insumo[2].'" readonly>'.
              '<div class="input-group-append"><span class="input-group-text"><a>'. $insumo[3] . '</a></span></div></div></td>'.
@@ -512,7 +511,7 @@ if (isset($_POST["idCarneAjusteStock"])){
     $composicioncarne=ControladorFormularios::ctrComposicionStockCarnes();
 
 
-    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° Desposte</th><th scope="col" class="text-center text-white bg-dark">Carne</th><th scope="col" class="text-center text-white bg-dark">Tipo</th><th scope="col" class="text-center text-white bg-dark">Stock Actual</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° Desposte</th><th scope="col" class="text-center text-white bg-dark">Carne</th><th scope="col" class="text-center text-white bg-dark">Stock Actual  en el sistema</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
          
 
          if(empty($composicioncarne[0])){
@@ -529,7 +528,6 @@ if (isset($_POST["idCarneAjusteStock"])){
              '<input type="hidden" name="ArrayIdDesposteAjusteStock[]" value="' . $desposte[2] . '"></td>'.
              '<td scope="col"  width="20%">' . $desposte[1] . 
              '<input type="hidden" value="' . $desposte[1] . '"></td>'.
-              '<td scope="col"  width="15%"><div class="input-group"><select class="custom-select" name="motivoAjusteStock[]"><option selected>Ajuste Stock</option></div></select></td>'.
              '<td scope="col"  width="20%"><div class="input-group">'.
              '<input type="number" min=0 step=0.001 class="form-control text-right stockcarneactual" value="'.$desposte[3].'" readonly>'.
              '<div class="input-group-append"><span class="input-group-text"><a>'. $desposte[4] . '</a></span></div></div></td>'.
@@ -549,12 +547,12 @@ if (isset($_POST["idCarneAjusteStock"])){
     
 }
 
-		if (isset($_GET["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
-			isset($_GET["motivoAjusteStock"])&& #ControlStock/
-			isset($_GET["DescripcionAjusteStock"])&&(
+		if (isset($_POST["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
+			isset($_POST["motivoAjusteStock"])&& #ControlStock/
+			isset($_POST["DescripcionAjusteStock"])&&(
 			( #Insumos
-				isset($_GET["ArrayIdInsumosAjusteStock"])&&
-				isset($_GET["ArrayCantidadAjusteStock"]))||
+				isset($_POST["ArrayIdInsumosAjusteStock"])&&
+				isset($_POST["ArrayCantidadAjusteStock"]))||
 			(#Carnes
 				isset($_POST["ArrayIdCarnesAjusteStock"])&&
 				isset($_POST["ArrayIdDesposteAjusteStock"])&&
