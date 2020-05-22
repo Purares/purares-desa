@@ -1625,9 +1625,10 @@ IMPORTANTE:
 				$_POST["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0]))
 			) {
 
-				$datos = array(	'tipo_' 	=> $_POST["tipoAjusteStock"],
-								'motiovo_' 	=> $_POST["motivoAjusteStock"],
-								'tipo' 		=> $_POST["DescripcionAjusteStock"]);
+				$datos = array(	'tipo_' 		=> $_POST["tipoAjusteStock"],
+								'motivo_' 		=> $_POST["motivoAjusteStock"],
+								'descripcion_' 	=> $_POST["DescripcionAjusteStock"],
+								'idUsuario_'	=> $_SESSION['userId']);
 
 				$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
 
@@ -1657,7 +1658,7 @@ IMPORTANTE:
 		if (isset($_POST["ArrayIdInsumosAjusteStock"])&&
 			isset($_POST["ArrayCantidadAjusteStock"])) {
 
-			$longitud=count($_POST["DescripcionAjusteStock"]);
+			$longitud=count($_POST["ArrayCantidadAjusteStock"]);
 
 			#Array Insumos
 			$datosInsumos=array('idInsumo_'		=>$_POST["ArrayIdInsumosAjusteStock"],

@@ -1383,24 +1383,21 @@ static public function mdlFinOP($datosOP){
 		$stmt -> bindparam (":tipo",		$datos['tipo_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":motivo",		$datos['motivo_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":descripcion",	$datos['descripcion_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			#Busca el ultimo ID insertado en la tabla
-				$campo='id_producto';
-				$tabla='producto_n';
+				$campo='id_ajuste';
+				$tabla='ajustes_inventarios';
 				$nuevoCampoArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
 				$nuevoID=$nuevoCampoArray[0][0];
 			return $nuevoID;
-	
-
-			return "OK"; #si se ejecutó correctamente le envío un OK
-
+				 #si se ejecutó correctamente le envío un OK
 		}else{
 			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
 		}
 		
-		$stmt -> close(); #cierra la conexion
+			$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
 
