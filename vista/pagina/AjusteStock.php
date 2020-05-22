@@ -165,7 +165,7 @@ $(document).ready( function() {
                 data:'ajustecarnes',
                 success:function(html){
                  $('#textoselect').html('Carne:')
-                 $('#SelectDeposito').attr('name', 'ArrayIdCarnesAjusteStock[]');
+                 $('#SelectDeposito').attr('name', 'ArrayIdCarnesAjusteStock');
                  $('#SelectDeposito').find('option').remove()
                     $('#SelectDeposito').removeClass('selecdeposito')
                    $('#SelectDeposito').addClass('selecCarne')
