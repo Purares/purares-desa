@@ -40,7 +40,6 @@
                                     <th scope="col">Insumo</th>
            							<th scope="col">Depósito</th>
                                     <th scope="col" class="text-center">Stock Actual</th>
-           							<th scope="col" class="columnaboton">Movimiento</th>
         						</tr>
       						</thead>
   							<tbody>
@@ -48,7 +47,7 @@
 
 foreach($stockinsumos as $stockinsumo){
 
-  echo '<tr><td scope="col">' . $stockinsumo["id_insumo"] . '</td><td scope="col">' . $stockinsumo["Insumo"] . '</td><td scope="col">' . $stockinsumo["Deposito"] . '</td><td scope="col" class="text-center">' . $stockinsumo["Stock"] . ' ' . $stockinsumo["udm"] . '</td><td scope="col" class="columnaboton"><a class="btn btn-info btn-sm" href="index.php?pagina=movimientoInsumo&idInsumoActI='. $stockinsumo["id_insumo"] .'&nombreinsumo=' . $stockinsumo["Insumo"] . '&unidad=' .  $stockinsumo["udm"] . '">Nuevo movimiento</a></td></tr>';
+  echo '<tr><td scope="col">' . $stockinsumo["id_insumo"] . '</td><td scope="col">' . $stockinsumo["Insumo"] . '</td><td scope="col">' . $stockinsumo["Deposito"] . '</td><td scope="col" class="text-center">' . $stockinsumo["Stock"] . ' ' . $stockinsumo["udm"] . '</td></tr>';
 
 };
 

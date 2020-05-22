@@ -153,17 +153,6 @@ if(isset($_POST["funcion"])){
     }
 }
 
- if (isset($_POST["idCarneMovimientoCarne"])||
-    isset($_POST["idCuentaMovimientoCarne"])||
-    isset($_POST["idDesposteMovimientoCarne"])||
-    isset($_POST["cantidadMovimientoCarne"])) {
-
-$respuesta=ControladorFormularios::ctrMovCarne();
-
-echo $respuesta;
-
-}
-
 if(isset($_POST["idRecetaAltaOP"])&&isset($_POST["pesoPastonAltaOP"])&&$_POST["establecerorden"]==0){
 
 $calculoinsumos=ControladorFormularios::ctrCalculoInsumos();

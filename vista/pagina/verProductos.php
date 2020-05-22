@@ -46,7 +46,7 @@
 foreach($productos as $producto){
 
 	
-	echo '<tr><td scope="col">' . $producto["codigo"] . '</td><td scope="col">' . $producto["nombre"] . '</td><td scope="col">' . $producto["stock"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleProducto&idProductoDetalle=' . $producto["id_producto"] .'">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col">' . $producto["codigo"] . '</td><td scope="col">' . $producto["nombre"] . '</td><td scope="col">' . $producto["stock"] . ' unidades</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleProducto&idProductoDetalle=' . $producto["id_producto"] .'">Ver detalles</a></td></tr>';
 
 
 };

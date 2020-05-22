@@ -460,16 +460,28 @@ var imgData='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgH
 
       var cantidad_unidades_frescas = cantidad_unidades_frescas_larga.substring(0, cantidad_unidades_frescas_larga.length - 8).replace('.',',');
 
-     doc.autoTable({ html: '#tablacarnes', margin: {top: 66, right: 98, bottom: 135, left: 20},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
+     doc.autoTable({ html: '#tablacarnes', margin: {top: 58, right: 98, bottom: 135, left: 20},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
 
-    doc.autoTable({ html: '#tablainsumos',startY:66, margin: {top: 66, right: 21, bottom: 135, left: 118},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
+    doc.autoTable({ html: '#tablainsumos',startY:58, margin: {top: 66, right: 21, bottom: 135, left: 118},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
 
     doc.autoTable({
-    html: '#tablamediciones',startY:187,
+    html: '#tablamediciones',startY:175,
     margin: {right: 21, bottom: 40, left: 20},
     headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},
     columnStyles: { 1: { halign: 'center'}, 
     2: { halign: 'center'},
+    3: { halign: 'center'}} ,
+    bodyStyles:{fontSize:10,cellPadding:1,halign:'center',valign:'bottom',lineWidth:0.1,lineColor:0}
+  })
+
+     doc.autoTable({
+    head: [['Producto', 'Unidades Esperadas', 'Unidades Obtenidas']],
+    body: bodyRowsFinalizada(),
+    startY:253,
+    margin: {right: 95, bottom: 5, left: 20},
+    headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},
+    columnStyles: { 1: { halign: 'right'}, 
+    2: { halign: 'right'},
     3: { halign: 'center'}} ,
     bodyStyles:{fontSize:10,cellPadding:1,halign:'center',valign:'bottom',lineWidth:0.1,lineColor:0}
   })
@@ -514,43 +526,43 @@ var imgData='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgH
 
       doc.setTextColor('#00000').setFontStyle('normal').setFontSize(8).text(2,4,fechaimpresion);
 
-      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(120,21,nro_orden);
+      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(120,13,nro_orden);
 
-      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(180,21,nro_loteimprimir);
+      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(180,13,nro_loteimprimir);
 
-      doc.setTextColor('#00000').setFontStyle('normal').setFontSize(10).text(47,30,ordenante);
+      doc.setTextColor('#00000').setFontStyle('normal').setFontSize(10).text(49,21.5,ordenante);
 
-      doc.setFontSize(10).text(157,30,fecha_carga);
+      doc.setFontSize(10).text(159,21.5,fecha_carga);
 
-      doc.setFontSize(10).text(48,45,receta);
+      doc.setFontSize(10).text(49,37.5,receta);
 
-      doc.setFontSize(10).text(150,45,peso_paston);
+      doc.setFontSize(10).text(150,37.5,peso_paston);
 
-      doc.setFontSize(10).text(75,52,peso_unidad_fresca);
+      doc.setFontSize(10).text(76,44.5,peso_unidad_fresca);
 
-      doc.setFontSize(10).text(75,58,largo_unidad_fresca);
+      doc.setFontSize(10).text(76,50,largo_unidad_fresca);
 
-      doc.setFontSize(10).text(162,58,cantidad_unidades_frescas);
+      doc.setFontSize(10).text(163,50,cantidad_unidades_frescas);
 
-      doc.setFontSize(10).text(75,176,unidades_obtenidas_embutido);
+      doc.setFontSize(10).text(75,164.5,unidades_obtenidas_embutido);
 
-      doc.setFontSize(10).text(162,176,peso_total_embutido);
+      doc.setFontSize(10).text(162,164.5,peso_total_embutido);
 
-      doc.setFontSize(10).text(44,237,corte);
+      doc.setFontSize(10).text(44,225,corte);
 
-      doc.setFontSize(10).text(75,244,unidades_esperadas);
+      doc.setFontSize(10).text(75,232,unidades_esperadas);
 
-      doc.setFontSize(10).text(162,237,peso_esperado);
+      doc.setFontSize(10).text(163,225,peso_esperado);
 
-      doc.setFontSize(10).text(162,244,largo_esperado);
+      doc.setFontSize(10).text(163,232,largo_esperado);
 
-      doc.setFontSize(10).text(70,260,unidades_obtenidas_deposito);
+      doc.setFontSize(10).text(71,248,unidades_obtenidas_deposito);
 
-      doc.setFontSize(10).text(168,260,fecha_finalizacion_deposito);
+      doc.setFontSize(10).text(168,269,fecha_finalizacion_deposito);
 
-      doc.setFontSize(10).text(55,268,peso_total_deposito);
+      doc.setFontSize(10).text(150,248,peso_total_deposito);
 
-      doc.setFontSize(10).text(162,268,firma);
+      doc.setFontSize(10).text(152,276,firma);
 
 var nombrepdf="Gestión PURARES Orden de producción N° "+nro_orden;
 
@@ -595,9 +607,9 @@ if(estado=="p"||estado=="a"){
 
       var cantidad_unidades_frescas = cantidad_unidades_frescas_larga.substring(0, cantidad_unidades_frescas_larga.length - 8).replace('.',',');
 
-     doc.autoTable({ html: '#tablacarnes', margin: {top: 66, right: 98, bottom: 135, left: 20},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
+     doc.autoTable({ html: '#tablacarnes', margin: {top: 58, right: 98, bottom: 135, left: 20},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'},columnStyles: { 2: { halign: 'left'},3:{halign:'left'} }});
 
-    doc.autoTable({ html: '#tablainsumos',startY:66, margin: {top: 66, right: 21, bottom: 135, left: 118},headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'}});
+    doc.autoTable({ html: '#tablainsumos',startY:58, margin: {top: 66, right: 21, bottom: 135, left: 118},headStyles :{fontSize:8,cellPadding:1,halign:'left',valign:'middle',fillColor:0},bodyStyles:{fontSize:8,cellPadding:1,halign:'center',valign:'middle'},columnStyles: { 0: { halign: 'left'},1: { halign: 'left'} }});
 
     doc.autoTable({
     head: [['#', 'Peso', 'Merma','Fecha','Responsable','Eventos']],
@@ -607,7 +619,7 @@ if(estado=="p"||estado=="a"){
       ['3', '        kg.', '%'  ,'/         /20','                ','               '],
       ['4', '        kg.', '%'  ,'/         /20','                ','               '],
       ['5', '        kg.', '%'  ,'/         /20','                ','               '],
-    ],startY:187,
+    ],startY:175,
     margin: {right: 21, bottom: 40, left: 20},
     headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},
     columnStyles: { 1: { halign: 'right'}, 
@@ -620,7 +632,7 @@ if(estado=="p"||estado=="a"){
     head: [['Producto', 'Unidades Esperadas', 'Unidades Obtenidas']],
     body: bodyRowsEnProduccion(),
     startY:253,
-    margin: {right: 100, bottom: 5, left: 20},
+    margin: {right: 95, bottom: 5, left: 20},
     headStyles :{fontSize:8,cellPadding:1,halign:'center',valign:'middle',fillColor:0},
     columnStyles: { 1: { halign: 'right'}, 
     2: { halign: 'right'},
@@ -648,33 +660,31 @@ if(estado=="p"||estado=="a"){
       doc.setTextColor('#00000').setFontStyle('normal').setFontSize(8).text(2,4,fechaimpresion);
 
 
-      doc.setFontSize(10).text(157,30,fecha_carga);
+      doc.setFontSize(10).text(159,21.5,fecha_carga);
 
-      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(120,21,nro_orden);
+      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(120,13,nro_orden);
 
-      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(180,21,nro_loteimprimir);
+      doc.setTextColor('#F4F4F4').setFontStyle('bold').setFontSize(22).text(180,13,nro_loteimprimir);
 
-      doc.setTextColor('#00000').setFontStyle('normal').setFontSize(10).text(47,30,ordenante);
+      doc.setTextColor('#00000').setFontStyle('normal').setFontSize(10).text(49,21.5,ordenante);
 
-      doc.setFontSize(10).text(157,30,fecha_carga);
+      doc.setFontSize(10).text(49,37.5,receta);
 
-      doc.setFontSize(10).text(48,45,receta);
+      doc.setFontSize(10).text(150,37.5,peso_paston);
 
-      doc.setFontSize(10).text(150,45,peso_paston);
+      doc.setFontSize(10).text(76,44.5,peso_unidad_fresca);
 
-      doc.setFontSize(10).text(75,52,peso_unidad_fresca);
+      doc.setFontSize(10).text(76,50,largo_unidad_fresca);
 
-      doc.setFontSize(10).text(75,58,largo_unidad_fresca);
+      doc.setFontSize(10).text(163,50,cantidad_unidades_frescas);
 
-      doc.setFontSize(10).text(162,58,cantidad_unidades_frescas);
+      doc.setFontSize(10).text(44,225,corte);
 
-      doc.setFontSize(10).text(44,237,corte);
+      doc.setFontSize(10).text(75,232,unidades_esperadas);
 
-      doc.setFontSize(10).text(75,244,unidades_esperadas);
+      doc.setFontSize(10).text(163,225,peso_esperado);
 
-      doc.setFontSize(10).text(162,237,peso_esperado);
-
-      doc.setFontSize(10).text(162,244,largo_esperado);
+      doc.setFontSize(10).text(163,232,largo_esperado);
 
 var nombrepdf="Gestión PURARES Orden de produccion N° "+nro_orden;
 
