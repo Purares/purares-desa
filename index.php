@@ -23,7 +23,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
         	#
         	require_once"controlador/plantillaCTR.php";
     		require_once"controlador/formulariosCTR.php";
-    		require_once"modelo/formulariosMDL.php";
+    		#require_once"modelo/formulariosMDL.php";
 
     		#$plantilla = new ControladorPlantilla(); 
             #$plantilla -> ctrTraerPlantilla();	
@@ -51,7 +51,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['userId'])){
             #
             require_once"controlador/plantillaCTR.php";
     		require_once"controlador/formulariosCTR.php";
-    		require_once"modelo/formulariosMDL.php";
+    		#require_once"modelo/formulariosMDL.php";
 
             #
     		#$plantilla = new ControladorPlantilla(); 

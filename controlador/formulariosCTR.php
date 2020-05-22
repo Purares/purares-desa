@@ -2,7 +2,7 @@
 #ACTUALIZADO 25/3-1.43hs
 include_once 'modelo/user.php';
 include_once 'controlador/user_session.php';
-
+require_once"modelo/formulariosMDL.php";
 
 
 class ControladorFormularios{
@@ -520,47 +520,6 @@ class ControladorFormularios{
 		return $respuesta2;
 		}
 	}
-
-	#------------------------- Movimientos de Carne -------------------------#
-
-	static public function ctrMovCarne(){
-
-		if (isset($_POST["idCarneMovimientoCarne"])||
-			isset($_POST["idCuentaMovimientoCarne"])||
-			isset($_POST["idDesposteMovimientoCarne"])||
-			isset($_POST["cantidadMovimientoCarne"])) {
-
-			#Crear el Array con todos los datos que se necesitarán
-			$longitud=1;
-			$datos2= array(	'idCarne_'		=> [$_POST["idCarneMovimientoCarne"]],
-							'idCuenta_'		=> [$_POST["idCuentaMovimientoCarne"]], #VariableFIJA!
-							'idDesposte_'	=> [$_POST["idDesposteMovimientoCarne"]],
-							'cantidad_'		=> [$_POST["cantidadMovimientoCarne"]],
-							'idOrenProd_'	=> array_fill(0,$longitud,null),
-							'idDecomiso_'	=> array_fill(0,$longitud,null),
-							'idAjusteStock_'=> array_fill(0,$longitud,null),
-							'idUsuario_'	=> array_fill(0,$longitud,$_SESSION['userId']),
-							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]],
-							'funcion_'		=> array_fill(0,$longitud,"ActualizarCarne"));
-				
-			$datos3 = array_column($datos2,0);
-			
-			#Validar que exista el stock suficiente para realizar el movimiento
-			$respuesta1=ModeloFormularios::mdlValidacionMovCarne($datos3);
-		
-			$stockActual=$respuesta1[0]['stock'];
-
-				if ($stockActual>=$_POST["cantidadMovimientoCarne"]) {
-					#$respuesta='OK';
-					$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
-				}else{
-					$respuesta='Stock insuficiente.';
-				}
-			return $respuesta;
-
-		}
-	}
-
 
 	#-------------PROCEO PARA ANULAR DESPOSTES----------------
 
@@ -1692,9 +1651,9 @@ IMPORTANTE:
 			isset($_POST["ArrayIdDesposteAjusteStock"])&&
 			isset($_POST["ArrayCantidadAjusteStock"])) {
 
-				$longitud=count($_POST["ArrayIdCarnesAjusteStock"]);
+				$longitud=count($_POST["ArrayCantidadAjusteStock"]);
 				
-				$datos2= array(	'idCarne_'		=> $_POST["ArrayIdCarnesAjusteStock"],
+				$datos2= array(	'idCarne_'		=> array_fill(0,$longitud,$_POST["ArrayIdCarnesAjusteStock"]),
 								'idCuenta_'		=> array_fill(0,$longitud,8), #VariableFIJA!
 								'idDesposte_'	=> $_POST["ArrayIdDesposteAjusteStock"],
 								'cantidad_'		=> $_POST["ArrayCantidadAjusteStock"],
@@ -1709,7 +1668,7 @@ IMPORTANTE:
 				for ($i=0; $i <$longitud ; $i++) { 
 					
 				
-					if ($datos2['cantidad_'][$i]>0) {
+					if ($datos2['cantidad_'][$i]!=0) {
 						$datos3= array_column($datos2,$i);
 						$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
 						
@@ -1717,6 +1676,7 @@ IMPORTANTE:
 						if ($respuesta != "OK") { return $respuesta2;}
 					}
 				} #exit for
+			return $respuesta;	
 		}
 	}		
 
