@@ -291,10 +291,6 @@ foreach($productosxreceta as $productoreceta){
               <hr>
               <textarea class="form-control" style="min-width: 100%" readonly> <?php echo $receta['descripcion']?></textarea>
               <br>
-
-
-
-               		<a type="button" class="btn btn-warning" id="Imprimirreceta" href="pruebaotropdf.php" target="_blanck">Imprimir receta</a> 
       			</div>
 
 
