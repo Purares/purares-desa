@@ -261,7 +261,7 @@ alert("se ha realiizado un nuevo ajuste macrista neoliberal"+respuestacodajuste)
                    modal.find('#erroragregarajuste').empty()
                   modal.find('#erroragregarajuste').html(respuestacodajuste)
                 }
-            */})
+            })
   
 
 });
