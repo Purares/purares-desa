@@ -246,20 +246,20 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
        $.post("datos.php",$("#formajustestock").serialize(),function(respuestacodajuste){
 
 alert("se ha realiizado un nuevo ajuste macrista neoliberal"+respuestacodajuste) 
-             /*   if(respuestacodprove == '"OK"'){
-                  $('#ConfirmarNuevoProveedor').modal('hide')
+               if(respuestacodajuste == '"OK"'){
+                  $('#ConfirmarNuevoAjuste').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Proveedor agregado</h4><p>Usted ha agregado el nuevo proveedor correctamente.</p><hr></div>')
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Ajuste agregado</h4><p>Usted ha agregado el nuevo ajuste correctamente.</p><hr></div>')
           } else {
-                    $('#ConfirmarNuevoProveedor').modal('hide')
+                    $('#ConfirmarNuevoAjuste').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el proveedor. <a id="erroragregarproveedor"></a></p><hr></div>')
-                   modal.find('#erroragregarproveedor').empty()
-                  modal.find('#erroragregarproveedor').html(respuestacodprove)
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el ajuste. <a id="erroragregarajuste"></a></p><hr></div>')
+                   modal.find('#erroragregarajuste').empty()
+                  modal.find('#erroragregarajuste').html(respuestacodajuste)
                 }
             */})
   
