@@ -65,7 +65,7 @@ foreach ($productos as $producto) {
 
 foreach ($detalleinsumos as $insumo) {
 
-echo '<tr><td scope="col" class="text-center">'.$insumo['id_insumo'].'</td><td scope="col">' . $insumo['insumo'] . '</td><td scope="col" class="text-center">' . $insumo['cantidad'].' '.$insumo['udm']'</td></tr>';
+echo '<tr><td scope="col" class="text-center">'.$insumo['id_insumo'].'</td><td scope="col">' . $insumo['insumo'] . '</td><td scope="col" class="text-center">' . $insumo['cantidad'].' '.$insumo['udm'].'</td></tr>';
 
 };
 ?>
