@@ -245,8 +245,8 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
                               
        $.post("datos.php",$("#formajustestock").serialize(),function(respuestacodajuste){
 
-alert("se ha realiizado un nuevo ajuste macrista neoliberal"+respuestacodajuste) 
-               if(respuestacodajuste == '"OK"'){
+//alert("se ha realiizado un nuevo ajuste macrista neoliberal"+respuestacodajuste) 
+               if(respuestacodajuste.respuesta_ == '"OK"'){
                   $('#ConfirmarNuevoAjuste').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
