@@ -12,7 +12,6 @@ $detalleOrden=ControladorFormularios::ctrDetalleOP();
 
 $detalleAltaOp=$detalleOrden['detalleAltaOP_'];
 
-
 $detalleReceta=$detalleOrden['detalleReceta_'];
 
 $detalleFinOp=$detalleOrden['detalleFinOP_'];
@@ -299,7 +298,7 @@ foreach($productos as $producto){
 
               echo '             <tr>
                         <td scope="col"  width="30%" >
-                          <a>' . $producto["producto"] . '</a>
+                          <a class="textonombreproducto">' . $producto["producto"] . '</a>
                         </td>
                         <td scope="col"  width="30%" >
                            <div class="input-group">
@@ -377,9 +376,22 @@ foreach($productos as $producto){
 
 <script type="text/javascript">
 
-var estado=<?php echo '"'.$detalleAltaOp[0]['estado'].'";'?>
+var estado=<?php echo '"'.$detalleAltaOp[0]['estado'].'";'?>;
 
-//alert(estado)
+var productos=new Array();
+
+$('.textonombreproducto').each(function(){
+                                        productos.push($(this).text());
+                                      })
+
+
+for (var i=0; i<=productos.length-1;i++){
+
+alert(productos[i])
+
+}
+
+
 
 document.getElementById('botonImprimirOp').addEventListener("click", imprimirOp)
 
