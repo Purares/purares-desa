@@ -70,11 +70,11 @@ $productos=$detalleOrden['productos_'];
 
 for ($i=1; $i <5 ; $i++) { 
 
-echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
+echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas form-control" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
 
  };
  
-echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso"></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable"></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]"></td> </tr>';
+echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso"></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable"></td> <td scope=col> <input type="date" class="form-control fechas" name="MedicionesFechaMedicion_FinOP[]"></td> </tr>';
 
 ?>  
     
@@ -118,8 +118,6 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
                 </div>
         			</div>
                      <br>
-
- <div class="col-8">
                   <table class="table table-sm">
                 <thead>
                     <tr>
@@ -138,24 +136,24 @@ foreach($productos as $producto){
                            
 
               echo '             <tr>
-                        <td scope="col">
+                        <td scope="col" width="30%">
                           <a>' . $producto["producto"] . '</a><input type="hidden" name="idProductosFinalizarOP[]" value="'. $producto["id_producto"].'">
                         </td>
-                        <td scope="col">
+                        <td scope="col" width="25%">
                            <div class="input-group">
  <input type="number" class="form-control text-right" value="'.$producto["q_esperada"].'" readonly>
                               <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
   <i class="far fa-question-circle"></i>
           </button>
               </div>
                   </div>
                         </td>
-                         <td scope="col">
+                         <td scope="col" width="45%">
                            <div class="input-group">
  <input type="number" min="0" step="1" name="CantidadProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese las unidades finales obtenidas">
                               <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades de este producto que se obtuvieron realmente">
   <i class="far fa-question-circle"></i>
           </button>
               </div>
@@ -166,8 +164,6 @@ foreach($productos as $producto){
 
                 </tbody>
             </table>
-                </div>
-
               <h5>Descripción</h5>
               <hr>
                 <textarea class="form-control" style="min-width: 100%" name="descripcion_FinOP" id="descripcionfinop" placeholder="..."></textarea>

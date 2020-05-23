@@ -35,6 +35,9 @@
                     <span class="input-group-text">Destino:</span>
                   </div>
                     <input type="text" class="form-control" id="destinodecomiso" name="destinoCrearDecomiso" placeholder="Ingrese el destino" required>
+                    <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese cual sera el destino de la carne a decomisar.">
+  <i class="far fa-question-circle"></i>
+</button>
                              <div class="invalid-feedback">
                                     Ingrese un destino
                                     </div>
@@ -44,6 +47,9 @@
                     <span class="input-group-text">Fecha de decomiso:</span>
                   </div>
                     <input type="date" class="form-control" id="fechadecomiso" name="fechaDecomisoCrearDecomiso" required>
+                     <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la fecha en la que se realizará el decomiso.">
+  <i class="far fa-question-circle"></i>
+</button>
                              <div class="invalid-feedback">
                                     Ingrese una fecha
                                     </div>
@@ -69,26 +75,30 @@
 foreach($listacarnes as $carne){
 
   echo '<tr>
-  <td scope="col" class="nomcarne">' . $carne["carne"] . 
+  <td scope="col" class="nomcarne" width="5%">' . $carne["carne"] . 
   '<input type="hidden" name="arrayIdCarneCrearDecomiso[]" value="'. $carne["id_carne"].'">
   </td>
-  <td scope="col" class="text-center id_desposte">' . $carne["id_desposte"] . 
+  <td scope="col" class="text-center id_desposte" width="4%">' . $carne["id_desposte"] . 
   '<input type="hidden" name="arrayIdDesposteCrearDecomiso[]" value="'.$carne["id_desposte"].'">
   </td>
-  <td scope="col" class="text-right cantidad">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td>
-  <td scope="col" class="text-center">'. $carne["fecha_vencimiento"].'</td>
-  <td scope="col">
+  <td scope="col" class="text-right cantidad" width="9%">' . $carne["cantidad"] . ' ' . $carne["udm"] . '</td>
+  <td scope="col" class="text-center" width="10%">'. $carne["fecha_vencimiento"].'</td>
+  <td scope="col" width="23%">
   <div class="input-group">
     <input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" name="arrayCantDecomisarCrearDecomiso[]" class="form-control text-right adecomisar" placeholder="Cantidad">
       <div class="input-group-append">
         <span class="input-group-text"> 
           <a>'. $carne['udm'] . '</a>
-            </span><div class="form-check form-check-inline p-2">
+            </span>
+               <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de carne a decomisar.">
+  <i class="far fa-question-circle"></i>
+</button>
+            <div class="form-check form-check-inline p-2">
             <input class="form-check-input checkdecomisar" type="checkbox" id="">
       </div>
     </div>
     </td>
-    <td scope="col">
+    <td scope="col" width="29%">
       <div class="input-group">';
 
       if($carne['ver']!="2"){
@@ -98,9 +108,16 @@ foreach($listacarnes as $carne){
             <span class="input-group-text">
             <a>'. $carne['udm'] . '</a>
             </span>
+             <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de carne que su decomiso se postergará a la próxima fecha de vencimiento. En caso de que se haya excedido la segunda fecha de vencimiento no podra postergarse.">
+  <i class="far fa-question-circle"></i>
+</button>
               <div class="form-check form-check-inline p-2">
                 <input class="form-check-input checkpostergar" type="checkbox" id="">
               </div>
+            </div>
+                 <div class="invalid-feedback d-block text-dark">Vencimiento: '
+                              . $carne['fecha_segundo_vencimiento'] .  ' 
+                                    </div>
           </div>';
 
 
@@ -111,6 +128,9 @@ foreach($listacarnes as $carne){
             <span class="input-group-text">
             <a>'. $carne['udm'] . '</a>
             </span>
+             <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de carne que su decomiso se postergará a la próxima fecha de vencimiento. En caso de que se haya excedido la segunda fecha de vencimiento no podra postergarse.">
+  <i class="far fa-question-circle"></i>
+</button>
               <div class="form-check form-check-inline p-2">
                 <input class="form-check-input checkpostergar" type="checkbox" id="" disabled>
               </div>
@@ -121,13 +141,16 @@ foreach($listacarnes as $carne){
        
       echo '</div>
     </td>
-    <td scope="col">
+    <td scope="col" width="20%">
       <div class="input-group">
         <input type="number" min=0 step=0.001 max="'.$carne['cantidad'].'" value="'.$carne['cantidad'].'" name="" class="form-control text-right pendiente" readonly>
           <div class="input-group-append">
             <span class="input-group-text">
             <a>'. $carne['udm'] . '</a>
             </span>
+               <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Carne que queda pendiente de tomar una acción, ya sea postergar o decomisar.">
+  <i class="far fa-question-circle"></i>
+</button>
           </div>
           <input type="number" style="display:none;" id="pendientehidden" min=0 step=0.001 max='.$carne['cantidad'].'" value="'.$carne['cantidad'].'" required>
           <div class="invalid-feedback">Se excedió el total</div>
@@ -378,7 +401,9 @@ $(this).closest('tr').find('#pendientehidden').val(pendiente)
 })
 
 
-$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+$(document).ready( function() {  
+
+ $('[data-toggle="tooltip"]').tooltip() 
     $("#botonconfirmardecomiso").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                             
        $.post("datos.php",$("#formdecomisos").serialize(),function(respuestacoddecomiso){
