@@ -554,5 +554,26 @@ $respuestacod=json_encode($nuevoajuste);
 echo $respuestacod;
 		}
 
+if (isset($_POST["nombreInsumo"])&&
+            isset($_POST["idDeposito"])){
+
+$nuevoinsumo=ControladorFormularios::ctrAgregarInsumo();
+
+
+    $respuestacod=json_encode($nuevoinsumo);
+    echo $respuestacod;
+
+}
+
+if (isset($_POST["nombreAgregarCarne"])&&
+            isset($_POST["idUdmCarne"])){
+
+$nuevocorte=ControladorFormularios::ctrAgregarCarne();
+
+
+    $respuestacod=json_encode($nuevocorte);
+    echo $respuestacod;
+
+}
 
 ?>

@@ -5,22 +5,13 @@
 	<title>Nuevo insumo</title>
 </head>
 <body>
-
-	<?php
-
-	$nuevoinsumo=ControladorFormularios::ctrAgregarInsumo();
-
-	?>
-
-
 	<div class="container">
-
-  					<h4>Agregar nuevo Insumo</h4>
-              		
-        		
-        			<h6>Complete los datos del nuevo insumo que desea agregar</h6>
-        			<br>
-       	<form method="post" class="needs-validation">
+     <br>
+            <h2>Agregar nuevo Insumo</h2>
+            <hr> 
+          <h5>Complete los datos del nuevo insumo que desea agregar</h5>
+          <hr>
+       	<form method="post" id="formagregarinsumo" class="needs-validation">
 
             <div class="row">
           				<div class="input-group col-md-6">	
@@ -53,41 +44,6 @@
         		</div>
         				
             </div>
-        			<br>
-              	<div class="row">
-
-
-
-	<div class="input-group col-md-6">  
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Alerta cantidad minima:</span>
-                  </div>
-                    <input type="number" min=0 step=0.0001 class="form-control text-right" name="alertaQmin" id="alerta" placeholder="Ingrese la alerta de cantidad mínima" required>
-                       <div class="invalid-feedback">
-                                    Ingrese un numero mayor a cero
-                                    </div>
-                </div>
-        			
-<div class="input-group col-md-6  ">
-               <div class="input-group-prepend">
-                     <span class="input-group-text">Unidad:</span>
-                </div>
-                   <select class="custom-select" name="idUm" id="unidad" required>
-                   <?php 
-  $listaUDM=ControladorFormularios::ctrListaUDM();
-    for ($i=0; $i <count($listaUDM); $i++) {
-
-      echo "<option value=".$listaUDM[$i][0].">".$listaUDM[$i][1]."</option>";
-    }
-  ?>        
-                     </select>
-                              <div class="invalid-feedback">
-                                    Seleccione la unidad para el insumo
-                                    </div>
-                    </div>
-
-              
-           		</div>
            		<br>               
                		<button type="button" class="btn btn-success" id="BotonAgregarInsumo"  data-toggle="modal" data-target="#ConfirmarInsumo">Agregar insumo</button>
        	 	  </div> 
@@ -103,16 +59,11 @@
         </div>
         <div class="modal-body">
 		
-		  <p>Usted está a punto de cargar el insumo <a class="nombre"></a>.</p>
-
-          <p>Se medirá en <a class="unidad"></a> y pertenecerá al depósito <a class="deposito"></a>.</p>
-
-          <p>La alerta de cantidad mínima sera de <a class="alerta"></a> <a class="unidad"></a>.</p>
-
+		  <p>Usted está a punto de cargar el insumo <a class="nombre"></a> que pertenecerá al depósito <a class="deposito"></a>.</p>
           <p>¿Confirma que desea CARGAR ESTE INSUMO?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-success">SÍ, CARGAR INSUMO</button>
+          <button type="button" id="botonconfirmaragregarinsumo" class="btn btn-success">SÍ, CARGAR INSUMO</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">NO, DESCARTAR INSUMO</button>
         </div>
       </div>
@@ -121,7 +72,63 @@
 
        	 	</form>
 
-<script>
+     <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-info" onclick="location.reload();">Aceptar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+$('#ConfirmarInsumo').on('show.bs.modal', function (event) {
+var button = $(event.relatedTarget);
+var modal = $(this)
+completarmodalinsumo()
+function completarmodalinsumo(){             
+                                  var nombreinsumo=$('#nombreinsumo').val()
+                                      deposito=$('#deposito option:selected').text()            
+                                      
+
+modal.find('.nombre').text('' + nombreinsumo);
+modal.find('.deposito').text('' + deposito);
+
+  }})
+
+$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+    $("#botonconfirmaragregarinsumo").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formagregarinsumo").serialize(),function(respuestacodnuevoinsumo){
+
+
+                if(respuestacodnuevoinsumo == '"OK"'){
+                  $('#ConfirmarInsumo').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Insumo agregado</h4><p>Usted ha agregado el nuevo insumo correctamente.</p><hr></div>')
+          } else {
+                    $('#ConfirmarInsumo').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el insumo. <a id="erroragregarinsumo"></a></p><hr></div>')
+                   modal.find('#erroragregarinsumo').empty()
+                  modal.find('#erroragregarinsumo').html(respuestacodnuevoinsumo)
+                }
+            })
+  
+    });
+
 	
 (function() {
   'use strict';
@@ -140,25 +147,9 @@
       }, false);
     });
   }, false);
-})();
+})()});
 
-$('#ConfirmarInsumo').on('show.bs.modal', function (event) {
-var button = $(event.relatedTarget);
-var modal = $(this)
-completarmodalinsumo()
-function completarmodalinsumo(){             
-                                  var nombreinsumo=$('#nombreinsumo').val()
-                                      deposito=$('#deposito option:selected').text()
-                                      unidad=$('#unidad option:selected').text()
-                                      alerta=$('#alerta').val()            
-                                      
 
-modal.find('.nombre').text('' + nombreinsumo);
-modal.find('.unidad').text('' + unidad);
-modal.find('.deposito').text('' + deposito);
-modal.find('.alerta').text('' + alerta);
-
-  }})
 
 </script>
 
