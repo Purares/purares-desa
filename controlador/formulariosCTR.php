@@ -95,12 +95,12 @@ class ControladorFormularios{
 		
 				
 		if (isset($_POST["nombreAgregarInsumo"])&&
-			isset($_POST["depositoAgregarInsumo"])&&
-			isset($_POST["udmAgregarInsumo"]))
+			isset($_POST["idDepositoAgregarInsumo"])&&
+			isset($_POST["idUdmAgregarInsumo"]))
 		{
 				$datos= array(	'nombre_' 		=> $_POST["nombreAgregarInsumo"],
-								'deposito_' 	=> $_POST["depositoAgregarInsumo"],
-								'udm_'	 		=> $_POST["udmAgregarInsumo"],
+								'deposito_' 	=> $_POST["idDepositoAgregarInsumo"],
+								'udm_'	 		=> $_POST["idUdmAgregarInsumo"],
 								'alertaQmin_' 	=> null);
 
 			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
