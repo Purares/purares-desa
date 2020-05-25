@@ -18,7 +18,7 @@
           					<div class="input-group-prepend">
          						<span class="input-group-text">Nombre:</span>
          					</div>
-        						<input type="text" class="form-control text-center" name="nombreInsumo" id="nombreinsumo" placeholder="Ingrese el nombre del insumo" required>
+        						<input type="text" class="form-control text-center" name="nombreAgregarInsumo" id="nombreinsumo" placeholder="Ingrese el nombre del insumo" required>
                                     <div class="invalid-feedback">
                                     Ingrese el nombre del insumo
                                     </div>
@@ -50,7 +50,7 @@
                <div class="input-group-prepend">
                      <span class="input-group-text">Unidad:</span>
                 </div>
-                   <select class="custom-select" name="iDudmAgregarInsumo" id="unidad" required>
+                   <select class="custom-select" name="idUdmAgregarInsumo" id="unidad" required>
                    <?php 
   $listaUDM=ControladorFormularios::ctrListaUDM();
     for ($i=0; $i <count($listaUDM); $i++) {
