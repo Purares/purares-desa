@@ -566,7 +566,7 @@ $nuevoinsumo=ControladorFormularios::ctrAgregarInsumo();
 }
 
 if (isset($_POST["nombreAgregarCarne"])&&
-            isset($_POST["idUdmCarne"])){
+            isset($_POST["idUdmAgregarCarne"])){
 
 $nuevocorte=ControladorFormularios::ctrAgregarCarne();
 
