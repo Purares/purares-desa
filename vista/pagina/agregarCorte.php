@@ -143,7 +143,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                               
        $.post("datos.php",$("#formagregarcarne").serialize(),function(respuestacodnuevacarne){
 
-alert(respuestacodnuevacarne)
+//alert(respuestacodnuevacarne)
                 if(respuestacodnuevacarne == '"OK"'){
                   $('#ConfirmarCorte').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')

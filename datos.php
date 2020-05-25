@@ -554,8 +554,8 @@ $respuestacod=json_encode($nuevoajuste);
 echo $respuestacod;
 		}
 
-if (isset($_POST["nombreInsumo"])&&
-            isset($_POST["idDeposito"])){
+if (isset($_POST["nombreAgregarInsumo"])&&
+            isset($_POST["idDepositoAgregarInsumo"])){
 
 $nuevoinsumo=ControladorFormularios::ctrAgregarInsumo();
 

@@ -28,7 +28,7 @@
           					<div class="input-group-prepend">
          						<span class="input-group-text">Depósito:</span>
          					</div>
-        					<select class="custom-select"  id="deposito" name="idDeposito" required>
+        					<select class="custom-select"  id="deposito" name="idDepositoAgregarInsumo" required>
         							<?php 
  	$listaDepositos=ControladorFormularios::ctrListaDepositos();
 		for ($i=0; $i <count($listaDepositos); $i++) {
@@ -44,10 +44,29 @@
         		</div>
         				
             </div>
+<br>
+<div class="row">
+            <div class="input-group col-md-6  ">
+               <div class="input-group-prepend">
+                     <span class="input-group-text">Unidad:</span>
+                </div>
+                   <select class="custom-select" name="iDudmAgregarInsumo" id="unidad" required>
+                   <?php 
+  $listaUDM=ControladorFormularios::ctrListaUDM();
+    for ($i=0; $i <count($listaUDM); $i++) {
+
+      echo "<option value=".$listaUDM[$i][0].">".$listaUDM[$i][1]."</option>";
+    }
+  ?>        
+                     </select>
+                              <div class="invalid-feedback">
+                                    Seleccione la unidad para el insumo
+                                    </div>
+                    </div>
+</div>
            		<br>               
                		<button type="button" class="btn btn-success" id="BotonAgregarInsumo"  data-toggle="modal" data-target="#ConfirmarInsumo">Agregar insumo</button>
        	 	  </div> 
-
 
         
    <!-- ConfirmarInsumo -->
@@ -59,7 +78,7 @@
         </div>
         <div class="modal-body">
 		
-		  <p>Usted está a punto de cargar el insumo <a class="nombre"></a> que pertenecerá al depósito <a class="deposito"></a>.</p>
+		  <p>Usted está a punto de cargar el insumo <a class="nombre"></a> que pertenecerá al depósito <a class="deposito"></a> y tendrá la unidad <a class="unidad"></a>.</p>
           <p>¿Confirma que desea CARGAR ESTE INSUMO?</p>
         </div>
         <div class="modal-footer">
@@ -96,12 +115,13 @@ var modal = $(this)
 completarmodalinsumo()
 function completarmodalinsumo(){             
                                   var nombreinsumo=$('#nombreinsumo').val()
-                                      deposito=$('#deposito option:selected').text()            
+                                      deposito=$('#deposito option:selected').text()   
+                                        unidad=$('#unidad option:selected').text()          
                                       
 
 modal.find('.nombre').text('' + nombreinsumo);
 modal.find('.deposito').text('' + deposito);
-
+modal.find('.unidad').text('' + unidad);
   }})
 
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
