@@ -224,4 +224,11 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 </div>
 
 </body>
+<footer>
+	<br>
+    <div class="float-right d-none d-sm-block">
+      <b>Versión</b> 2.0.001
+    </div>
+    Desarrollado con &hearts; por <a  href = "mailto" target="_blank">Alguien</a> para PURARES&reg;
+  </footer>
 </html>

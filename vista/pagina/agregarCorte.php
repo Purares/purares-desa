@@ -28,7 +28,7 @@
                <div class="input-group-prepend">
                      <span class="input-group-text">Unidad:</span>
                 </div>
-                   <select class="custom-select" name="udmAgregarCarne" id="unidad" required>
+                   <select class="custom-select" name="idUdmCarne" id="unidad" required>
                    <?php 
   $listaUDM=ControladorFormularios::ctrListaUDM();
     for ($i=0; $i <count($listaUDM); $i++) {
