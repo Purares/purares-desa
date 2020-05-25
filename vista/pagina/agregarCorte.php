@@ -28,7 +28,7 @@
                <div class="input-group-prepend">
                      <span class="input-group-text">Unidad:</span>
                 </div>
-                   <select class="custom-select" name="idUdmCarne" id="unidad" required>
+                   <select class="custom-select" name="idUdmAgregarCarne" id="unidad" required>
                    <?php 
   $listaUDM=ControladorFormularios::ctrListaUDM();
     for ($i=0; $i <count($listaUDM); $i++) {
@@ -49,7 +49,7 @@
                     <div class="input-group-prepend">
                     <span class="input-group-text">1er Vencimiento:</span>
                   </div>
-                    <input type="number" min=0 step=0.0001 class="form-control text-right" name="vencimiento1" id="vencimiento1" placeholder="Ingrese la cantidad de días" required>
+                    <input type="number" min=0 step=1 class="form-control text-right" name="vencimiento1AgregarCarne" id="vencimiento1" placeholder="Ingrese la cantidad de días" required>
                        <div class="invalid-feedback">
                                     Ingrese un numero mayor a cero
                                     </div>
@@ -59,7 +59,7 @@
                     <div class="input-group-prepend">
                     <span class="input-group-text">2do Vencimiento:</span>
                   </div>
-                    <input type="number" min=0 step=0.0001 class="form-control text-right" name="vencimiento2" id="vencimiento2" placeholder="Ingrese la cantidad de días" required>
+                    <input type="number" min=0 step=1 class="form-control text-right" name="vencimiento2AgregarCarne" id="vencimiento2" placeholder="Ingrese la cantidad de días" required>
                        <div class="invalid-feedback">
                                     Ingrese un numero mayor a cero
                                     </div>
