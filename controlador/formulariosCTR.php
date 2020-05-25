@@ -94,14 +94,14 @@ class ControladorFormularios{
 	static public function ctrAgregarInsumo(){
 		
 				
-		if (isset($_POST["nombreInsumo"])||
-			isset($_POST["idDeposito"])||
-			isset($_POST["idUm"]))
+		if (isset($_POST["nombreAgregarInsumo"])&&
+			isset($_POST["depositoAgregarInsumo"])&&
+			isset($_POST["udmAgregarInsumo"]))
 		{
-				$datos= array(	'nombreInsumo_' => $_POST["nombreInsumo"],
-								'idDeposito_' => $_POST["idDeposito"],
-								'idUm_' => $_POST["idUm"],
-								'alertaQmin_' => $_POST["alertaQmin"]);
+				$datos= array(	'nombre_' 		=> $_POST["nombreAgregarInsumo"],
+								'deposito_' 	=> $_POST["depositoAgregarInsumo"],
+								'udm_'	 		=> $_POST["udmAgregarInsumo"],
+								'alertaQmin_' 	=> null);
 
 			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
 			return $respuesta;

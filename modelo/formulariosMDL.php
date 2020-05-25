@@ -125,12 +125,12 @@ class ModeloFormularios{
 
 	static public function mdlAgregarInsumo($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :_nombre,:_id_udm,:_id_deposito,:_alertaQmin );");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombre,:idUdm,:idDeposito,:alertaQmin );");
 		
-		$stmt -> bindparam (":_nombre",$datos['nombreInsumo_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":_id_deposito",$datos['idDeposito_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":_id_udm",$datos['idUm_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":_alertaQmin",$datos ['alertaQmin_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":nombre",		$datos['nombre_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idDeposito",	$datos['deposito_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUdm",		$datos['udm_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmin",	$datos ['alertaQmin_'],PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
