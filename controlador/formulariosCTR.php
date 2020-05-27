@@ -1679,6 +1679,32 @@ IMPORTANTE:
 		}
 	}		
 
+	#------------------------- Lista Ajuste de stock -------------------------#
+
+	static public function ctrListaAjusteStock(){
+		$respuesta= ModeloFormularios::mdlListaAjusteStock();
+		return $respuesta;
+	}
+
+	static public function ctrDetalleAjusteStock(){
+		
+		if (isset($_GET["idDetalleAjusteStock"])&&
+			isset($_GET["tipoDetalleAjusteStock"])) { #Carnes/Insumos
+			
+			$detalleAjsuteStock= ModeloFormularios::mdlListaAjusteStock();	
+			
+			if ($_GET["tipoDetalleAjusteStock"]=="Insumos") {
+			 	$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockInsumos($_GET["idDetalleAjusteStock"]);
+			}else{
+				$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockCarnes($_GET["idDetalleAjusteStock"]);
+			}
+
+				$respuesta = array(	'detallesAjuste_' 		=> $detalleAjsuteStock,
+									'movimienotsAjuste_' 	=> $movimientosAjusteStock);
+				
+				return $respuesta;
+		}
+	}
 
 
 }	#cierra la clase

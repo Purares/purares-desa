@@ -1401,11 +1401,52 @@ static public function mdlFinOP($datosOP){
 		$stmt =null;
 	}
 
+#-------------------------Lista de Ajuste Stock------------------------#
+
+	static public function mdlListaAjusteStock(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_ajustesinventarios;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+#-------------------------Detalle Ajuste Stock------------------------#
+
+	static public function mdlDetalleAjusteStock(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_ajustesinventarios where id_ajuste=$idAjusteStock;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
 
 
+#-------------------------Detalle Insumos Ajuste Stock ------------------------#
 
+	static public function mdlDetalleAjusteStockInsumos($idAjusteStock){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * from insumos_mov where id_ajuste_stock=$idAjusteStock;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
+#-------------------------Detalle Carnes Ajuste Stock ------------------------#
 
+	static public function mdlDetalleAjusteStockCarnes($idAjusteStock){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * from carnes_mov where id_ajuste_stock=$idAjusteStock;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
 
