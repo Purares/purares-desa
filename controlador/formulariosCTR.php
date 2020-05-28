@@ -896,7 +896,8 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["idCarnesAgregarOP"])&&
 			isset($_POST["catidadCarnesAgregarOP"])&&
 			isset($_POST["array_ProductoAltaOP"])&&
-			isset($_POST["array_QProductoAltaOP"])){
+			isset($_POST["array_QProductoAltaOP"])&&
+			isset($_POST["array_PesoProductoAltaOP"])){
 
 
 
@@ -960,6 +961,7 @@ static public function ctrValidarAnulacionCompra(){
 														'idOrdenBaja_'	=>array_fill(0,$longitud,null),
 														'idProducto_'	=>$_POST["array_ProductoAltaOP"],
 														'cantidad_'		=>$_POST["array_QProductoAltaOP"],
+														'peso_'			=>$_POST["array_PesoProductoAltaOP"],
 														'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']));	
 
 									#Recorre el Array de INSUMOS agregandolos en la BD
@@ -1204,6 +1206,7 @@ static public function ctrValidarAnulacionCompra(){
 									'idOrdenBaja_'	=>array_fill(0,$longitud,$id_ordenprod_fin),
 									'idProducto_'	=>$_POST["idProductosFinalizarOP"],
 									'cantidad_'		=>$_POST["CantidadProdFinalizarOP"],
+									'peso_'			=>$_POST["PesoProdFinalizarOP"],
 									'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']));
 
 					#Recorre el Array de PRODUCTOS agregandolos en la BD
