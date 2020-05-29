@@ -1500,6 +1500,20 @@ IMPORTANTE:
 	}
 
 
+#------------------------- Stock de Productos Composicion-------------------------#
+
+	static public function ctrStockProductosComposicion(){
+
+
+		if (isset($_GET["idProductoVerComposicion"])){
+
+			$respuesta= ModeloFormularios::mdlStockProductosComposicion($_GET["idProductoVerComposicion"]);
+			return $respuesta;
+		}
+	}
+
+
+
 #------------------------- Agregar Producto -------------------------#
 
 	static public function ctrAgregarProducto(){
