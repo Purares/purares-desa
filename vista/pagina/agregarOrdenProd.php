@@ -133,7 +133,7 @@ foreach($recetas as $receta){
                   <input  class="form-control" type="text" id="validadorproductos" value="1" required style="display:none;">
                            <br>
 				<br>
-              <h5>2 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
+              <h5>3 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
               <hr>
 			<div id="alertacarnes">
 				<div class="alert alert-info alertcarnes" role="alert">
@@ -334,7 +334,8 @@ $.ajax({
                 dataType: "json",
                 success:function(respuestaproduxreceta){
 
-$('#titulodivproductos').find('h6').remove()
+$('#titulodivproductos').find('h5').remove()
+$('#titulodivproductos').find('hr').remove()
 $('#divproductos').find('form').remove()
 
 if(respuestaproduxreceta.length==0){
@@ -343,7 +344,7 @@ $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h
 
 }else{
 
-$('#titulodivproductos').append('<h6>2 - Seleccione los productos:</h6>')
+$('#titulodivproductos').append('<h5>2 - Seleccione los productos:</h5><hr>')
 
 $('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" id="boleanocalculoproductos" name="boleanocalculoproductos" value="1"></form>')
 
