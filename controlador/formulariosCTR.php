@@ -246,7 +246,7 @@ class ControladorFormularios{
 									'merma_' 				=>round(($_POST["mermaCrearReceta"]/100),3),
 									'largoUniEsperado_' 	=>$_POST["largoUniEsperadoCrearReceta"],
 									'pesoUniEsperado_' 		=>round($_POST["pesoUniEsperadoCrearReceta"],3),
-									'unidadesFinalXunidad_'	=>$_POST["uFinalXuCrearReceta"],
+									'unidadesFinalXunidad_'	=>null,
 									'descripcion_' 			=>$_POST["descripcionCrearReceta"]);
 
 				#Agrega la Receta y obtiene el ID de la mism
@@ -1165,8 +1165,8 @@ static public function ctrValidarAnulacionCompra(){
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
 									'pesoFresco_'		=> $_POST["pesoFresco_FinOP"],
-									'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
-									'unidadesObtenidas_'=> $_POST["unidades_FinOP"],
+									'productoObtenido_'	=> null,#$_POST["productoObtenido_FinOp"],
+									'unidadesObtenidas_'=> null,#$_POST["unidades_FinOP"],
 									'descripcion_'		=> $_POST["descripcion_FinOP"],
 									'idUsuarioAlta_'	=> $_SESSION['userId']); 
 
@@ -1574,6 +1574,29 @@ IMPORTANTE:
 		}	
 
 	}
+
+#------------------------- Agregar Movimiento de Producto -------------------------#
+
+	static public function ctrAgregarMovProducto(){
+				
+		if (isset($_POST["idProductoAgregarMovProducto"])&&
+			isset($_POST["idOrdenFinAgregarMovProducto"])&&
+			isset($_POST["cantidadAgregarMovProducto"])&&
+			isset($_POST["pesoAgregarMovProducto"])){
+
+				$datos= array(	'idProducto_' 	=> $_POST["idProductoAgregarMovProducto"],
+								'idOrdenFin_' 	=> $_POST["idOrdenFinAgregarMovProducto"],
+								'cantidad_' 	=> $_POST["cantidadAgregarMovProducto"],
+								'peso_' 		=> $_POST["pesoAgregarMovProducto"],
+								'idCuenta_' 	=> 20,
+								'idUsuario_' 	=> $_SESSION['userId']);
+
+			$respuesta=ModeloFormularios::mdlMovimientoProducto($datos);
+
+			return $respuesta;
+		}
+	}
+
 
 #----------------- Ajuste de Stock -------------------
 

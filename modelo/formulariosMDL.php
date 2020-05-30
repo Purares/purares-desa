@@ -1386,6 +1386,29 @@ static public function mdlFinOP($datosOP){
 		$stmt =null; 
 	}
 
+#------------------------- Agregar movimiento de PRODUCTO -------------------------#
+
+	static public function mdlMovimientoProducto($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovProducto(:idProducto,:idOrdenFin,:cantidad,:peso,:idCuenta,idUsuario);");
+
+		$stmt -> bindparam (":idProducto",	$datos['idProducto_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenFin",	$datos['idOrdenFin_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos['cantidad_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":peso",		$datos['peso_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idCuenta",	$datos['idCuenta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_INT);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
 #------------------------- AGREGAR Ajuste de Stock -------------------------#
 
 	static public function mdlAgregarAjusteStock($datos){
