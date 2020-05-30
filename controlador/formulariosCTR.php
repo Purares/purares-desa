@@ -1575,6 +1575,29 @@ IMPORTANTE:
 
 	}
 
+#------------------------- Agregar Movimiento de Producto -------------------------#
+
+	static public function ctrAgregarMovProducto(){
+				
+		if (isset($_POST["idProductoAgregarMovProducto"])&&
+			isset($_POST["idOrdenFinAgregarMovProducto"])&&
+			isset($_POST["cantidadAgregarMovProducto"])&&
+			isset($_POST["pesoAgregarMovProducto"])){
+
+				$datos= array(	'idProducto_' 	=> $_POST["idProductoAgregarMovProducto"],
+								'idOrdenFin_' 	=> $_POST["idOrdenFinAgregarMovProducto"],
+								'cantidad_' 	=> $_POST["cantidadAgregarMovProducto"],
+								'peso_' 		=> $_POST["pesoAgregarMovProducto"],
+								'idCuenta_' 	=> 20,
+								'idUsuario_' 	=> $_SESSION['userId']);
+
+			$respuesta=ModeloFormularios::mdlMovimientoProducto($datos);
+
+			return $respuesta;
+		}
+	}
+
+
 #----------------- Ajuste de Stock -------------------
 
 	static public function ctrAjusteStockEncabezado(){
