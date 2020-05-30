@@ -216,21 +216,6 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                             </div>
         				</div>
                 <br>
-                        <div class="row">
-                            <div class="input-group col-6">
-                              <div class="input-group-prepend">
-                         <span class="input-group-text">Unidades finales por unidad producida:</span>
-                                </div>
-                                <input type="text" class="form-control text-center unidadesfinales" id="unidadesfinales" value="<?php echo $receta['unidades_final_xunidad'] ?> unidades" readonly>
-                                   <div class="input-group-append">
-                                <button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
-                                 <i class="far fa-question-circle"></i>
-                                </button>
-                              </div>
-                              </div>
-                        </div>
-     		<br>
-
      <form method="post" class="needs-validation" id="modificarproductosreceta">
      	<input type="hidden" name="idReceta" value="<?php echo $_GET['idReceta']?>">
  <h5>Complete los productos que se obtendran con esta receta:</h5>
@@ -241,7 +226,7 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                     <tr>
                       <td scope="col" class="text-center text-white bg-dark">Codigo</td>
                       <td scope="col" class="text-center text-white bg-dark">Producto</td>
-                       <td scope="col" class="text-center text-white bg-dark">Unidades Necesarias</td>
+                       <td scope="col" class="text-center text-white bg-dark">¿En cuanto se cortará el semielaborado?</td>
                         <td scope="col" class="text-center text-white bg-dark"></td>
                     </tr> 
                   </thead>
@@ -264,9 +249,9 @@ foreach($productosxreceta as $productoreceta){
                          <td scope="col">
                           <div class="input-group">
 
- <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" value="'.$productoreceta["unidades_necesarias"].'" placeholder="Cantidad unidades necesarias" required>
+ <input type="number" min=0 step=1 name="unidadesNecesariasCrearReceta[]" class="form-control text-right cantprodu" value="'.$productoreceta["unidades_necesarias"].'" placeholder="Cantidad" required>
                               <div class="input-group-append">
-                  <span class="input-group-text"><a class="unitprodu">Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.">
+                  <span class="input-group-text"><a class="unitprodu">cortes</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Es la cantidad en que se dividirá el semielaborado. Ejemplo: La bondiola pack de 350 g se divide en 3.">
   <i class="far fa-question-circle"></i>
           </button>
               </div>
@@ -414,7 +399,7 @@ foreach($productos as $producto){
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=1 name='unidadesNecesariasCrearReceta[]' class='form-control text-right cantprodu' placeholder='Cantidad de unidades necesarias' required><div class='input-group-append'><span class='input-group-text'><a class='unitprodu'>Unidades</a></span><button type='button' class='btn' data-toggle='tooltip' data-placement='right' title='Ingrese la cantidad de unidades que son necesarias para crear una unidad del producto seleccionado.'><i class='far fa-question-circle'></i></button></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=1 name='unidadesNecesariasCrearReceta[]' class='form-control text-right cantprodu' placeholder='Cantidad' required><div class='input-group-append'><span class='input-group-text'><a class='unitprodu'>cortes</a></span><button type='button' class='btn' data-toggle='tooltip' data-placement='right' title='Ingrese la cantidad en que se dividirá el semielaborado. Ejemplo: La bondiola pack de 350 g se divide en 3.'><i class='far fa-question-circle'></i></button></div></div>")
 
             ),
 

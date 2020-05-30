@@ -274,6 +274,7 @@ foreach($carnes as $carne){
 	var kilosrequeridos;
 	var total=0;
 	var cantidadunidadesfinales;
+  var pesounidadlote;
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
@@ -347,12 +348,29 @@ $('#titulodivproductos').append('<h6>Distribuya las '+parseInt($('#cantidadunida
 $('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" id="boleanocalculoproductos" name="boleanocalculoproductos" value="1"></form>')
 
 //console.log(respuestaproduxreceta)
-$('#formdistribucionproducto').append('<table id="tablaproductos" class="table table-sm"><thead><th  scope="col" class="text-center text-white bg-dark">Producto</th><th  scope="col" class="text-center text-white bg-dark">Cantidad</th><th  scope="col" class="text-center text-white bg-dark">Unidades Finales necesarias</th><th  scope="col" class="text-center text-white bg-dark">Unidades Finales Consumidas</th></thead><tbody>')
+$('#formdistribucionproducto').append('<table id="tablaproductos" class="table table-sm">'+
+  '<thead><th  scope="col" class="text-center text-white bg-dark">Producto</th>'+
+  '<th  scope="col" class="text-center text-white bg-dark">Salason/Chacinados a utilizar</th>'+
+  '<th  scope="col" class="text-center text-white bg-dark">Unidades que se obtienen</th>'+
+  '<th  scope="col" class="text-center text-white bg-dark">Total Productos Obtenidos</th>'+
+  '<th  scope="col" class="text-center text-white bg-dark">Peso por productos</th></thead><tbody>')
 
  for (var h = 0; h < respuestaproduxreceta.length; h++) { 
 
 
-$('#tablaproductos').append('<tr><td width="25%" scope="col" class="nombreproducto"><input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'">'+respuestaproduxreceta[h][2]+'</td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()*cantidadunidadesfinales+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades a producir" required><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div></div></td><td scope="col" width="20%"><div class="input-group"><input type="number" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+'" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales necesarias para producir una unidad del producto"><i class="far fa-question-circle"></i></button></div></div></td><td scope="col" width="25%"><div class="input-group"><input type="number" class="form-control text-right unidades_usadas" readonly><div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales consumidas para fabricar la cantidad de productos ingresada"><i class="far fa-question-circle"></i></button></div></div></td></tr>')
+$('#tablaproductos').append('<tr>'+
+  '<td scope="col" class="nombreproducto">'+
+  '<input type="hidden" name="array_ProductoAltaOP[]" value="'+respuestaproduxreceta[h][1]+'">'+respuestaproduxreceta[h][2]+'</td>'+
+  '<td scope="col" width="30%">'+
+  '<div class="input-group">'+
+  '<input type="number" min=0 step=1 max="'+$('#cantidadunidadesfrescas').val()*cantidadunidadesfinales+'" class="form-control text-right cantidadproducto" name="array_QProductoAltaOP[]" placeholder="Unidades a producir" required>'+
+  '<div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el total de unidades del producto."><i class="far fa-question-circle"></i></button></div></div></td>'+
+  '<td scope="col" width="20%"><div class="input-group"><input type="text" class="form-control text-right unidades_necesarias_producto" value="'+respuestaproduxreceta[h]['unidades_necesarias']+' unidades por salason" readonly>'+
+  '<div class="input-group-append"><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales necesarias para producir una unidad del producto"><i class="far fa-question-circle"></i></button></div></div></td>'+
+  '<td scope="col" width="25%"><div class="input-group"><input type="number" class="form-control text-right totalproductosobtenidos" readonly>'+
+  '<div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales consumidas para fabricar la cantidad de productos ingresada"><i class="far fa-question-circle"></i></button></div></div></td>'+
+  '<td scope="col" width="25%"><div class="input-group"><input type="number" class="form-control text-right pesototalproductos" readonly>'+
+  '<div class="input-group-append"><span class="input-group-text">kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales consumidas para fabricar la cantidad de productos ingresada"><i class="far fa-question-circle"></i></button></div></div></td></tr>')
 }
 
 $('#formdistribucionproducto').append('</tbody></table>')
@@ -409,8 +427,10 @@ var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 $('.cantidadproducto').bind("keyup change", function(e) {
 
 //alert("anda el codigo")
-var unidadesusadas=parseInt($(this).val())*parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())
-$(this).closest('tr').find('.unidades_usadas').val(unidadesusadas)
+var totalproductosobtenidos=parseInt($(this).val())*parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())
+$(this).closest('tr').find('.totalproductosobtenidos').val(totalproductosobtenidos)
+var pesototalproductos=((pesounidadlote/(parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())))*parseInt($(this).val())).toFixed(3)
+$(this).closest('tr').find('.pesototalproductos').val(pesototalproductos)
 	var valoresproductos=$('.cantidadproducto').filter(":input")
 	var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
 	var total1=0
@@ -524,8 +544,9 @@ cantidadunidadesfinales=parseInt(respuestacod[0]['unidades_final_xunidad'])
                     $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
                     $('#kilosrequeridos').text(kilosrequeridos)
 
-                    var cantidadunidadesfrescas=($('#PesoPaston').val()*(respuestacod[0]['cantidad_unidades_lote'])/100).toFixed(0);
+                    var cantidadunidadesfrescas=($('#PesoPaston').val()/(respuestacod[0]['peso_unidad_lote'])).toFixed(0);
                     $('#cantidadunidadesfrescas').val(cantidadunidadesfrescas);
+                    pesounidadlote=respuestacod[0]['peso_unidad_lote']
 
 
 }, dataType: "json"
