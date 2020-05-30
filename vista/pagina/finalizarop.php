@@ -85,75 +85,53 @@ echo '<td scope=col>5<input type="hidden" name="MedicionesSort_FinOP[]" value="'
         			<h5>3 - Envasado</h5>
               <hr>
         			<br>
-      
- 
-            <div class="row">
-          				<div class="input-group col-md-6">	
-          					<div class="input-group-prepend">
-         						<span class="input-group-text">Producto obtenido:</span>
-         					</div>
-        						<input type="number" min=0 step=0.0001 class="form-control text-center" name="productoObtenido_FinOp" id="productoobtenido" placeholder="Ingrese la cantidad" required>
-                     <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total en kilogramos de produto obtenido">
-  <i class="far fa-question-circle"></i>
-</button>
-              </div>
-                                    <div class="invalid-feedback">
-                                    Ingrese la cantidad
-                                    </div>
-                  </div>
-	<div class="input-group col-md-6">  
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Unidades obtenidas:</span>
-                  </div>
-                    <input type="number" min=0 step=1 class="form-control text-center" name="unidades_FinOP" id="unidadesobtenidas" placeholder="Ingrese la cantidad" required>
-                      <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese las unidades totales obtenidas">
-  <i class="far fa-question-circle"></i>
-</button>
-              </div>
-                       <div class="invalid-feedback">
-                                    Ingrese la cantidad de unidades obtenidas
-                                    </div>
-                </div>
-        			</div>
-                     <br>
                   <table class="table table-sm">
                 <thead>
                     <tr>
                       <td scope="col" class="text-center text-white bg-dark">Producto</td>
-                      <td scope="col" class="text-center text-white bg-dark">Cantidad esperada</td>
-                       <td scope="col" class="text-center text-white bg-dark">Cantidad obtenida</td>
+                      <td scope="col" class="text-center text-white bg-dark">Unidades esperadas</td>
+                       <td scope="col" class="text-center text-white bg-dark">Unidades obtenidas</td>
+                         <td scope="col" class="text-center text-white bg-dark">Peso esperado</td>
+                      <td scope="col" class="text-center text-white bg-dark">Peso Obtenido</td>
                     </tr> 
                   </thead>
                 <tbody id="TablaProductos">
 
 <?php
 
-foreach($productos as $producto){
-
-
-                           
+foreach($productos as $producto){                    
 
               echo '             <tr>
-                        <td scope="col" width="30%">
+                        <td scope="col" width="10%">
                           <a>' . $producto["producto"] . '</a><input type="hidden" name="idProductosFinalizarOP[]" value="'. $producto["id_producto"].'">
                         </td>
-                        <td scope="col" width="25%">
+                        <td scope="col" width="15%">
+                           <a>'.$producto["q_esperada"].' unidades</a>
+<button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
+  <i class="far fa-question-circle"></i>
+          </button>
+                        </td>
+                         <td scope="col" width="30%">
                            <div class="input-group">
- <input type="number" class="form-control text-right" value="'.$producto["q_esperada"].'" readonly>
+ <input type="number" min="0" step="1" name="CantidadProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese las unidades obtenidas">
                               <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
+                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades de este producto que se obtuvieron realmente">
   <i class="far fa-question-circle"></i>
           </button>
               </div>
                   </div>
                         </td>
-                         <td scope="col" width="45%">
+                         <td scope="col" width="15%">
+                           <a>'.$producto["peso_esperado"].' kilos</a>
+<button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Peso esperado definido al momento de crear la orden">
+  <i class="far fa-question-circle"></i>
+          </button>
+                        </td>
+                        <td scope="col" width="30%">
                            <div class="input-group">
- <input type="number" min="0" step="1" name="CantidadProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese las unidades finales obtenidas">
+ <input type="number" min="0" step="1" name="PesoProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese el peso obtenido">
                               <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades de este producto que se obtuvieron realmente">
+                  <span class="input-group-text"><a>kilos</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese el peso que se obtuvo realmente">
   <i class="far fa-question-circle"></i>
           </button>
               </div>
