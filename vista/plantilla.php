@@ -67,9 +67,15 @@ $alertadecomisos=ControladorFormularios::ctrAlertaDecomisos();
 
 <body>
 
+
+
 <!--BARRA DE NAVEGACION-->
 
 <div class="container-fluid bg-light">
+<?php if(
+$alertadecomisos['alerta_']=="SI"){echo '<div class="alert alert-danger" role="alert">
+  Hay decomisos pendientes!
+</div>';};?>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="index.php"><img src="recursos/logos/LogoPurares.png" width="110" height="32"></a>
 </nav>
@@ -149,7 +155,8 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
       <a class="dropdown-item" href="index.php?pagina=agregarInsumo">Agregar insumo</a>
       <a class="dropdown-item" href="index.php?pagina=agregarCorte">Agregar carne</a>
       <a class="dropdown-item" href="index.php?pagina=AgregarProveedor">Agregar proveedor</a>
-       <a class="dropdown-item" href="index.php?pagina=AjusteStock">Ajuste Stock</a>
+      <a class="dropdown-item" href="index.php?pagina=AjusteStock">Ajuste Stock</a>
+	  <a class="dropdown-item" href="index.php?pagina=VerAjustes">Ver ajustes de stock</a>
     </div>
 		</li>
 
@@ -201,7 +208,9 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="AgregarProveedor"||
 					$_GET["pagina"]=="detalleProducto"||
 					$_GET["pagina"]=="verProductos"||	
-					$_GET["pagina"]=="AjusteStock"||	
+					$_GET["pagina"]=="AjusteStock"||
+					$_GET["pagina"]=="VerAjustes"||	
+					$_GET["pagina"]=="detalleAjusteStock"||	
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
