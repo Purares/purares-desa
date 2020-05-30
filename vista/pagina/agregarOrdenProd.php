@@ -343,7 +343,7 @@ $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h
 
 }else{
 
-$('#titulodivproductos').append('<h6>2 - Seleccione los productos</h6>')
+$('#titulodivproductos').append('<h6>2 - Seleccione los productos:</h6>')
 
 $('#divproductos').append('<form id="formdistribucionproducto"><input type="hidden" id="boleanocalculoproductos" name="boleanocalculoproductos" value="1"></form>')
 
@@ -432,18 +432,18 @@ $(this).closest('tr').find('.totalproductosobtenidos').val(totalproductosobtenid
 var pesototalproductos=((pesounidadesperado/(parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())))*parseInt($(this).val())).toFixed(3)
 $(this).closest('tr').find('.pesototalproductos').val(pesototalproductos)
 	var valoresproductos=$('.cantidadproducto').filter(":input")
-	var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
-	var total1=0
-  var  unidadesrequeridasint= new Array()
-    var total=parseFloat(total1)
+	//var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
+	//var total1=0
+  //var  unidadesrequeridasint= new Array()
+    var total=0
     var valoresproducto
 for (var i=0; i<=valoresproductos.length-1;i++){
 	//alert("esto es lo que entra antes de convertirse"+valorescarnes[i].value)
 	if (valoresproductos[i].value!="") {
-		valoresproducto=(parseFloat(valoresproductos[i].value))*(parseFloat(unidadesxproducto[i].value))
+		valoresproducto=parseFloat(valoresproductos[i].value)
 		//alert("este es el tipo con el que lee"+typeof(valoresvarne))
 		//alert("este es lo que lee"+valoresvarne)
-	unidadesrequeridasint.push(parseInt(unidadesxproducto[i].value))
+	//unidadesrequeridasint.push(parseInt(unidadesxproducto[i].value))
 
   	total= total+valoresproducto
   //	alert("asi queda el total despues de suamr cada campo"+total)
@@ -455,8 +455,8 @@ for (var i=0; i<=valoresproductos.length-1;i++){
 
   	}
 //console.log(valorescarnes[1]);
- var productosactual=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
- //alert(kilosactual)
+ var productosactual=$('#cantidadunidadesfrescas').val()-total
+ //alert(productosactual)
  if(productosactual==0){
 
  	$('.alertproductos').empty()
@@ -472,7 +472,7 @@ $('#contadorproductos').val("0")
 $('.alertproductos').empty()
 $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertaproductos').show()
-$('.alertproductos').html("Se excedieron <a id='productosrequeridos'></a> unidades finales de los productos")
+$('.alertproductos').html("Se excedieron <a id='productosrequeridos'></a> unidades en la distribución de los productos")
 var productosactualpositivo=-productosactual
 $('#productosrequeridos').html(productosactualpositivo)
 $('#validadorproductos').val("1")
@@ -480,28 +480,17 @@ $('#validadorproductos').val("1")
   }else{
 $('.alertproductos').empty()
 
-var productosrequeridos=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
+//var productosrequeridos=($('#cantidadunidadesfrescas').val()*cantidadunidadesfinales)-total
 
 //alert(unidadesrequeridasint)
-var minimo=Math.min(...unidadesrequeridasint)
-if(productosrequeridos<minimo){
-
-  $('#validadorproductos').val("0")
-
-$('#contadorproductos').val(productosrequeridos)
-  $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-danger').addClass("alert alert-success")
-  $('#alertaproductos').show()
-$('.alertproductos').html("Se cargara el sobrante de <a id='productosrequeridos'></a> unidades")
-$('#productosrequeridos').html(productosrequeridos)
-
-}else{
+//var minimo=Math.min(...unidadesrequeridas
 $('#validadorproductos').val("1")
 
   $('.alertproductos').removeClass('alert alert-info').removeClass('alert alert-success').addClass("alert alert-danger")
   $('#alertaproductos').show()
-$('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades finales entre los productos")
-$('#productosrequeridos').html(productosrequeridos)
-}
+$('.alertproductos').html("Se requieren distribuir <a id='productosrequeridos'></a> unidades entre los productos")
+$('#productosrequeridos').html(productosactual)
+
 
 
 
