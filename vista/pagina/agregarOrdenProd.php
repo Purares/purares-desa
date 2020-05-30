@@ -369,7 +369,7 @@ $('#tablaproductos').append('<tr>'+
   '<div class="input-group-append"><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales necesarias para producir una unidad del producto"><i class="far fa-question-circle"></i></button></div></div></td>'+
   '<td scope="col" width="25%"><div class="input-group"><input type="number" class="form-control text-right totalproductosobtenidos" readonly>'+
   '<div class="input-group-append"><span class="input-group-text">Unidades</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales consumidas para fabricar la cantidad de productos ingresada"><i class="far fa-question-circle"></i></button></div></div></td>'+
-  '<td scope="col" width="25%"><div class="input-group"><input type="number" class="form-control text-right pesototalproductos" readonly>'+
+  '<td scope="col" width="25%"><div class="input-group"><input type="number" name="array_PesoProductoAltaOP[]" class="form-control text-right pesototalproductos" readonly>'+
   '<div class="input-group-append"><span class="input-group-text">kilos</span><button type="button" class="btn font-weight-bold" data-toggle="tooltip" data-placement="right" title="Unidades finales consumidas para fabricar la cantidad de productos ingresada"><i class="far fa-question-circle"></i></button></div></div></td></tr>')
 }
 
