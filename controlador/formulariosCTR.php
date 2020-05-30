@@ -1708,7 +1708,7 @@ IMPORTANTE:
 		if (isset($_GET["idDetalleAjusteStock"])&&
 			isset($_GET["tipoDetalleAjusteStock"])) { #Carnes/Insumos
 			
-			$detalleAjsuteStock= ModeloFormularios::mdlListaAjusteStock();	
+			$detalleAjsuteStock= ModeloFormularios::mdlDetalleAjusteStock($_GET["idDetalleAjusteStock"]);	
 			
 			if ($_GET["tipoDetalleAjusteStock"]=="Insumos") {
 			 	$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockInsumos($_GET["idDetalleAjusteStock"]);

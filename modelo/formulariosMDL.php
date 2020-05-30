@@ -1427,7 +1427,7 @@ static public function mdlFinOP($datosOP){
 
 #-------------------------Detalle Ajuste Stock------------------------#
 
-	static public function mdlDetalleAjusteStock(){
+	static public function mdlDetalleAjusteStock($idAjusteStock){
  
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_ajustesinventarios where id_ajuste=$idAjusteStock;");
 		$stmt -> execute();
