@@ -129,7 +129,7 @@ foreach($productos as $producto){
                         </td>
                         <td scope="col" width="30%">
                            <div class="input-group">
- <input type="number" min="0" step="1" name="PesoProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese el peso obtenido">
+ <input type="number" min="0" step="0.001" name="PesoProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese el peso obtenido">
                               <div class="input-group-append">
                   <span class="input-group-text"><a>kilos</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese el peso que se obtuvo realmente">
   <i class="far fa-question-circle"></i>

@@ -201,67 +201,20 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                 </table>
                 </div>
             <br>
-                  <h5>4 - Envasado</h5>
-              <hr>
-   <div class="row">
-                         <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Corte:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="corte" value="<?php echo $detalleReceta[0]['unidades_final_xunidad'];?> unidades" readonly>
-                        </div>
+                         <h5>4 - Resultados del secado</h5>
+                        <hr>
+  <div class="row">
                          <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Peso esperado:</span>
                         </div>
                         <input class="form-control input-group-text pesoesperado" id="peso_esperado" value="<?php echo $detalleReceta[0]['peso_unidad_esperado'];?> kilos/unidad" readonly>
                         </div>
-                        </div>
-            <br>
-    <div class="row">
-                         <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Unidades esperadas:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="unidades_esperadas" value="<?php echo $detalleAltaOp[0]['cantidad_unidades_frescas']* $detalleReceta[0]['unidades_final_xunidad'];?> unidades" readonly>
-                        </div>
                          <div class="input-group col-6">
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Largo esperado:</span>
                         </div>
                         <input class="form-control input-group-text pesoesperado" id="largo_esperado" value="<?php echo $detalleReceta[0]['largo_unidad_esperado'];?> metros/unidad" readonly>
-                        </div>
-                        </div>
-                        <br>
-                         <h5>5 - Resultados obtenidos</h5>
-                        <hr>
-                        <div class="row">
-                         <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Unidades obtenidas:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="unidades_obtenidas_deposito"  value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['unidades_obtenidas'].' unidades';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
-                        </div>
-                          <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Producto total obtenido:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="pesototaldeposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['producto_obtenido'].' kilos';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
-                        </div>
-                        </div>
-                        <br>
-                         <div class="row">
-                         <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Usuario que finalizó:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="firma" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['usuario_alta'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
-                        </div>
-                          <div class="input-group col-6">
-                        <div class="input-group-prepend">     
-                         <span class="input-group-text">Fecha de finalización:</span>
-                        </div>
-                        <input class="form-control input-group-text corte" id="fecha_finalizacion_deposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['fecha_finalizacion'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                         </div>
                         <br>
@@ -276,18 +229,23 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         <div class="input-group-prepend">     
                          <span class="input-group-text">Merma obtenida:</span>
                         </div>
-                        <input class="form-control input-group-text" value="<?php if ($detalleFinOp){$mermaobtenida=(1-($detalleFinOp[0]['producto_obtenido']/$detalleAltaOp[0]['peso_paston']))*100; echo $mermaobtenida.'%';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
+                        <input class="form-control input-group-text" value="<?php if ($detalleFinOp){
+                          $totalkilos=0;
+                            foreach($productos as $producto){$totalkilos+$producto['peso_real'];};
+                          $mermaobtenida=(1-($totalkilos/$detalleAltaOp[0]['peso_paston']))*100; echo $mermaobtenida.'%';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                       </div>
                         <br>
-                         <h5>6 - Productos terminados</h5>
+                         <h5>5 - Productos terminados</h5>
                         <hr>
                   <table class="table table-sm">
                 <thead>
                     <tr>
-                      <td scope="col" class="text-center text-white bg-dark">Producto</td>
-                      <td scope="col" class="text-center text-white bg-dark">Cantidad esperada</td>
-                       <td scope="col" class="text-center text-white bg-dark">Cantidad obtenida</td>
+                <td scope="col" class="text-center text-white bg-dark">Producto</td>
+                      <td scope="col" class="text-center text-white bg-dark">Unidades esperadas</td>
+                       <td scope="col" class="text-center text-white bg-dark">Unidades obtenidas</td>
+                         <td scope="col" class="text-center text-white bg-dark">Peso esperado</td>
+                      <td scope="col" class="text-center text-white bg-dark">Peso Obtenido</td>
                     </tr> 
                   </thead>
                 <tbody id="TablaProductos">
@@ -297,20 +255,16 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
 foreach($productos as $producto){
 
               echo '             <tr>
-                        <td scope="col"  width="30%" >
+                        <td scope="col"  width="20%" >
                           <a class="textonombreproducto">' . $producto["producto"] . '</a>
                         </td>
-                        <td scope="col"  width="30%" >
-                           <div class="input-group">
- <input type="number" class="form-control text-right cantidadesperada" value="'.$producto["q_esperada"].'" readonly>
-                              <div class="input-group-append">
-                  <span class="input-group-text"><a>Unidades</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
+                        <td scope="col"  width="20%" >
+                            <a>'.$producto["q_esperada"].' unidades</a>
+<button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cantidad esperada definida al momento de crear la orden">
   <i class="far fa-question-circle"></i>
           </button>
-              </div>
-                  </div>
                         </td>
-                         <td scope="col"  width="30%" >
+                         <td scope="col"  width="20%" >
                            <div class="input-group">
  <input type="text" class="form-control text-right cantidadobtenida" value="';
 
@@ -323,22 +277,47 @@ foreach($productos as $producto){
               </div>
                   </div>
                         </td>
+                        <td scope="col"  width="20%" >
+                            <a>'.$producto["peso_esperado"].' unidades</a>
+<button type="button" class="btn" data-toggle="tooltip" data-placement="right" title=""Peso esperado definido al momento de crear la orden">
+  <i class="far fa-question-circle"></i>
+          </button>
+                        </td>
+                         <td scope="col"  width="20%" >
+                           <div class="input-group">
+ <input type="text" class="form-control text-right cantidadobtenida" value="';
+
+ if ($detalleFinOp){echo $producto["peso_real"];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}};
+ echo'" readonly>
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a>kilos</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Peso que se obtuvo realmente">
+  <i class="far fa-question-circle"></i>
+          </button>
+              </div>
+                  </div>
+                        </td>
                     </tr>'; 
        };?>
 
                 </tbody>
             </table>    
-  <div class="row">
+<hr>
+ <div class="row">
                          <div class="input-group col-6">
                         <div class="input-group-prepend">     
-                         <span class="input-group-text">Unidades sin asignar:</span>
+                         <span class="input-group-text">Usuario que finalizó:</span>
                         </div>
-                        <input class="form-control input-group-text" value="<?php echo $detalleAltaOp[0]['unidades_sin_asignar'].' unidades'?>" readonly><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Unidades que no fueron asignadas al momento de cargar la op">
-  <i class="far fa-question-circle"></i>
-          </button>
+                        <input class="form-control input-group-text corte" id="firma" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['usuario_alta'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
-                    
-                      </div>
+                          <div class="input-group col-6">
+                        <div class="input-group-prepend">     
+                         <span class="input-group-text">Fecha de finalización:</span>
+                        </div>
+                        <input class="form-control input-group-text corte" id="fecha_finalizacion_deposito" value="<?php if ($detalleFinOp){echo $detalleFinOp[0]['fecha_finalizacion'];}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
+                        </div>
+                        </div>
+<br>
+
                       <br>
 <?php if ($detalleAltaOp[0]['estado']=="p") {
 
