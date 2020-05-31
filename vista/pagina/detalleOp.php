@@ -231,8 +231,8 @@ echo '<tr><td scope="col" class="text-center">' . $detalleMedicionesOp[$j]['sort
                         </div>
                         <input class="form-control input-group-text" value="<?php if ($detalleFinOp){
                           $totalkilos=0;
-                            foreach($productos as $producto){$totalkilos+$producto['peso_real'];};
-                          $mermaobtenida=(1-($totalkilos/$detalleAltaOp[0]['peso_paston']))*100; echo $mermaobtenida.'%';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
+                            foreach($productos as $producto){$totalkilos=(float)$producto['peso_real']+$totalkilos;};
+                          $mermaobtenida=($totalkilos/$detalleAltaOp[0]['peso_paston'])*100;echo $mermaobtenida.' %';}else{if($detalleAltaOp[0]['estado']=="p"){echo 'La orden está en producción';}else{echo 'La orden está anulada';}}?>" readonly>
                         </div>
                       </div>
                         <br>
