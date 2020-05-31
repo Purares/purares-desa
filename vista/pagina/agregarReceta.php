@@ -744,8 +744,8 @@ $('#gramosxunidad').keyup(function(){
 
 if ($('#MermaEsperada').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100)).toFixed(3)))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100)).toFixed(3)))
 
 }else{
 
@@ -757,21 +757,8 @@ $('#MermaEsperada').keyup(function(){
 
 if ($('#gramosxunidad').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
-
-}else{
-
-$('#gramosxunidadesperado').val("Se calculará cuando termine de ingresar los datos")
-
-}})
-
-$('#unidadesfinalesxunidad').keyup(function(){
-
-if ($('#gramosxunidad').val()!=""&&$('#MermaEsperada').val()!="") {
-
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100)).toFixed(3)))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100)).toFixed(3)))
 
 }else{
 
