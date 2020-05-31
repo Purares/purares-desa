@@ -1238,6 +1238,17 @@ static public function mdlFinOP($datosOP){
 		$stmt =null; 
 	}
 
+	#---------ID Ultimo Movimieto Producto ----------
+
+	static public function mdlIdUltimoMovProducto(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT max(id_movproducto) from productos_mov;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
 
 #-------------------------Anular DECOMISO -------------------------#
 
@@ -1391,14 +1402,15 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlMovimientoProducto($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovProducto(:idProducto,:idOrdenFin,:cantidad,:peso,:idCuenta,idUsuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovProducto(:idProducto,:idOrdenFin,:cantidad,:peso,:idCuenta,:idAjusteStock, idUsuario);");
 
-		$stmt -> bindparam (":idProducto",	$datos['idProducto_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":idOrdenFin",	$datos['idOrdenFin_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",	$datos['cantidad_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":peso",		$datos['peso_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idCuenta",	$datos['idCuenta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idProducto",	$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenFin",	$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",	$datos[2],PDO::PARAM_STR);
+		$stmt -> bindparam (":peso",		$datos[3],PDO::PARAM_STR);
+		$stmt -> bindparam (":idCuenta",	$datos[4],PDO::PARAM_INT);
+		$stmt -> bindparam (":idAjusteStock",$datos[5],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos[6],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			return "OK";

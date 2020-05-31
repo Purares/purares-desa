@@ -1142,7 +1142,7 @@ static public function ctrValidarAnulacionCompra(){
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
 			isset($_POST["unidadesFrescas_FinOP"])||
 			isset($_POST["pesoFresco_FinOP"])||
-			isset($_POST["merma_FinOP"])||#NEW
+			#isset($_POST["merma_FinOP"])||#NEW
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
 			isset($_POST["MedicionesSort_FinOP"])||
@@ -1163,11 +1163,14 @@ static public function ctrValidarAnulacionCompra(){
 				if ($longitud==0) {
 
 				#3)Insertar los campos en la finalización de OP
+
+					$mermaObtenida= array_sum($_POST["PesoProdFinalizarOP"]) / $detalleAltaOP[0]['peso_paston'];
+
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
 									'pesoFresco_'		=> $_POST["pesoFresco_FinOP"],
-									'merma_'			=> $_POST["merma_FinOP"],
-									'productoObtenido_'	=> null,#$_POST["productoObtenido_FinOp"],
+									'merma_'			=> $mermaObtenida,
+									'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
 									'unidadesObtenidas_'=> null,#$_POST["unidades_FinOP"],
 									'descripcion_'		=> $_POST["descripcion_FinOP"],
 									'idUsuarioAlta_'	=> $_SESSION['userId']); 
@@ -1361,11 +1364,13 @@ IMPORTANTE:
 		$UltimoIdOrdenProd=ModeloFormularios::mdlUltimaOrdenProd();
 		$idUltimoMovCarne=ModeloFormularios::mdlIdUltimoMovCarne();
 		$idUltimoMovInsumo=ModeloFormularios::mdlIdUltimoMovInsumo();
+		$idUltimoMovProducto=ModeloFormularios::mdlIdUltimoMovProducto();
 
 		$respuesta = array(	'UltimoIdDecomiso_' 	=> $UltimoIdDecomiso,
 							'UltimoIdOrdenProd_'	=> $UltimoIdOrdenProd,
 							'idUltimoMovCarne_'		=> $idUltimoMovCarne,
-							'idUltimoMovInsumo_'	=> $idUltimoMovInsumo);
+							'idUltimoMovInsumo_'	=> $idUltimoMovInsumo,
+							'idUltimoMovProducto_'	=> $idUltimoMovProducto);
 		return $respuesta;
 	}
 
@@ -1614,17 +1619,25 @@ IMPORTANTE:
 				isset($_POST["ArrayIdCarnesAjusteStock"])&&
 				isset($_POST["ArrayIdDesposteAjusteStock"])&&
 				isset($_POST["ArrayCantidadAjusteStock"]))
-			)) {
+			( #Productos
+				isset($_POST["ArrayIdProductoAjusteStock"])&&
+				isset($_POST["ArrayIdOpFinAjusteStock"])&&
+				isset($_POST["ArrayCantidadAjusteStock"])&&
+				isset($_POST["ArrayPesoAjusteStock"]))
+			) ) {
 
-			
+			#1 Busca el ultimo ID vs el informado para verificar si existieron movimientos
 			$arrayUltimosID=ControladorFormularios::ctrUltimosId();
 
-			if (($_POST["tipoAjusteStock"]=="Carnes" && 
-				$_POST["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0]))||
-				($_POST["tipoAjusteStock"]=="Insumos"&& 
-				$_POST["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0]))
+			if (
+				($_POST["tipoAjusteStock"]=="Carnes" && 
+				    $_POST["utlimoIdCarneAjusteStock"]==($arrayUltimosID['idUltimoMovCarne_'][0][0]))||
+				($_POST["tipoAjusteStock"]=="Insumos" && 
+				    $_POST["utlimoIdInsumosAjusteStock"]==($arrayUltimosID['idUltimoMovInsumo_'][0][0]))||
+				($_POST["tipoAjusteStock"]=="Productos" && 
+				    $_POST["utlimoIdProductoAjusteStock"]==($arrayUltimosID['idUltimoMovProducto_'][0][0]))
 			) {
-
+				#2 Armar el array del detalle
 				$datos = array(	'tipo_' 		=> $_POST["tipoAjusteStock"],
 								'motivo_' 		=> $_POST["motivoAjusteStock"],
 								'descripcion_' 	=> $_POST["DescripcionAjusteStock"],
@@ -1632,10 +1645,16 @@ IMPORTANTE:
 
 				$idAjusteStock=ModeloFormularios::mdlAgregarAjusteStock($datos);
 
+				#3 Dependiendo que se ajuste se ejecutaran distintos CTR
 				if ($_POST["tipoAjusteStock"]=="Insumos") {
 					$respuesta=ControladorFormularios::ctrAjusteStockInsumos($idAjusteStock);
+
 				}else if ($_POST["tipoAjusteStock"]=="Carnes") {
 					$respuesta=ControladorFormularios::ctrAjusteStockCarnes($idAjusteStock);
+
+				}else if ($_POST["tipoAjusteStock"]=="Productos") {
+					$respuesta=ControladorFormularios::ctrAjusteStockProducto($idAjusteStock);
+
 				}else{
 					$respuesta="No existe la Categoría a ajustar";
 				}
@@ -1720,6 +1739,38 @@ IMPORTANTE:
 			return $respuesta;	
 		}
 	}		
+
+#------------------------- Ajuste Stock Productos -------------------------#
+
+	static public function ctrAjusteStockProducto($idAjusteStock){
+
+		if (isset($_POST["ArrayIdProductoAjusteStock"])&&
+			isset($_POST["ArrayIdOpFinAjusteStock"])&&
+			isset($_POST["ArrayCantidadAjusteStock"])&&
+			isset($_POST["ArrayPesoAjusteStock"])) {
+
+			$longitud=count($_POST["ArrayCantidadAjusteStock"]);
+
+			#Array Productos
+			$datosProducto=array('idProducto_'	=>array_fill(0,$longitud,$_POST["ArrayIdProductoAjusteStock"]),
+								'idOrdenProdFin_'=>$_POST["ArrayIdOpFinAjusteStock"],
+								'cantidad_'		=>$_POST["ArrayCantidadAjusteStock"],
+								'peso_'			=>$_POST["ArrayPesoAjusteStock"],
+								'idCuenta_'		=>array_fill(0,$longitud,8), #FIJO
+								'idAjusteStock_'=>array_fill(0,$longitud,$idAjusteStock),
+								'idUsuario_'	=>array_fill(0,$longitud,$_SESSION['userId']));
+
+			#Cargar los Movimientos de Producto
+			for ($i=0; $i < $longitud ; $i++) { 
+				if($datosProducto['cantidad_'][$i]!=0){	
+					$datos=array_column($datosProducto,$i);	
+					$respuesta=ModeloFormularios::mdlMovimientoProducto($datos);
+					if ($respuesta != "OK") { return $respuesta;}
+				}
+			}
+			return $respuesta;	
+		}	
+	}
 
 	#------------------------- Lista Ajuste de stock -------------------------#
 
