@@ -989,11 +989,12 @@ static public function mdlDetalleOpMediciones($id_OrdenProd){
 
 static public function mdlFinOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta,:unidadesFrescas,:pesoFresco, :productoObtenido, :unidadesObtenidas, :descripcion, :idUsuarioAlta);");
+		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta,:unidadesFrescas,:pesoFresco ,:merma , :productoObtenido, :unidadesObtenidas, :descripcion, :idUsuarioAlta);");
 
 		$stmt -> bindparam (":idOrdenProdAlta",		$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":unidadesFrescas",		$datosOP['unidadesFrescas_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":pesoFresco",			$datosOP['pesoFresco_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":merma",				$datosOP['merma_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":productoObtenido",	$datosOP['productoObtenido_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":unidadesObtenidas",	$datosOP['unidadesObtenidas_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":descripcion",			$datosOP['descripcion_'],PDO::PARAM_STR);
@@ -1465,7 +1466,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlDetalleAjusteStockInsumos($idAjusteStock){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * from insumos_mov where id_ajuste_stock=$idAjusteStock;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * from v_ajustestock_insumos where id_ajuste_stock=$idAjusteStock;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -1476,7 +1477,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlDetalleAjusteStockCarnes($idAjusteStock){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * from carnes_mov where id_ajuste_stock=$idAjusteStock;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * from v_ajustestock_carnes where id_ajuste_stock=$idAjusteStock;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
