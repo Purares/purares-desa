@@ -1391,7 +1391,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlStockProductosComposicion($idProducto){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockproducotos_composicion where id_producto=$idProducto");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockproducotos_composicion where  stock_unidades+stock_peso>0 and id_producto=$idProducto");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
