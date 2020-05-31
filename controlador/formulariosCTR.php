@@ -1618,7 +1618,7 @@ IMPORTANTE:
 			(#Carnes
 				isset($_POST["ArrayIdCarnesAjusteStock"])&&
 				isset($_POST["ArrayIdDesposteAjusteStock"])&&
-				isset($_POST["ArrayCantidadAjusteStock"]))
+				isset($_POST["ArrayCantidadAjusteStock"]))||
 			( #Productos
 				isset($_POST["ArrayIdProductoAjusteStock"])&&
 				isset($_POST["ArrayIdOpFinAjusteStock"])&&
@@ -1788,6 +1788,8 @@ IMPORTANTE:
 			
 			if ($_GET["tipoDetalleAjusteStock"]=="Insumos") {
 			 	$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockInsumos($_GET["idDetalleAjusteStock"]);
+			}else if ($_GET["tipoDetalleAjusteStock"]=="Productos") {
+				$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockProductos($_GET["idDetalleAjusteStock"]);
 			}else{
 				$movimientosAjusteStock=ModeloFormularios::mdlDetalleAjusteStockCarnes($_GET["idDetalleAjusteStock"]);
 			}

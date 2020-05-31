@@ -1485,6 +1485,18 @@ static public function mdlFinOP($datosOP){
 		$stmt =null; 
 	}
 
+#-------------------------Detalle Insumos Ajuste Producto ------------------------#
+
+	static public function mdlDetalleAjusteStockProducto($idAjusteStock){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * from v_ajustestock_productos where id_ajuste_stock=$idAjusteStock;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 #-------------------------Detalle Carnes Ajuste Stock ------------------------#
 
 	static public function mdlDetalleAjusteStockCarnes($idAjusteStock){
