@@ -443,7 +443,7 @@ echo $respuestacod;
 
 
 if (isset($_POST["ajustecarnes"])||
-            isset($_POST["ajusteinsumos"])){
+            isset($_POST["ajusteinsumos"])||isset($_POST["ajusteproductos"])){
 
 if(isset($_POST["ajustecarnes"])){
 
@@ -456,7 +456,8 @@ if(isset($_POST["ajustecarnes"])){
    
              echo '<option value="' . $carne[0] . '">' . $carne[1] . '</option>';
         
-    }}else{
+    }}
+    if(isset($_POST["ajusteinsumos"])){
 
 $depositos=ControladorFormularios::ctrListaDepositos();
 
@@ -467,6 +468,20 @@ foreach($depositos as $deposito){
   echo '<option value="' . $deposito["id_deposito"] . '">' . $deposito["nombre"] . '</option>';
 
 }}
+if(isset($_POST["ajusteproductos"])){
+
+       $listaproductos=ControladorFormularios::ctrListaProductos();
+
+ echo '<option value="">Seleccione el producto</option>';
+
+     foreach ($listaproductos as $producto) {
+
+   
+             echo '<option value="' . $producto[0] . '">' . $producto[1] . '</option>';
+        
+    }}
+
+
 
 }
 
@@ -536,17 +551,66 @@ if (isset($_POST["idCarneAjusteStock"])){
     
 }
 
-		if (isset($_POST["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
-			isset($_POST["motivoAjusteStock"])&& #ControlStock/
-			isset($_POST["DescripcionAjusteStock"])&&(
-			( #Insumos
-				isset($_POST["ArrayIdInsumosAjusteStock"])&&
-				isset($_POST["ArrayCantidadAjusteStock"]))||
-			(#Carnes
-				isset($_POST["ArrayIdCarnesAjusteStock"])&&
-				isset($_POST["ArrayIdDesposteAjusteStock"])&&
-				isset($_POST["ArrayCantidadAjusteStock"]))
-			)) {
+
+if (isset($_POST["idProductoAjusteStock"])){
+
+    $_GET["idProductoVerComposicion"]=$_POST["idProductoAjusteStock"];
+
+    $composicionproducto=ControladorFormularios::ctrStockProductosComposicion();
+
+
+    echo '<thead><th scope="col" class="text-center text-white bg-dark">N° OP</th><th scope="col" class="text-center text-white bg-dark">Producto</th><th scope="col" class="text-center text-white bg-dark">Stock Actual  en el sistema</th><th scope="col" class="text-center text-white bg-dark">Stock Real</th><th scope="col" class="text-center text-white bg-dark">Ajuste</th></thead><tbody>';
+         
+
+         if(empty($composicionproducto[0])){
+
+            echo '<tr><td>No hay stock de este producto</td></tr></tbody>';
+
+           }else{
+
+
+        foreach ($composicionproducto as $lote) {
+
+
+             echo '<tr><td scope="col" class="text-center" width="5%">' . $lote['id_ordenprod_fin'] . 
+             '<input type="hidden" name="ArrayIdOpFinAjusteStock[]" value="' . $lote['id_ordenprod_fin'] . '"></td>'.
+             '<td scope="col"  width="20%">' . $lote['producto'] . 
+             '<input type="hidden" value="' . $lote['producto'] . '"></td>'.
+             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 class="form-control text-right stockproductoactual" value="'.$lote['stock_unidades'].'" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
+             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 name="" class="form-control text-right stockproductoreal" placeholder="Stock Real">'.
+             '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
+             '<td scope="col"  width="20%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockproducto" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td></tr>';
+        
+        echo '<tbody>';
+    }
+
+        
+
+    }
+
+    
+}
+
+    if (isset($_POST["tipoAjusteStock"])&& #Insumos/#Carnes/#Productos
+            isset($_POST["motivoAjusteStock"])&& #ControlStock/
+            isset($_POST["DescripcionAjusteStock"])&&(
+            ( #Insumos
+                isset($_POST["ArrayIdInsumosAjusteStock"])&&
+                isset($_POST["ArrayCantidadAjusteStock"]))||
+            (#Carnes
+                isset($_POST["ArrayIdCarnesAjusteStock"])&&
+                isset($_POST["ArrayIdDesposteAjusteStock"])&&
+                isset($_POST["ArrayCantidadAjusteStock"]))
+            ( #Productos
+                isset($_POST["ArrayIdProductoAjusteStock"])&&
+                isset($_POST["ArrayIdOpFinAjusteStock"])&&
+                isset($_POST["ArrayCantidadAjusteStock"])&&
+                isset($_POST["ArrayPesoAjusteStock"]))
+            ) ) {
 
 $nuevoajuste=ControladorFormularios::ctrAjusteStockEncabezado();
 

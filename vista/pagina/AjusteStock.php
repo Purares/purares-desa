@@ -36,7 +36,8 @@ $ultimosid=ControladorFormularios::ctrUltimosId();
                   <select class="custom-select" name="tipoAjusteStock" id="SelectCarneInsumo" required>
                            <option value="">Seleccione</option>    
             <option value="Carnes">Carnes</option> 
-             <option value="Insumos">Insumos</option>      
+             <option value="Insumos">Insumos</option>  
+              <option value="Productos">Productos</option>     
                      </select>           
                 <div class="invalid-feedback">
                                     Seleccione el tipo de stock a ajustar
@@ -167,13 +168,15 @@ $(document).ready( function() {
                  $('#textoselect').html('Carne:')
                  $('#SelectDeposito').attr('name', 'ArrayIdCarnesAjusteStock');
                  $('#SelectDeposito').find('option').remove()
-                    $('#SelectDeposito').removeClass('selecdeposito')
+                $('#SelectDeposito').removeClass('selecdeposito')
+                 $('#SelectDeposito').removeClass('selectProducto')
                    $('#SelectDeposito').addClass('selecCarne')
                 
                     $('#SelectDeposito').append(html); 
                 }
             }); 
-        }else{
+        }
+        if(queajusto=="Insumos"){
            $.ajax({
                 type:'POST',
                 url:'datos.php',
@@ -183,18 +186,41 @@ $(document).ready( function() {
                   $('#SelectDeposito').attr('name', 'Deposito');
                    $('#SelectDeposito').find('option').remove()
                   $('#SelectDeposito').removeClass('selecCarne')
+                     $('#SelectDeposito').removeClass('selectProducto')
                    $('#SelectDeposito').addClass('selecdeposito')
         //  $('#SelectDeposito').prop('disabled',false)
            $('#SelectDeposito').append(html); 
              $('#TablaAjuste').find('tr').remove()
                     $('#TablaAjuste').append('<tr><td>Seleccione el depósito</td></tr>') 
         }})
-    }});
+    }
+       if(queajusto=="Productos"){
+            $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:'ajusteproductos',
+                success:function(html){
+                 $('#textoselect').html('Producto:')
+                 $('#SelectDeposito').attr('name', 'ArrayIdProductoAjusteStock');
+                 $('#SelectDeposito').find('option').remove()
+                    $('#SelectDeposito').removeClass('selecdeposito')
+                     $('#SelectDeposito').removeClass('selecCarne')
+                   $('#SelectDeposito').addClass('selectProducto')
+                
+                    $('#SelectDeposito').append(html); 
+                }
+            }); 
+        }
+
+
+
+
+  });
 
     $('#SelectDeposito').on('change',function(){
         var depoID = $('.selecdeposito option:selected').text();
         var carneID = $('.selecCarne option:selected').val();
-        //alert(carneID)
+        var productoID = $('.selectProducto option:selected').val();
         if(depoID){
             $.ajax({
                 type:'POST',
@@ -221,6 +247,20 @@ $(document).ready( function() {
                 }
             }); 
         }
+        if(productoID){
+             // alert("llamo carne")
+            $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:'idProductoAjusteStock='+productoID,
+                success:function(html){
+                 // alert(html)
+
+                   $('#TablaAjuste').find('tr').remove()
+                    $('#TablaAjuste').append(html)  
+                }
+            }); 
+        }
     });
 
  $('#TablaAjuste').on('change, keyup', '.stockrealinsumo',function(){
@@ -237,6 +277,15 @@ $(this).closest('tr').find('.ajustestockinsumo').val(ajusteredondeado)
 var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockcarneactual').val())
 var ajusteredondeado=ajuste.toFixed(3)
 $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
+
+
+ })
+
+    $('#TablaAjuste').on('change, keyup', '.stockproductoreal',function(){
+
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductoreal').val())
+var ajusteredondeado=ajuste.toFixed(3)
+$(this).closest('tr').find('.ajustestockproducto').val(ajusteredondeado)
 
 
  })

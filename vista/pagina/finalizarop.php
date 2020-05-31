@@ -251,7 +251,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
     $("#botonconfirmarfinop").click( function() {    // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formfinop").serializeArray(),function(respuestacod){
-        alert(respuestacod)
+       // alert(respuestacod)
                   if(respuestacod == "OK"){
                   $('#ConfirmarFinalizarOp').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
@@ -386,13 +386,13 @@ if(kilosobtenidos[i].value!=""){
 
 totalkilosobtenidos=parseFloat(totalkilosobtenidos)+parseFloat(kilosobtenidos[i].value)
 
-alert(parseFloat(kilosobtenidos[i].value))
+//alert(parseFloat(kilosobtenidos[i].value))
 }
 }
 
 $('#productoobtenido').val(totalkilosobtenidos)
 
-alert('ESOTO VA AL INPUT'+totalkilosobtenidos)
+//alert('ESOTO VA AL INPUT'+totalkilosobtenidos)
 
 })
 
