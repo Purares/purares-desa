@@ -1140,13 +1140,14 @@ static public function ctrValidarAnulacionCompra(){
 	static public function ctrFinalizarOP(){
 				
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
-			isset($_POST["unidadesFrescas_FinOP"])||#NEW
-			isset($_POST["pesoFresco_FinOP"])||#NEW
+			isset($_POST["unidadesFrescas_FinOP"])||
+			isset($_POST["pesoFresco_FinOP"])||
+			isset($_POST["merma_FinOP"])||#NEW
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
-			isset($_POST["MedicionesSort_FinOP"])||#NEW
+			isset($_POST["MedicionesSort_FinOP"])||
 			isset($_POST["MedicionesPeso_FinOP"])||
-			isset($_POST["MedicionesMerma_FinOP"])||#NEW
+			isset($_POST["MedicionesMerma_FinOP"])||
 			isset($_POST["MedicionesResponsable_FinOP"])||
 			isset($_POST["MedicionesFechaMedicion_FinOP"])){
 			#$_POST["descripcion_FinOP"]
@@ -1165,6 +1166,7 @@ static public function ctrValidarAnulacionCompra(){
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
 									'pesoFresco_'		=> $_POST["pesoFresco_FinOP"],
+									'merma_'			=> $_POST["merma_FinOP"],
 									'productoObtenido_'	=> null,#$_POST["productoObtenido_FinOp"],
 									'unidadesObtenidas_'=> null,#$_POST["unidades_FinOP"],
 									'descripcion_'		=> $_POST["descripcion_FinOP"],
