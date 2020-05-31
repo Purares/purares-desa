@@ -289,6 +289,15 @@ $(this).closest('tr').find('.ajustestockproducto').val(ajusteredondeado)
 
 
  })
+
+     $('#TablaAjuste').on('change, keyup', '.stockproductorealenkilos',function(){
+
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductorealenkilos').val())
+var ajusteredondeado=ajuste.toFixed(3)
+$(this).closest('tr').find('.ajustestockproductokilos').val(ajusteredondeado)
+
+
+ })   
   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmarajuste").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               

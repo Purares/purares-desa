@@ -574,16 +574,25 @@ if (isset($_POST["idProductoAjusteStock"])){
 
              echo '<tr><td scope="col" class="text-center" width="5%">' . $lote['id_ordenprod_fin'] . 
              '<input type="hidden" name="ArrayIdOpFinAjusteStock[]" value="' . $lote['id_ordenprod_fin'] . '"></td>'.
-             '<td scope="col"  width="20%">' . $lote['producto'] . 
+             '<td scope="col"  width="14%">' . $lote['producto'] . 
              '<input type="hidden" value="' . $lote['producto'] . '"></td>'.
-             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<td scope="col"  width="14%"><div class="input-group">'.
              '<input type="number" min=0 step=0.001 class="form-control text-right stockproductoactual" value="'.$lote['stock_unidades'].'" readonly>'.
              '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
-             '<td scope="col"  width="20%"><div class="input-group">'.
+             '<td scope="col"  width="14%"><div class="input-group">'.
              '<input type="number" min=0 step=0.001 name="" class="form-control text-right stockproductoreal" placeholder="Stock Real">'.
              '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
-             '<td scope="col"  width="20%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockproducto" readonly>'.
-             '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td></tr>';
+             '<td scope="col"  width="14%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockproducto" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td></tr>'.
+            '<tr><td></td><td></td><td scope="col"  width="14%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 class="form-control text-right stockproductokilosactual" value="'.$lote['stock_peso'].'" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>kilos</a></span></div></div></td>'.
+             '<td scope="col"  width="14%"><div class="input-group">'.
+             '<input type="number" min=0 step=0.001 name="" class="form-control text-right stockproductorealenkilos" placeholder="Stock Real">'.
+             '<div class="input-group-append"><span class="input-group-text"><a>kilos</a></span></div></div></td>'.
+             '<td scope="col"  width="15%"><div class="input-group"><input type="number" name="ArrayPesoAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockproductokilos" readonly>'.
+             '<div class="input-group-append"><span class="input-group-text"><a>kilos</a></span></div></div></td>
+             </tr>';
         
         echo '<tbody>';
     }
