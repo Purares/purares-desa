@@ -338,6 +338,7 @@ $('#titulodivproductos').find('h5').remove()
 $('#titulodivproductos').find('hr').remove()
 $('#divproductos').find('form').remove()
 
+
 if(respuestaproduxreceta.length==0){
 
 $('#titulodivproductos').append('<h6>Esta receta no tiene productos asignados</h6>')
@@ -428,9 +429,9 @@ var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 $('.cantidadproducto').bind("keyup change", function(e) {
 
 //alert("anda el codigo")
-var totalproductosobtenidos=parseInt($(this).val())*parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())
+var totalproductosobtenidos=parseInt($(this).val()*parseFloat($(this).closest('tr').find('.unidades_necesarias_producto').val()))
 $(this).closest('tr').find('.totalproductosobtenidos').val(totalproductosobtenidos)
-var pesototalproductos=((pesounidadesperado/(parseInt($(this).closest('tr').find('.unidades_necesarias_producto').val())))*parseInt($(this).val())).toFixed(3)
+var pesototalproductos=((pesounidadesperado/(parseFloat($(this).closest('tr').find('.unidades_necesarias_producto').val())))*parseInt($(this).val())).toFixed(3)
 $(this).closest('tr').find('.pesototalproductos').val(pesototalproductos)
 	var valoresproductos=$('.cantidadproducto').filter(":input")
 	//var unidadesxproducto=$('.unidades_necesarias_producto').filter(":input")
@@ -572,6 +573,7 @@ cantidadunidadesfinales=parseInt(respuestacod[0]['unidades_final_xunidad'])
   $('.infoinsumos').html("Ingrese el peso del paston para calcular los insumos")
   $('.bodyinsumosop').find('tr').remove()
   $('.headinsumosop').find('tr').remove()
+  $('#divproductos').find('form').remove()
 
  })
 
