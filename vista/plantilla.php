@@ -74,7 +74,7 @@ $alertadecomisos=ControladorFormularios::ctrAlertaDecomisos();
 <div class="container-fluid bg-light">
 <?php if(
 $alertadecomisos['alerta_']=="SI"){echo '<div class="alert alert-danger" role="alert">
-  Hay decomisos pendientes!
+  Hay decomisos pendientes! Por favor haga click <a href="index.php?pagina=agregarDecomiso"> aqui</a>
 </div>';};?>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <a class="navbar-brand" href="index.php"><img src="recursos/logos/LogoPurares.png" width="110" height="32"></a>
@@ -145,6 +145,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarProductos">Agregar productos</a>
       <a class="dropdown-item" href="index.php?pagina=verProductos">Ver productos</a>
+      <a class="dropdown-item" href="index.php?pagina=AjusteStockProductos">Ajuste Stock productos</a>
     </div>
 		</li>
 
@@ -211,6 +212,7 @@ $alertadecomisos['alerta_']=="SI"){echo '<span class="badge badge-pill badge-dan
 					$_GET["pagina"]=="AjusteStock"||
 					$_GET["pagina"]=="VerAjustes"||	
 					$_GET["pagina"]=="detalleAjusteStock"||	
+					$_GET["pagina"]=="AjusteStockProductos"||	
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);

@@ -13,8 +13,6 @@ $detalles=$detalleAjuste['detallesAjuste_'];
 
 $movimientos=$detalleAjuste['movimienotsAjuste_'];
 
-var_dump($movimientos);
-
 foreach ($detalles as $detalle) {
 
 
@@ -70,9 +68,9 @@ foreach ($detalles as $detalle) {
 
 };
 
-foreach ($detalleinsumos as $insumo) {
+foreach ($movimientos as $movimiento) {
 
-echo '<tr><td scope="col" class="text-center">'.$insumo['id_insumo'].'</td><td scope="col">' . $insumo['insumo'] . '</td><td scope="col" class="text-center">' . $insumo['cantidad'].' '.$insumo['udm'].'</td></tr>';
+echo '<tr><td scope="col" class="text-center">'.$movimiento['id_insumo'].'</td><td scope="col">' . $movimiento['insumo'] . '</td><td scope="col" class="text-center">' . $movimiento['cantidad'].' '.$movimiento['udm'].'</td></tr>';
 
 };
 ?>

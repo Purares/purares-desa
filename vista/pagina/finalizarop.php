@@ -129,7 +129,7 @@ foreach($productos as $producto){
                         </td>
                         <td scope="col" width="30%">
                            <div class="input-group">
- <input type="number" min="0" step="0.001" name="PesoProdFinalizarOP[]" class="form-control text-right" placeholder="Ingrese el peso obtenido">
+ <input type="number" min="0" step="0.001" name="PesoProdFinalizarOP[]" class="form-control text-right kilosobtenidos" placeholder="Ingrese el peso obtenido">
                               <div class="input-group-append">
                   <span class="input-group-text"><a>kilos</a></span><button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Ingrese el peso que se obtuvo realmente">
   <i class="far fa-question-circle"></i>
@@ -142,6 +142,7 @@ foreach($productos as $producto){
 
                 </tbody>
             </table>
+            <input type="hidden" id="productoobtenido" name="productoObtenido_FinOp">
               <h5>Descripción</h5>
               <hr>
                 <textarea class="form-control" style="min-width: 100%" name="descripcion_FinOP" id="descripcionfinop" placeholder="..."></textarea>
@@ -260,7 +261,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                   modal.find('.mermaesperada').html(<?php echo $_GET['mermaesperada'];?>)
                   
                   var pesopaston=parseFloat(<?php echo $_GET['pesopaston'];?>);
-                  var mermaobtenida=(1-($('#productoobtenido').val()/pesopaston)).toFixed(1)
+                  var mermaobtenida=(($('#productoobtenido').val()/pesopaston)*100).toFixed(1)
                   modal.find('.mermaobtenida').html(mermaobtenida)
 
                   var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+idop+"&estado=1"
@@ -370,6 +371,29 @@ var valorenviardespues=(1-(parseFloat($(this).closest('tr').next().find('.pesos'
   $(this).closest('tr').next().find('.mermaentrepesos').html(""+valordespues)
   $(this).closest('tr').next().find('.mermahidden').val(valorenviardespues)
 }
+})
+
+
+$('.kilosobtenidos').bind("keyup change", function(e) {
+
+  var kilosobtenidos=$('.kilosobtenidos').filter(":input")
+
+var totalkilosobtenidos=0;
+
+for (var i=0; i<=kilosobtenidos.length-1;i++){
+
+if(kilosobtenidos[i].value!=""){
+
+totalkilosobtenidos=parseFloat(totalkilosobtenidos)+parseFloat(kilosobtenidos[i].value)
+
+alert(parseFloat(kilosobtenidos[i].value))
+}
+}
+
+$('#productoobtenido').val(totalkilosobtenidos)
+
+alert('ESOTO VA AL INPUT'+totalkilosobtenidos)
+
 })
 
 
