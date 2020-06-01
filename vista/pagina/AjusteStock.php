@@ -13,6 +13,8 @@ $ultimosid=ControladorFormularios::ctrUltimosId();
 
   $ultimoidmovcarne=$ultimosid['idUltimoMovCarne_'];
 
+  $ultimoidproducto=$ultimosid['idUltimoMovProducto_']
+
 
 ?>
 <body>
@@ -26,6 +28,7 @@ $ultimosid=ControladorFormularios::ctrUltimosId();
 
   <input type="hidden" name="utlimoIdCarneAjusteStock" value="<?php echo $ultimoidmovcarne[0][0]?>">
     <input type="hidden"name="utlimoIdInsumosAjusteStock" value="<?php echo $ultimoidmovinsumo[0][0] ?>">
+        <input type="hidden"name="utlimoIdProductoAjusteStock" value="<?php echo $ultimoidproducto[0][0] ?>">
 
             <div class="row">
                <div class="input-group col-6">
