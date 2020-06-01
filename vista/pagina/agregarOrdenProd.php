@@ -429,7 +429,7 @@ var respuestainsumoproductos=JSON.parse(respuestainsumoproductos1)
 $('.cantidadproducto').bind("keyup change", function(e) {
 
 //alert("anda el codigo")
-var totalproductosobtenidos=parseInt($(this).val()*parseFloat($(this).closest('tr').find('.unidades_necesarias_producto').val())+0.3)
+var totalproductosobtenidos=parseInt($(this).val()*parseFloat($(this).closest('tr').find('.unidades_necesarias_producto').val()))
 $(this).closest('tr').find('.totalproductosobtenidos').val(totalproductosobtenidos)
 var pesototalproductos=((pesounidadesperado/(parseFloat($(this).closest('tr').find('.unidades_necesarias_producto').val())))*parseInt($(this).val())).toFixed(3)
 $(this).closest('tr').find('.pesototalproductos').val(pesototalproductos)
