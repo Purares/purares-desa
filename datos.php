@@ -577,12 +577,12 @@ if (isset($_POST["idProductoAjusteStock"])){
              '<td scope="col"  width="14%">' . $lote['producto'] . 
              '<input type="hidden" value="' . $lote['producto'] . '"></td>'.
              '<td scope="col"  width="14%"><div class="input-group">'.
-             '<input type="number" min=0 step=0.001 class="form-control text-right stockproductoactual" value="'.$lote['stock_unidades'].'" readonly>'.
+             '<input type="number" min=0 step=1 class="form-control text-right stockproductoactual" value="'.$lote['stock_unidades'].'" readonly>'.
              '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
              '<td scope="col"  width="14%"><div class="input-group">'.
-             '<input type="number" min=0 step=0.001 name="" class="form-control text-right stockproductoreal" placeholder="Stock Real">'.
+             '<input type="number" min=0 step=1 name="" class="form-control text-right stockproductoreal" placeholder="Stock Real">'.
              '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td>'.
-             '<td scope="col"  width="14%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=0.001 class="form-control text-right ajustestockproducto" readonly>'.
+             '<td scope="col"  width="14%"><div class="input-group"><input type="number" name="ArrayCantidadAjusteStock[]" min=0 step=1 class="form-control text-right ajustestockproducto" readonly>'.
              '<div class="input-group-append"><span class="input-group-text"><a>unidades</a></span></div></div></td></tr>'.
             '<tr><td></td><td></td><td scope="col"  width="14%"><div class="input-group">'.
              '<input type="number" min=0 step=0.001 class="form-control text-right stockproductokilosactual" value="'.$lote['stock_peso'].'" readonly>'.

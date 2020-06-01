@@ -283,7 +283,7 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
 
     $('#TablaAjuste').on('change, keyup', '.stockproductoreal',function(){
 
-var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductoreal').val())
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductoactual').val())
 var ajusteredondeado=ajuste.toFixed(3)
 $(this).closest('tr').find('.ajustestockproducto').val(ajusteredondeado)
 
@@ -292,7 +292,7 @@ $(this).closest('tr').find('.ajustestockproducto').val(ajusteredondeado)
 
      $('#TablaAjuste').on('change, keyup', '.stockproductorealenkilos',function(){
 
-var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductorealenkilos').val())
+var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductokilosactual').val())
 var ajusteredondeado=ajuste.toFixed(3)
 $(this).closest('tr').find('.ajustestockproductokilos').val(ajusteredondeado)
 
