@@ -1402,7 +1402,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlMovimientoProducto($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovProducto(:idProducto,:idOrdenFin,:cantidad,:peso,:idCuenta,:idAjusteStock, idUsuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovProducto(:idProducto,:idOrdenFin, :cantidad ,:peso,:idCuenta,:idAjusteStock, :idUsuario);");
 
 		$stmt -> bindparam (":idProducto",	$datos[0],PDO::PARAM_INT);
 		$stmt -> bindparam (":idOrdenFin",	$datos[1],PDO::PARAM_INT);

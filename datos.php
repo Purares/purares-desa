@@ -613,7 +613,7 @@ if (isset($_POST["idProductoAjusteStock"])){
             (#Carnes
                 isset($_POST["ArrayIdCarnesAjusteStock"])&&
                 isset($_POST["ArrayIdDesposteAjusteStock"])&&
-                isset($_POST["ArrayCantidadAjusteStock"]))
+                isset($_POST["ArrayCantidadAjusteStock"]))||
             ( #Productos
                 isset($_POST["ArrayIdProductoAjusteStock"])&&
                 isset($_POST["ArrayIdOpFinAjusteStock"])&&

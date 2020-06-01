@@ -1764,7 +1764,7 @@ IMPORTANTE:
 			for ($i=0; $i < $longitud ; $i++) { 
 				if($datosProducto['cantidad_'][$i]!=0){	
 					$datos=array_column($datosProducto,$i);	
-					$respuesta=ModeloFormularios::mdlMovimientoProducto($datos);
+						$respuesta=ModeloFormularios::mdlMovimientoProducto($datos);
 					if ($respuesta != "OK") { return $respuesta;}
 				}
 			}
