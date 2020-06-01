@@ -287,7 +287,7 @@ $(this).closest('tr').find('.ajustestockcarne').val(ajusteredondeado)
     $('#TablaAjuste').on('change, keyup', '.stockproductoreal',function(){
 
 var ajuste=parseFloat($(this).val())-parseFloat($(this).closest('tr').find('.stockproductoactual').val())
-var ajusteredondeado=ajuste.toFixed(3)
+var ajusteredondeado=ajuste.toFixed(0)
 $(this).closest('tr').find('.ajustestockproducto').val(ajusteredondeado)
 
 
